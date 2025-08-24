@@ -48,7 +48,7 @@ While the project is just starting, here are some of the key features I plan to 
 
 ## 📝 License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.txt) file for details.
 <!-- Ensure you have a LICENSE.md file with the text of your chosen license -->
 
 ---
