@@ -1,4 +1,4 @@
-package com.maxim.ayon.ui.theme
+package com.maxim.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
