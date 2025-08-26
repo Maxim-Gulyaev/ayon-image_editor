@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Ayon"
 include(":app")
- 
+include(":core")
+include(":core:ui")
