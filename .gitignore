@@ -6,7 +6,9 @@
 /.idea/modules.xml
 /.idea/workspace.xml
 /.idea/navEditor.xml
+/.idea/gradle.xml
 /.idea/assetWizardSettings.xml
+/.idea/inspectionProfiles/Project_Default.xml
 .DS_Store
 /build
 /captures
@@ -34,3 +36,4 @@ debug/
 
 # Version control
 vcs.xml
+
