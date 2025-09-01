@@ -26,3 +26,4 @@ rootProject.name = "Ayon"
 include(":app")
 include(":core")
 include(":core:ui")
+include(":feature_modules")
