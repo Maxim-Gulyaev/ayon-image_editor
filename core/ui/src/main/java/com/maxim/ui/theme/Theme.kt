@@ -86,7 +86,7 @@ fun AyonTheme(
                         colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
                     ),
             ) {
-                content
+                content()
             }
         }
     )

@@ -12,6 +12,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import com.maxim.home.ui.HomeScreen
 
 @Composable
 fun MainNavigation(
@@ -42,7 +43,7 @@ fun MainNavigation(
         },
         entryProvider = entryProvider {
             entry<Home> {
-
+                HomeScreen()
             }
         }
     )

@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.maxim.home"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 29
@@ -56,4 +56,7 @@ dependencies {
     // Viewmodel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
+    // Modules
+    implementation(project(":core:ui"))
 }
