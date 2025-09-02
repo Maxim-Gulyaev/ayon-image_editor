@@ -1,20 +1,80 @@
 package com.maxim.ui.util
 
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_3A_XL
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_7_PRO
-import androidx.compose.ui.tooling.preview.Devices.PIXEL_FOLD
+import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(device = PIXEL_7_PRO, name = "Phone preview")
+@Preview(
+    name = "Middle phone",
+    device = Devices.PHONE,
+    showSystemUi = true
+)
 annotation class PhonePreview
 
-@Preview(device = PIXEL_3A_XL, name = "Phone small preview", heightDp = 300, widthDp = 500)
+@Preview(
+    name = "Big phone",
+    device = Devices.PIXEL_7_PRO,
+    showSystemUi = true
+)
+annotation class BigPhonePreview
+
+@Preview(
+    name = "Small phone",
+    device = Devices.PIXEL_3A_XL,
+    showSystemUi = true
+)
 annotation class SmallPhonePreview
 
-@Preview(device = PIXEL_FOLD, name = "Foldable preview")
+@Preview(
+    name = "Foldable phone",
+    device = Devices.PIXEL_FOLD,
+    showSystemUi = true
+)
 annotation class FoldablePreview
 
+
+
+
+@Preview(
+    name = "Middle phone dark",
+    device = Devices.PHONE,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+annotation class PhoneDarkPreview
+
+@Preview(
+    name = "Big phone dark",
+    device = Devices.PIXEL_7_PRO,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+annotation class BigPhoneDarkPreview
+
+@Preview(
+    name = "Small phone dark",
+    device = Devices.PIXEL_3A_XL,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+annotation class SmallPhoneDarkPreview
+
+@Preview(
+    name = "Foldable phone dark",
+    device = Devices.PIXEL_FOLD,
+    showSystemUi = true,
+    uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES
+)
+annotation class FoldableDarkPreview
+
 @PhonePreview
+@BigPhonePreview
 @SmallPhonePreview
 @FoldablePreview
-annotation class AdaptivePreview
+annotation class AdaptivePreviewLight
+
+@PhoneDarkPreview
+@BigPhoneDarkPreview
+@SmallPhoneDarkPreview
+@FoldableDarkPreview
+annotation class AdaptivePreviewDark
+

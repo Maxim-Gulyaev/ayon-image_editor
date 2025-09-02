@@ -21,7 +21,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.home.model.HomeScreenUiState
 import com.maxim.home.view_model.HomeScreenViewModel
 import com.maxim.ui.theme.AyonTheme
-import com.maxim.ui.util.AdaptivePreview
+import com.maxim.ui.util.AdaptivePreviewDark
+import com.maxim.ui.util.AdaptivePreviewLight
 
 @Composable
 fun HomeScreen(
@@ -62,7 +63,8 @@ private fun HomeScreenContent(
 }
 
 @Composable
-@AdaptivePreview
+@AdaptivePreviewLight
+@AdaptivePreviewDark
 private fun HomeScreenContentPreview() {
     val state = remember {
         mutableStateOf(
