@@ -17,33 +17,35 @@
 
 package com.maxim.ayon.navigation
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.runtime.saveable.Saver
 import androidx.navigation3.runtime.NavKey
-import com.maxim.ui.R
+import com.maxim.ayon.R
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class BottomBarScreen(
-    val icon: Int,
-    val title: String,
+    @DrawableRes val icon: Int,
+    @StringRes val title: Int,
 ): NavKey {
     @Serializable
     data object Home : BottomBarScreen(
         icon = R.drawable.ic_home,
-        title = "Home"
+        title = R.string.home
     )
 
     @Serializable
     data object Run : BottomBarScreen(
         icon = R.drawable.ic_run,
-        title = "Run"
+        title = R.string.run
     )
 
     @Serializable
     data object Settings : BottomBarScreen(
         icon = R.drawable.ic_settings,
-        title = "Settings"
+        title = R.string.settings
     )
 }
 
