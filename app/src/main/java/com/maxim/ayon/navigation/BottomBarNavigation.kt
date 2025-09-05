@@ -39,7 +39,6 @@ import com.maxim.home.ui.HomeScreen
 import com.maxim.settings.ui.SettingsScreen
 import com.maxim.ui.R
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BottomBarNavigation(
     modifier: Modifier = Modifier
