@@ -17,10 +17,50 @@
 
 package com.maxim.ayon.navigation
 
+import androidx.compose.runtime.saveable.Saver
 import androidx.navigation3.runtime.NavKey
+import com.maxim.ui.R
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Home : NavKey
+sealed class BottomBarScreen(
+    val icon: Int,
+    val title: String,
+): NavKey {
+    @Serializable
+    data object Home : BottomBarScreen(
+        icon = R.drawable.ic_home,
+        title = "Home"
+    )
 
+    @Serializable
+    data object Run : BottomBarScreen(
+        icon = R.drawable.ic_run,
+        title = "Run"
+    )
+
+    @Serializable
+    data object Settings : BottomBarScreen(
+        icon = R.drawable.ic_settings,
+        title = "Settings"
+    )
+}
+
+val bottomBarItems = listOf<BottomBarScreen>(
+    BottomBarScreen.Home,
+    BottomBarScreen.Run,
+    BottomBarScreen.Settings
+)
+
+val BottomBarScreenSaver = Saver<BottomBarScreen, String>(
+    save = { it::class.simpleName ?: "Unknown" },
+    restore = {
+        when (it) {
+            BottomBarScreen.Home::class.simpleName -> BottomBarScreen.Home
+            BottomBarScreen.Run::class.simpleName -> BottomBarScreen.Run
+            BottomBarScreen.Settings::class.simpleName -> BottomBarScreen.Settings
+            else -> BottomBarScreen.Home
+        }
+    }
+)
