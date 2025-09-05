@@ -1,12 +1,12 @@
 package com.maxim.ayon.navigation
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBarDefaults
@@ -55,14 +55,9 @@ fun BottomBarNavigation(
                 containerColor = BottomAppBarDefaults.containerColor.copy(alpha = 0.7f)
             ) {
                 bottomBarItems.forEach { destination ->
-                    NavigationBarItem(
-                        selected = currentBottomBarScreen == destination,
-                        icon = {
-                            Icon(
-                                painter = painterResource(destination.icon),
-                                contentDescription = "$destination icon"
-                            )
-                        },
+                    AyonNavigationBarItem(
+                        currentBottomBarScreen = currentBottomBarScreen,
+                        destination = destination,
                         onClick = {
                             if (backStack.lastOrNull() != destination) {
                                 if (backStack.lastOrNull() in bottomBarItems) {
@@ -72,16 +67,6 @@ fun BottomBarNavigation(
                                 currentBottomBarScreen = destination
                             }
                         },
-                        label = {
-                            Text(text = stringResource(destination.title))
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedTextColor = MaterialTheme.colorScheme.onSecondary,
-                            unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
-                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                            unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
-                            indicatorColor = MaterialTheme.colorScheme.tertiary
-                        )
                     )
                 }
             }
@@ -147,4 +132,32 @@ private fun BackgroundContainer(
     ) {
         content()
     }
+}
+
+@Composable
+private fun RowScope.AyonNavigationBarItem(
+    currentBottomBarScreen: BottomBarScreen,
+    destination: BottomBarScreen,
+    onClick: () -> Unit,
+) {
+    NavigationBarItem(
+        selected = currentBottomBarScreen == destination,
+        icon = {
+            Icon(
+                painter = painterResource(destination.icon),
+                contentDescription = "$destination icon"
+            )
+        },
+        onClick = onClick,
+        label = {
+            Text(text = stringResource(destination.title))
+        },
+        colors = NavigationBarItemDefaults.colors(
+            selectedTextColor = MaterialTheme.colorScheme.onSecondary,
+            unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
+            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+            unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
+            indicatorColor = MaterialTheme.colorScheme.tertiary
+        )
+    )
 }
