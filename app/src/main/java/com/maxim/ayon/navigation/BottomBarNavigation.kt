@@ -8,6 +8,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -85,8 +86,10 @@ fun BottomBarNavigation(
                 }
             }
         }
-    ) {
-        BackgroundContainer {
+    ) { paddingValues ->
+        BackgroundContainer(
+            modifier = modifier.padding(paddingValues)
+        ) {
             NavDisplay(
                 modifier = modifier,
                 backStack = backStack,
