@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,22 +70,20 @@ fun BottomBarNavigation(
                         },
                         label = {
                             Text(text = stringResource(destination.title))
-                        }
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
+                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                            unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                            indicatorColor = MaterialTheme.colorScheme.tertiary
+                        )
                     )
                 }
             }
         }
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.background)
-                .paint(
-                    painterResource(R.drawable.main_background),
-                    contentScale = ContentScale.FillBounds,
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
-                ),
-        ) {
+        BackgroundContainer {
             NavDisplay(
                 modifier = modifier,
                 backStack = backStack,
@@ -125,5 +124,24 @@ fun BottomBarNavigation(
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun BackgroundContainer(
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
+            .paint(
+                painterResource(R.drawable.main_background),
+                contentScale = ContentScale.FillBounds,
+                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
+            ),
+    ) {
+        content()
     }
 }
