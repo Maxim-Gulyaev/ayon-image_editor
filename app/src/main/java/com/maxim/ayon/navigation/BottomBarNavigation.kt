@@ -120,7 +120,7 @@ fun BottomBarNavigation(
                         Box(
                             modifier = modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
-                        ) { Text(text = "I am Run screen") }
+                        ) { Text(text = "Not implemented Run screen") }
                     }
                     entry<BottomBarScreen.Settings> {
                         SettingsScreen()
