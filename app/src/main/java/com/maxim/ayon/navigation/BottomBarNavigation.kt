@@ -36,6 +36,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.maxim.home.ui.HomeScreen
+import com.maxim.settings.ui.SettingsScreen
 import com.maxim.ui.R
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -122,10 +123,7 @@ fun BottomBarNavigation(
                         ) { Text(text = "I am Run screen") }
                     }
                     entry<BottomBarScreen.Settings> {
-                        Box(
-                            modifier = modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) { Text(text = "I am Settings screen") }
+                        SettingsScreen()
                     }
                 }
             )
