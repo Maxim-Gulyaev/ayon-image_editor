@@ -8,6 +8,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -49,7 +50,9 @@ fun BottomBarNavigation(
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = BottomAppBarDefaults.containerColor.copy(alpha = 0.7f)
+            ) {
                 bottomBarItems.forEach { destination ->
                     NavigationBarItem(
                         selected = currentBottomBarScreen == destination,
