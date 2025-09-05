@@ -25,6 +25,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
@@ -67,7 +68,7 @@ fun BottomBarNavigation(
                             }
                         },
                         label = {
-                            Text(text = destination.title)
+                            Text(text = stringResource(destination.title))
                         }
                     )
                 }
