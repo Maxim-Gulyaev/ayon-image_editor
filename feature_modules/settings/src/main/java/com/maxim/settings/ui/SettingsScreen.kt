@@ -7,8 +7,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maxim.settings.R
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ItemCard
 import com.maxim.ui.theme.AyonTheme
@@ -42,7 +44,7 @@ private fun Language(
     ItemCard {
         Text(
             modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            text = "Language",
+            text = stringResource(R.string.language),
             style = MaterialTheme.typography.bodyLarge
         )
     }
@@ -56,7 +58,6 @@ private fun PreviewSettingsScreenDark() {
         BackgroundContainer {
             SettingsScreenContent()
         }
-
     }
 }
 
@@ -68,6 +69,5 @@ private fun PreviewSettingsScreenLight() {
         BackgroundContainer {
             SettingsScreenContent()
         }
-
     }
 }
