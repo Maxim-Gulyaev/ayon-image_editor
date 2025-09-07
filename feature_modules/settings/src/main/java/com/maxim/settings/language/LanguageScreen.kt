@@ -1,5 +1,6 @@
 package com.maxim.settings.language
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,7 +56,7 @@ private fun LanguageScreenContent(
                 items = uiState.languages,
                 key = { _, item -> item }
             ) { index, item ->
-                LanguageItem(language = item.name)
+                LanguageItem(language = item.displayNameRes)
                 if (index < uiState.languages.lastIndex) {
                     AyonVerticalSpacer(8.dp)
                 }
@@ -66,7 +68,7 @@ private fun LanguageScreenContent(
 @Composable
 private fun LanguageItem(
     modifier: Modifier = Modifier,
-    language: String,
+    @StringRes language: Int,
 ) {
     ItemCard {
         Row(
@@ -74,18 +76,17 @@ private fun LanguageItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 4.dp)
-
         ) {
             Text(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp),
-                text = language,
+                text = stringResource(language),
                 style = AyonTypography.bodyLarge,
             )
             RadioButton(
                 selected = Random.nextBoolean(),  // mock
-                onClick = { },
+                onClick = {},
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.onSurface,
                     unselectedColor = MaterialTheme.colorScheme.onSurface,

@@ -1,6 +1,8 @@
 package com.maxim.settings.language
 
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable
+import com.maxim.settings.R
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
@@ -11,22 +13,26 @@ data class LanguageUiState(
 ) {
     companion object {
         val initial = LanguageUiState(
-            languages = persistentListOf(
-                Language.SYSTEM,
-                Language.ENGLISH,
-                Language.SPANISH,
-                Language.CHINESE,
-                Language.PORTUGUESE,
-            ),
+            languages = Language.languages,
             currentLanguage = Language.SYSTEM,
         )
     }
 }
 
-enum class Language {
-    SYSTEM,
-    ENGLISH,
-    SPANISH,
-    CHINESE,
-    PORTUGUESE,
+enum class Language(@StringRes val displayNameRes: Int) {
+    SYSTEM(R.string.language_system),
+    ENGLISH(R.string.language_english),
+    SPANISH(R.string.language_spanish),
+    CHINESE(R.string.language_chinese),
+    PORTUGUESE(R.string.language_portuguese);
+
+    companion object {
+        val languages = persistentListOf(
+            SYSTEM,
+            ENGLISH,
+            SPANISH,
+            CHINESE,
+            PORTUGUESE,
+        )
+    }
 }
