@@ -32,7 +32,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.maxim.home.ui.HomeScreen
-import com.maxim.settings.main_screen.SettingsScreen
+import com.maxim.settings.navigation.SettingsNavigation
 import com.maxim.ui.components.BackgroundContainer
 
 @Composable
@@ -103,7 +103,7 @@ fun BottomBarNavigation(
                         ) { Text(text = "Not implemented Run screen") }
                     }
                     entry<BottomBarScreen.Settings> {
-                        SettingsScreen()
+                        SettingsNavigation()
                     }
                 }
             )
