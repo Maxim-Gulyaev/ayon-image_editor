@@ -19,7 +19,7 @@ import com.maxim.settings.main_screen.SettingsScreen
 fun SettingsNavigation(
     modifier: Modifier = Modifier,
 ) {
-    val backStack = rememberNavBackStack(SettingsScreen.MainScreen)
+    val backStack = rememberNavBackStack(SettingsScreen.Main)
 
     NavDisplay(
         modifier = modifier,
@@ -43,10 +43,12 @@ fun SettingsNavigation(
             )
         },
         entryProvider = entryProvider {
-            entry<SettingsScreen.MainScreen> {
-                SettingsScreen()
+            entry<SettingsScreen.Main> {
+                SettingsScreen(
+                    onLanguageClick = { backStack.add(SettingsScreen.Language) }
+                )
             }
-            entry<SettingsScreen.LanguageScreen> {
+            entry<SettingsScreen.Language> {
                 LanguageScreen()
             }
         }

@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 sealed class SettingsScreen: NavKey {
 
     @Serializable
-    data object MainScreen : SettingsScreen()
+    data object Main : SettingsScreen()
 
     @Serializable
-    data object LanguageScreen : SettingsScreen()
+    data object Language : SettingsScreen()
 }

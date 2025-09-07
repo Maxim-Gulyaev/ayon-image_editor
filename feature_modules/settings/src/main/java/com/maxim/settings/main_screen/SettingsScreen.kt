@@ -1,5 +1,6 @@
 package com.maxim.settings.main_screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,30 +21,43 @@ import com.maxim.ui.util.AdaptivePreviewLight
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
+    onLanguageClick: () -> Unit,
 ) {
-    SettingsScreenContent()
+    SettingsScreenContent(
+        onLanguageClick = onLanguageClick,
+    )
 }
 
 @Composable
 private fun SettingsScreenContent(
     modifier: Modifier = Modifier,
+    onLanguageClick: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
     ) {
-        item { Language() }
+        item {
+            Language(
+                onClick = onLanguageClick
+            )
+        }
     }
 }
 
 @Composable
 private fun Language(
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
-    ItemCard {
+    ItemCard() {
         Text(
-            modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            modifier = modifier
+                .padding(horizontal = 12.dp, vertical = 8.dp)
+                .clickable {
+                    onClick()
+                },
             text = stringResource(R.string.language),
             style = MaterialTheme.typography.bodyLarge
         )
@@ -56,7 +70,9 @@ private fun Language(
 private fun PreviewSettingsScreenDark() {
     AyonTheme() {
         BackgroundContainer {
-            SettingsScreenContent()
+            SettingsScreenContent(
+                onLanguageClick = {}
+            )
         }
     }
 }
@@ -67,7 +83,9 @@ private fun PreviewSettingsScreenDark() {
 private fun PreviewSettingsScreenLight() {
     AyonTheme {
         BackgroundContainer {
-            SettingsScreenContent()
+            SettingsScreenContent(
+                onLanguageClick = {}
+            )
         }
     }
 }
