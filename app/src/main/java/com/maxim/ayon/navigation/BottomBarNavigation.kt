@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,6 +45,8 @@ fun BottomBarNavigation(
     var currentBottomBarScreen: BottomBarScreen by rememberSaveable(
         stateSaver = BottomBarScreenSaver
     ) { mutableStateOf(BottomBarScreen.Home) }
+
+    val stateHolder = rememberSaveableStateHolder()
 
     Scaffold(
         bottomBar = {
@@ -103,7 +106,9 @@ fun BottomBarNavigation(
                         ) { Text(text = "Not implemented Run screen") }
                     }
                     entry<BottomBarScreen.Settings> {
-                        SettingsNavigation()
+                        stateHolder.SaveableStateProvider(key = it.title) {
+                            SettingsNavigation()
+                        }
                     }
                 }
             )
