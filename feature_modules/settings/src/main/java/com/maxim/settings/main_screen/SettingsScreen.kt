@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.R
 import com.maxim.ui.components.BackgroundContainer
-import com.maxim.ui.components.ItemCard
+import com.maxim.ui.components.ContainerCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
@@ -51,7 +51,7 @@ private fun Language(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
-    ItemCard() {
+    ContainerCard() {
         Text(
             modifier = modifier
                 .padding(horizontal = 12.dp, vertical = 8.dp)

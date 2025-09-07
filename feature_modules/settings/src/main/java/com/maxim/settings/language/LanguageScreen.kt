@@ -1,21 +1,30 @@
 package com.maxim.settings.language
 
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.ui.components.BackgroundContainer
+import com.maxim.ui.components.ContainerCard
+import com.maxim.ui.components.ItemCard
 import com.maxim.ui.theme.AyonTheme
+import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
+import kotlin.random.Random
 
 @Composable
 fun LanguageScreen(
@@ -32,16 +41,54 @@ private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
 ) {
-    LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
+    ContainerCard(
+        modifier = modifier.padding(16.dp),
     ) {
-        items(
-            items = uiState.languages,
-            key = { it }
-        ) { language ->
-            Text(text = language.toString())
+        LazyColumn(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        ) {
+            items(
+                items = uiState.languages,
+                key = { it }
+            ) { language ->
+                LanguageItem(language = language.name)
+            }
+        }
+    }
+}
+
+@Composable
+private fun LanguageItem(
+    modifier: Modifier = Modifier,
+    language: String,
+) {
+    ItemCard {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp)
+
+        ) {
+            Text(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 16.dp),
+                text = language,
+                style = AyonTypography.bodyLarge,
+            )
+            RadioButton(
+                selected = Random.nextBoolean(),  // mock
+                onClick = { },
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = MaterialTheme.colorScheme.onSurface,
+                    unselectedColor = MaterialTheme.colorScheme.onSurface,
+                    disabledSelectedColor = MaterialTheme.colorScheme.onSurface,
+                    disabledUnselectedColor = MaterialTheme.colorScheme.onSurface
+                )
+            )
         }
     }
 }
