@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ContainerCard
 import com.maxim.ui.components.ItemCard
@@ -47,13 +48,16 @@ private fun LanguageScreenContent(
         LazyColumn(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 20.dp),
         ) {
-            items(
+            itemsIndexed(
                 items = uiState.languages,
-                key = { it }
-            ) { language ->
-                LanguageItem(language = language.name)
+                key = { _, item -> item }
+            ) { index, item ->
+                LanguageItem(language = item.name)
+                if (index < uiState.languages.lastIndex) {
+                    AyonVerticalSpacer(8.dp)
+                }
             }
         }
     }
