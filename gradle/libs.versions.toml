@@ -15,6 +15,7 @@ lifecycleViewmodelNavigation3 = "1.0.0-SNAPSHOT"
 navigation3 = "1.0.0-SNAPSHOT"
 navigation3RuntimeAndroid = "1.0.0-alpha08"
 kotlinxSerialization = "2.1.20"
+kotlinxCollectionsImmutable = "0.3.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +40,7 @@ androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", vers
 androidx-navigation3-runtime-android = { group = "androidx.navigation3", name = "navigation3-runtime-android", version.ref = "navigation3RuntimeAndroid" }
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx" }
+kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

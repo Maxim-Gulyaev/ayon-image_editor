@@ -1,62 +1,58 @@
-package com.maxim.settings.ui
+package com.maxim.settings.language
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maxim.settings.R
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.ui.components.BackgroundContainer
-import com.maxim.ui.components.ItemCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
 
 @Composable
-fun SettingsScreen(
+fun LanguageScreen(
     modifier: Modifier = Modifier,
+    viewModel: LanguageViewModel = viewModel(),
 ) {
-    SettingsScreenContent()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LanguageScreenContent(uiState = uiState)
 }
 
 @Composable
-private fun SettingsScreenContent(
+private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
+    uiState: LanguageUiState,
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp),
+            .padding(16.dp),
     ) {
-        item { Language() }
-    }
-}
-
-@Composable
-private fun Language(
-    modifier: Modifier = Modifier,
-) {
-    ItemCard {
-        Text(
-            modifier = modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-            text = stringResource(R.string.language),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        items(
+            items = uiState.languages,
+            key = { it }
+        ) { language ->
+            Text(text = language.toString())
+        }
     }
 }
 
 @AdaptivePreviewDark
 @Preview
 @Composable
-private fun PreviewSettingsScreenDark() {
+private fun PreviewLanguageScreenDark() {
     AyonTheme() {
         BackgroundContainer {
-            SettingsScreenContent()
+            LanguageScreenContent(uiState = LanguageUiState.initial)
         }
     }
 }
@@ -64,10 +60,10 @@ private fun PreviewSettingsScreenDark() {
 @AdaptivePreviewLight
 @Preview
 @Composable
-private fun PreviewSettingsScreenLight() {
+private fun PreviewLanguageScreenLight() {
     AyonTheme {
         BackgroundContainer {
-            SettingsScreenContent()
+            LanguageScreenContent(uiState = LanguageUiState.initial)
         }
     }
 }

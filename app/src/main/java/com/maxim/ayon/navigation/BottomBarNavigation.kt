@@ -32,7 +32,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.maxim.home.ui.HomeScreen
-import com.maxim.settings.ui.SettingsScreen
+import com.maxim.settings.main_screen.SettingsScreen
 import com.maxim.ui.components.BackgroundContainer
 
 @Composable
