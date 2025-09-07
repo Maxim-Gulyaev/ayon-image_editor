@@ -18,6 +18,7 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Ayon"
+            android:enableOnBackInvokedCallback="false"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,3 +29,6 @@
     </application>
 
 </manifest>
+
+
+<!--android:enableOnBackInvokedCallback="false"  временно отключен predictive back из-за краша на 36 версии api -->
