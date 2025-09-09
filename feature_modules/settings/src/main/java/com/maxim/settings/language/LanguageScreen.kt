@@ -1,5 +1,6 @@
 package com.maxim.settings.language
 
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.maxim.settings.language.LanguageIntent.OnLanguageClick
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ContainerCard
@@ -27,22 +29,29 @@ import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
-import kotlin.random.Random
 
 @Composable
 fun LanguageScreen(
     modifier: Modifier = Modifier,
-    viewModel: LanguageViewModel = viewModel(),
+    viewModel: LanguageViewModel/* = viewModel()*/,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LanguageScreenContent(uiState = uiState)
+    LaunchedEffect(uiState.currentLanguage) {
+        Log.d("maxlog", "currentLanguage = ${uiState.currentLanguage}")
+    }
+
+    LanguageScreenContent(
+        uiState = uiState,
+        onClick = { viewModel.accept(OnLanguageClick(it)) }
+    )
 }
 
 @Composable
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
+    onClick: (Language) -> Unit,
 ) {
     ContainerCard(
         modifier = modifier.padding(16.dp),
@@ -52,13 +61,19 @@ private fun LanguageScreenContent(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 20.dp),
         ) {
-            itemsIndexed(
-                items = uiState.languages,
-                key = { _, item -> item }
-            ) { index, item ->
-                LanguageItem(language = item.displayNameRes)
-                if (index < uiState.languages.lastIndex) {
-                    AyonVerticalSpacer(8.dp)
+            with (uiState) {
+                itemsIndexed(
+                    items = languages,
+                    key = { _, item -> item.ordinal }
+                ) { index, item ->
+                    LanguageItem(
+                        displayNameRes = item.displayNameRes,
+                        isSelected = currentLanguage == item,
+                        onClick = { onClick(item) }
+                    )
+                    if (index < languages.lastIndex) {
+                        AyonVerticalSpacer(8.dp)
+                    }
                 }
             }
         }
@@ -68,9 +83,13 @@ private fun LanguageScreenContent(
 @Composable
 private fun LanguageItem(
     modifier: Modifier = Modifier,
-    @StringRes language: Int,
+    @StringRes displayNameRes: Int,
+    isSelected: Boolean,
+    onClick: () -> Unit,
 ) {
-    ItemCard {
+    ItemCard(
+        onClick = onClick,
+    ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -81,11 +100,11 @@ private fun LanguageItem(
                 modifier = Modifier
                     .weight(1f)
                     .padding(start = 16.dp),
-                text = stringResource(language),
+                text = stringResource(displayNameRes),
                 style = AyonTypography.bodyLarge,
             )
             RadioButton(
-                selected = Random.nextBoolean(),  // mock
+                selected = isSelected,
                 onClick = {},
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.onSurface,
@@ -104,7 +123,10 @@ private fun LanguageItem(
 private fun PreviewLanguageScreenDark() {
     AyonTheme() {
         BackgroundContainer {
-            LanguageScreenContent(uiState = LanguageUiState.initial)
+            LanguageScreenContent(
+                uiState = LanguageUiState.initial,
+                onClick = {}
+            )
         }
     }
 }
@@ -115,7 +137,10 @@ private fun PreviewLanguageScreenDark() {
 private fun PreviewLanguageScreenLight() {
     AyonTheme {
         BackgroundContainer {
-            LanguageScreenContent(uiState = LanguageUiState.initial)
+            LanguageScreenContent(
+                uiState = LanguageUiState.initial,
+                onClick = {}
+            )
         }
     }
 }

@@ -11,14 +11,14 @@ import com.maxim.ui.util.NoRippleInteractionSource
 @Composable
 fun ItemCard(
     modifier: Modifier = Modifier,
-    shouldEnableRipple: Boolean = false,
+    shouldShowRipple: Boolean = false,
     onClick: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
-        interactionSource = if (shouldEnableRipple) null  else NoRippleInteractionSource,
+        interactionSource = if (shouldShowRipple) null else NoRippleInteractionSource,
         onClick = { onClick() }
     ) { content() }
 }
