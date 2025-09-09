@@ -14,8 +14,8 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.maxim.settings.language.LanguageScreen
-import com.maxim.settings.language.LanguageViewModel
 import com.maxim.settings.main_screen.SettingsScreen
 
 @Composable
@@ -28,9 +28,11 @@ fun SettingsNavigation(
     NavDisplay(
         modifier = modifier,
         backStack = backStack,
+        onBack = { backStack.removeLastOrNull() },
         entryDecorators = listOf(
-            rememberViewModelStoreNavEntryDecorator(),
+            rememberSceneSetupNavEntryDecorator(),
             rememberSavedStateNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator(),
         ),
         transitionSpec = {
             ContentTransform(
@@ -54,9 +56,8 @@ fun SettingsNavigation(
             }
             entry<SettingsScreen.Language> {
                 stateHolder.SaveableStateProvider(it.toString()) {
-                    val viewModel: LanguageViewModel  = viewModel()
                     LanguageScreen(
-                        viewModel = viewModel
+                        viewModel = viewModel()
                     )
                 }
             }

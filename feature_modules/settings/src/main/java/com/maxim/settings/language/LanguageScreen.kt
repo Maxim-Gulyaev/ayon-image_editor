@@ -13,13 +13,13 @@ import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxim.settings.language.LanguageIntent.OnLanguageClick
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
@@ -33,9 +33,9 @@ import com.maxim.ui.util.AdaptivePreviewLight
 @Composable
 fun LanguageScreen(
     modifier: Modifier = Modifier,
-    viewModel: LanguageViewModel/* = viewModel()*/,
+    viewModel: LanguageViewModel,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(uiState.currentLanguage) {
         Log.d("maxlog", "currentLanguage = ${uiState.currentLanguage}")

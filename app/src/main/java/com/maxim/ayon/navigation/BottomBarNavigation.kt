@@ -32,6 +32,7 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
+import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
 import com.maxim.home.ui.HomeScreen
 import com.maxim.settings.navigation.SettingsNavigation
 import com.maxim.ui.components.BackgroundContainer
@@ -77,9 +78,11 @@ fun BottomBarNavigation(
             NavDisplay(
                 modifier = modifier,
                 backStack = backStack,
+                onBack = { backStack.removeLastOrNull() },
                 entryDecorators = listOf(
+                    rememberSceneSetupNavEntryDecorator(),
                     rememberSavedStateNavEntryDecorator(),
-                    rememberViewModelStoreNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
                 ),
                 transitionSpec = {
                     ContentTransform(
