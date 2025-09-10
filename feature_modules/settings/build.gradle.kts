@@ -62,12 +62,6 @@ dependencies {
     // Immutable collections
     implementation(libs.kotlinx.collections.immutable)
 
-    // Navigation
-    implementation(libs.androidx.navigation3.runtime.android)
-    implementation(libs.androidx.navigation3.runtime)
-    implementation(libs.androidx.navigation3.ui)
-    implementation(libs.androidx.lifecycle.viewmodel.navigation3)
-
     // Modules
     implementation(project(":core:ui"))
 }

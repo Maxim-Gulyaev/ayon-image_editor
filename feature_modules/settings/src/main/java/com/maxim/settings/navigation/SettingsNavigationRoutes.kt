@@ -1,10 +1,9 @@
 package com.maxim.settings.navigation
 
-import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class SettingsScreen: NavKey {
+sealed class SettingsScreen() {
 
     @Serializable
     data object Main : SettingsScreen()
