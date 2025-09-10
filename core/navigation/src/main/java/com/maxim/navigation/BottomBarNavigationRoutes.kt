@@ -1,10 +1,7 @@
-
-
-package com.maxim.ayon.bottom_bar_navigation
+package com.maxim.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.maxim.ayon.R
 import kotlinx.serialization.Serializable
 
 @Serializable

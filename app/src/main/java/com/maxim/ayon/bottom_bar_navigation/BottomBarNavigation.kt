@@ -18,7 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,11 +25,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navigation
 import com.maxim.home.ui.HomeScreen
-import com.maxim.settings.language.LanguageScreen
-import com.maxim.settings.main_screen.SettingsScreen
-import com.maxim.settings.navigation.SettingsScreen
+import com.maxim.navigation.BottomBarScreen
+import com.maxim.navigation.bottomBarItems
+import com.maxim.settings.navigation.settingsGraph
 import com.maxim.ui.components.BackgroundContainer
 
 @Composable
@@ -80,22 +78,7 @@ fun BottomBarNavigation(
                         contentAlignment = Alignment.Center
                     ) { Text(text = "Not implemented Run screen") }
                 }
-                navigation<BottomBarScreen.Settings>(
-                    startDestination = SettingsScreen.Main
-                ) {
-                    composable<SettingsScreen.Main> {
-                        SettingsScreen(
-                            onLanguageClick = {
-                                navController.navigate(SettingsScreen.Language)
-                            }
-                        )
-                    }
-                    composable<SettingsScreen.Language> {
-                        LanguageScreen(
-                            viewModel = viewModel()
-                        )
-                    }
-                }
+                settingsGraph(navController)
             }
         }
     }
