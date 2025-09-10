@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.serialization)
 }
 
 android {
-    namespace = "com.maxim.settings"
+    namespace = "com.maxim.datastore"
     compileSdk = 36
 
     defaultConfig {
@@ -32,9 +30,6 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
@@ -45,28 +40,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
-    debugImplementation(libs.androidx.ui.tooling)
-
-    // Viewmodel
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
-    // Immutable collections
-    implementation(libs.kotlinx.collections.immutable)
-
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-
-    // Modules
-    implementation(project(":core:ui"))
-    implementation(project(":core:navigation"))
-    implementation(project(":core:model"))
 }

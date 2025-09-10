@@ -20,7 +20,7 @@ class LanguageViewModel: ViewModel() {
         when (intent) {
 
             is LanguageIntent.OnLanguageClick -> _uiState.update {
-                it.copy(currentLanguage = intent.language)
+                it.copy(currentAppLanguage = intent.appLanguage)
             }
         }
     }

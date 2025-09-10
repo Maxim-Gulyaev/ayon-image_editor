@@ -20,7 +20,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maxim.model.AppLanguage
 import com.maxim.settings.language.LanguageIntent.OnLanguageClick
+import com.maxim.settings.utils.displayNameRes
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ContainerCard
@@ -37,8 +39,8 @@ fun LanguageScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState.currentLanguage) {
-        Log.d("maxlog", "currentLanguage = ${uiState.currentLanguage}")
+    LaunchedEffect(uiState.currentAppLanguage) {
+        Log.d("maxlog", "currentLanguage = ${uiState.currentAppLanguage}")
     }
 
     LanguageScreenContent(
@@ -51,7 +53,7 @@ fun LanguageScreen(
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
-    onClick: (Language) -> Unit,
+    onClick: (AppLanguage) -> Unit,
 ) {
     ContainerCard(
         modifier = modifier.padding(16.dp),
@@ -63,15 +65,15 @@ private fun LanguageScreenContent(
         ) {
             with (uiState) {
                 itemsIndexed(
-                    items = languages,
+                    items = appLanguages,
                     key = { _, item -> item.ordinal }
                 ) { index, item ->
                     LanguageItem(
-                        displayNameRes = item.displayNameRes,
-                        isSelected = currentLanguage == item,
+                        displayNameRes = item.displayNameRes(),
+                        isSelected = currentAppLanguage == item,
                         onClick = { onClick(item) }
                     )
-                    if (index < languages.lastIndex) {
+                    if (index < appLanguages.lastIndex) {
                         AyonVerticalSpacer(8.dp)
                     }
                 }
