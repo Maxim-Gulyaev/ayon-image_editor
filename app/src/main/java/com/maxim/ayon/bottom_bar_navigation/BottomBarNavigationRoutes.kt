@@ -15,7 +15,7 @@
  */
 @file:OptIn(ExperimentalSerializationApi::class)
 
-package com.maxim.ayon.navigation
+package com.maxim.ayon.bottom_bar_navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

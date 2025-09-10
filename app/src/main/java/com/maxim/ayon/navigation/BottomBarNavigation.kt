@@ -33,6 +33,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigation3.ui.rememberSceneSetupNavEntryDecorator
+import com.maxim.ayon.bottom_bar_navigation.BottomBarScreen
+import com.maxim.ayon.bottom_bar_navigation.BottomBarScreenSaver
+import com.maxim.ayon.bottom_bar_navigation.bottomBarItems
 import com.maxim.home.ui.HomeScreen
 import com.maxim.settings.navigation.SettingsNavigation
 import com.maxim.ui.components.BackgroundContainer
