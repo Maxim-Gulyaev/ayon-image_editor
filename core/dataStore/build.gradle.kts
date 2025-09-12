@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.com.google.devtools.ksp)
+    alias(libs.plugins.protobuf)
 }
 
 android {
@@ -32,6 +34,24 @@ android {
     }
 }
 
+protobuf {
+    protoc {
+        artifact = libs.protobuf.protoc.get().toString()
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                register("java") {
+                    option("lite")
+                }
+                register("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
+}
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -43,4 +63,11 @@ dependencies {
 
     // DataStore
     implementation(libs.androidx.dataStore)
+
+    // Dagger
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
+
+    // Protobuf
+    api(libs.protobuf.kotlin.lite)
 }

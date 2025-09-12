@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+option java_package = "com/maxim/datastore_proto/data";
+option java_multiple_files = true;
+
+message UserPreferences {
+  AppLanguage app_language = 1;
+}
+
+enum AppLanguage {
+  SYSTEM = 0;
+  ENGLISH = 1;
+  SPANISH = 2;
+  CHINESE = 3;
+  PORTUGUESE = 4;
+}

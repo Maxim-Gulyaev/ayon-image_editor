@@ -18,6 +18,8 @@ material3 = "1.4.0-beta03"
 androidxDataStore = "1.1.1"
 com-google-devtools-ksp = "2.0.21-1.0.26"
 dagger = "2.56.2"
+protobuf = "4.29.2"
+protobufPlugin = "0.9.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +46,8 @@ androidx-dataStore = { group = "androidx.datastore", name = "datastore", version
 androidx-dataStore-core = { group = "androidx.datastore", name = "datastore-core", version.ref = "androidxDataStore" }
 dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -53,4 +57,5 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerialization" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 
