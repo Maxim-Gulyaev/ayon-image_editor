@@ -10,7 +10,7 @@ import com.maxim.datastore.data.UserPreferences
 import java.io.InputStream
 import java.io.OutputStream
 
-private const val USER_PREFS_DATASTORE_FILE_NAME = "user_preferences.pb"
+private const val USER_PREFERENCES_DATASTORE_FILE_NAME = "user_preferences.pb"
 
 object UserPreferencesSerializer : Serializer<UserPreferences> {
     override val defaultValue: UserPreferences = UserPreferences
@@ -30,7 +30,7 @@ object UserPreferencesSerializer : Serializer<UserPreferences> {
         t.writeTo(output)
 }
 
-val Context.userPrefsDataStore: DataStore<UserPreferences> by dataStore(
-    fileName = USER_PREFS_DATASTORE_FILE_NAME,
+val Context.userPreferencesDataStore: DataStore<UserPreferences> by dataStore(
+    fileName = USER_PREFERENCES_DATASTORE_FILE_NAME,
     serializer = UserPreferencesSerializer
 )
