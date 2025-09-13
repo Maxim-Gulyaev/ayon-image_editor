@@ -1,6 +1,5 @@
 package com.maxim.settings.navigation
 
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
@@ -11,7 +10,10 @@ import com.maxim.settings.language.LanguageViewModel
 import com.maxim.settings.main_screen.SettingsScreen
 
 
-fun NavGraphBuilder.settingsGraph(navController: NavController) {
+fun NavGraphBuilder.settingsGraph(
+    navController: NavController,
+    languageViewModel: LanguageViewModel,
+) {
     navigation<BottomBarScreen.Settings>(
         startDestination = SettingsScreen.Main
     ) {
@@ -24,7 +26,7 @@ fun NavGraphBuilder.settingsGraph(navController: NavController) {
         }
         composable<SettingsScreen.Language> {
             LanguageScreen(
-                viewModel = viewModel<LanguageViewModel>()
+                viewModel = languageViewModel
             )
         }
     }

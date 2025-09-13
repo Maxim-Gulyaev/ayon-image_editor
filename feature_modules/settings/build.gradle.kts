@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.serialization)
+    alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
@@ -67,6 +68,10 @@ dependencies {
 
     // Datastore
     implementation(libs.androidx.datastore)
+
+    // Dagger
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 
     // Modules
     implementation(project(":core:ui"))
