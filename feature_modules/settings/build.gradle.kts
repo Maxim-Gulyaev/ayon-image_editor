@@ -65,8 +65,12 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.compose)
 
+    // Datastore
+    implementation(libs.androidx.datastore)
+
     // Modules
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":core:model"))
+    implementation(project(":core:datastore"))
 }

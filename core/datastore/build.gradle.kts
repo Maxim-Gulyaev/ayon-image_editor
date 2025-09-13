@@ -44,9 +44,6 @@ protobuf {
                 register("java") {
                     option("lite")
                 }
-                register("kotlin") {
-                    option("lite")
-                }
             }
         }
     }
@@ -61,13 +58,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // DataStore
-    implementation(libs.androidx.dataStore)
+    // Datastore
+    implementation(libs.androidx.datastore)
+    implementation(libs.protobuf.javalite)
 
     // Dagger
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
-    // Protobuf
-    api(libs.protobuf.kotlin.lite)
+    // Modules
+    implementation(project(":core:model"))
 }

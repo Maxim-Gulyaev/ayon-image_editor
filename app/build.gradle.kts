@@ -70,6 +70,7 @@ dependencies {
     // Modules
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:datastore"))
     implementation(project(":feature_modules:home"))
     implementation(project(":feature_modules:settings"))
 }

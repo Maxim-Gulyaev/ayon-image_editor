@@ -1,12 +1,16 @@
 package com.maxim.ayon.di
 
 import android.content.Context
+import com.maxim.datastore.di.DataStoreModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+
 @Singleton
-@Component
+@Component(
+    modules = [DataStoreModule::class]
+)
 interface AppComponent {
 
     @Component.Builder

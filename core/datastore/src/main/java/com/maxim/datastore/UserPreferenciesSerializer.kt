@@ -1,9 +1,19 @@
 package com.maxim.datastore
 
-/*object UserPreferencesSerializer : Serializer<UserPreferences> {
+import android.content.Context
+import androidx.datastore.core.CorruptionException
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.Serializer
+import androidx.datastore.dataStore
+import com.maxim.datastore.data.AppLanguage
+import com.maxim.datastore.data.UserPreferences
+import java.io.InputStream
+import java.io.OutputStream
+
+object UserPreferencesSerializer : Serializer<UserPreferences> {
     override val defaultValue: UserPreferences = UserPreferences
         .newBuilder()
-        .setAppLanguage(UserPreferences.AppLanguage.SYSTEM)
+        .setAppLanguage(AppLanguage.CHINESE)
         .build()
 
     override suspend fun readFrom(input: InputStream): UserPreferences {
@@ -16,4 +26,9 @@ package com.maxim.datastore
 
     override suspend fun writeTo(t: UserPreferences, output: OutputStream) =
         t.writeTo(output)
-}*/
+}
+
+val Context.userPrefsDataStore: DataStore<UserPreferences> by dataStore(
+    fileName = "user_preferences.pb",
+    serializer = UserPreferencesSerializer
+)
