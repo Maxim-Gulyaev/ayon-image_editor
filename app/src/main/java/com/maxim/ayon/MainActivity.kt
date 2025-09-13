@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
 
     private val languageViewModel: LanguageViewModel by viewModels {
         val appComponent = (application as AyonApplication).appComponent
-        LanguageViewModelFactory(appComponent.userPreferencesDataStore())
+        LanguageViewModelFactory(appComponent.userPreferencesDataSource())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

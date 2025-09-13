@@ -1,8 +1,7 @@
 package com.maxim.ayon.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import com.maxim.datastore.data.UserPreferences
+import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.datastore.di.DataStoreModule
 import dagger.BindsInstance
 import dagger.Component
@@ -15,7 +14,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
 
-    fun userPreferencesDataStore(): DataStore<UserPreferences>
+    fun userPreferencesDataSource(): UserPreferencesDataSource
 
     @Component.Builder
     interface Builder {
