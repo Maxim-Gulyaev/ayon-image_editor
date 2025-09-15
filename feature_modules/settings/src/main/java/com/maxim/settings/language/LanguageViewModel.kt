@@ -1,7 +1,6 @@
 package com.maxim.settings.language
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.maxim.datastore.UserPreferencesDataSource
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,32 +20,25 @@ class LanguageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            userPreferencesDataSource.appLanguage.collectLatest { language ->
-                _uiState.update {
-                    it.copy(currentAppLanguage = language)
-                }
-            }
+            updateLanguage()
         }
     }
 
     fun accept(intent: LanguageIntent) {
         when (intent) {
-
-            is LanguageIntent.OnLanguageClick -> _uiState.update {
-                it.copy(currentAppLanguage = intent.appLanguage)
+            is LanguageIntent.OnLanguageClick -> {
+                viewModelScope.launch {
+                    userPreferencesDataSource.updateAppLanguage(intent.appLanguage)
+                }
             }
         }
     }
-}
 
-class LanguageViewModelFactory(
-    private val userPreferencesDataSource: UserPreferencesDataSource,
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LanguageViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return LanguageViewModel(userPreferencesDataSource) as T
+    private suspend fun updateLanguage() {
+        userPreferencesDataSource.appLanguage.collectLatest { language ->
+            _uiState.update {
+                it.copy(currentAppLanguage = language)
+            }
         }
-        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }
