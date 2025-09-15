@@ -1,15 +1,15 @@
 package com.maxim.settings.utils
 
-import com.maxim.model.AppLanguage
-import com.maxim.model.AppLanguage.CHINESE
-import com.maxim.model.AppLanguage.ENGLISH
-import com.maxim.model.AppLanguage.PORTUGUESE
-import com.maxim.model.AppLanguage.SPANISH
-import com.maxim.model.AppLanguage.SYSTEM
+import com.maxim.settings.model.AppLanguageUi.PORTUGUESE
+import com.maxim.settings.model.AppLanguageUi.CHINESE
+import com.maxim.settings.model.AppLanguageUi.ENGLISH
+import com.maxim.settings.model.AppLanguageUi.SYSTEM
+import com.maxim.settings.model.AppLanguageUi.SPANISH
 import com.maxim.settings.R
+import com.maxim.settings.model.AppLanguageUi
 import kotlinx.collections.immutable.persistentListOf
 
-internal fun AppLanguage.displayNameRes() =
+internal fun AppLanguageUi.displayNameRes() =
     when (this) {
         SYSTEM -> R.string.language_system
         ENGLISH -> R.string.language_english

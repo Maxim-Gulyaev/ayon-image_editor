@@ -74,6 +74,8 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
     implementation(project(":core:datastore"))
+    implementation(project(":core:data"))
+    implementation(project(":core:domain"))
     implementation(project(":feature_modules:home"))
     implementation(project(":feature_modules:settings"))
 }

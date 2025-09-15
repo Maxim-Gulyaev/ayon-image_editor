@@ -2,9 +2,11 @@ package com.maxim.ayon.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
+import com.maxim.data.di.DataModule
 import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.datastore.data.UserPreferences
 import com.maxim.datastore.di.DataStoreModule
+import com.maxim.domain.repository.SettingsRepository
 import com.maxim.settings.di.utils.SettingsDependencies
 import dagger.BindsInstance
 import dagger.Component
@@ -13,13 +15,18 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [DataStoreModule::class]
+    modules = [
+        DataStoreModule::class,
+        DataModule::class,
+    ]
 )
 interface AppComponent: SettingsDependencies {
 
     override fun userPreferencesDataStore(): DataStore<UserPreferences>
 
     override fun userPreferencesDataSource(): UserPreferencesDataSource
+
+    override fun settingsRepository(): SettingsRepository
 
     @Component.Builder
     interface Builder {

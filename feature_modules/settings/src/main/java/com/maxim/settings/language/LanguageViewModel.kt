@@ -2,7 +2,8 @@ package com.maxim.settings.language
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maxim.datastore.UserPreferencesDataSource
+import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
+import com.maxim.settings.model.toUi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class LanguageViewModel @Inject constructor(
-    val userPreferencesDataSource: UserPreferencesDataSource,
+    private val getAppLanguageUseCase: GetAppLanguageUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LanguageUiState.initial)
@@ -25,19 +26,19 @@ class LanguageViewModel @Inject constructor(
     }
 
     fun accept(intent: LanguageIntent) {
-        when (intent) {
+        /*when (intent) {
             is LanguageIntent.OnLanguageClick -> {
                 viewModelScope.launch {
                     userPreferencesDataSource.updateAppLanguage(intent.appLanguage)
                 }
             }
-        }
+        }*/
     }
 
     private suspend fun updateLanguage() {
-        userPreferencesDataSource.appLanguage.collectLatest { language ->
+        getAppLanguageUseCase().collectLatest { language ->
             _uiState.update {
-                it.copy(currentAppLanguage = language)
+                it.copy(currentAppLanguage = language.toUi())
             }
         }
     }

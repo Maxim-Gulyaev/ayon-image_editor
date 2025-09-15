@@ -1,8 +1,8 @@
 package com.maxim.settings.language
 
-import com.maxim.model.AppLanguage
+import com.maxim.settings.model.AppLanguageUi
 
 sealed interface LanguageIntent {
 
-    data class OnLanguageClick(val appLanguage: AppLanguage) : LanguageIntent
+    data class OnLanguageClick(val appLanguage: AppLanguageUi) : LanguageIntent
 }

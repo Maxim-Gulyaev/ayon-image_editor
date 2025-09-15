@@ -20,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maxim.model.AppLanguage
 import com.maxim.settings.language.LanguageIntent.OnLanguageClick
+import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.displayNameRes
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
@@ -53,7 +53,7 @@ fun LanguageScreen(
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
-    onClick: (AppLanguage) -> Unit,
+    onClick: (AppLanguageUi) -> Unit,
 ) {
     ContainerCard(
         modifier = modifier.padding(16.dp),
