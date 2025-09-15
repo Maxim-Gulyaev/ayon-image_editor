@@ -70,6 +70,9 @@ dependencies {
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
 
+    // Datastore
+    implementation(libs.androidx.datastore)
+
     // Modules
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
