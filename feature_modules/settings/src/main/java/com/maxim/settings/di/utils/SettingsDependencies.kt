@@ -1,4 +1,4 @@
-package com.maxim.settings.di
+package com.maxim.settings.di.utils
 
 import androidx.datastore.core.DataStore
 import com.maxim.datastore.UserPreferencesDataSource

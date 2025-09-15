@@ -1,6 +1,9 @@
-package com.maxim.settings.di
+package com.maxim.settings.di.component
 
 import androidx.lifecycle.ViewModelProvider
+import com.maxim.settings.di.utils.SettingsDependencies
+import com.maxim.settings.di.utils.SettingsScope
+import com.maxim.settings.di.module.SettingsViewModelModule
 import dagger.Component
 
 @SettingsScope

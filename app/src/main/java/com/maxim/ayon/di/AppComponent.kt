@@ -5,7 +5,7 @@ import androidx.datastore.core.DataStore
 import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.datastore.data.UserPreferences
 import com.maxim.datastore.di.DataStoreModule
-import com.maxim.settings.di.SettingsDependencies
+import com.maxim.settings.di.utils.SettingsDependencies
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

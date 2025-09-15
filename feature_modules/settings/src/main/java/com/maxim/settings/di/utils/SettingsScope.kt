@@ -1,4 +1,4 @@
-package com.maxim.settings.di
+package com.maxim.settings.di.utils
 
 import javax.inject.Scope
 
