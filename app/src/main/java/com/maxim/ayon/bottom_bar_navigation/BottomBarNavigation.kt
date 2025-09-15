@@ -25,16 +25,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
 import com.maxim.navigation.BottomBarScreen
 import com.maxim.navigation.bottomBarItems
-import com.maxim.settings.di.SettingsComponent
 import com.maxim.settings.navigation.settingsGraph
 import com.maxim.ui.components.BackgroundContainer
 
 @Composable
 fun BottomBarNavigation(
-    settingsComponent: SettingsComponent,
+    appComponent: AppComponent,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -80,7 +80,7 @@ fun BottomBarNavigation(
                         contentAlignment = Alignment.Center
                     ) { Text(text = "Not implemented Run screen") }
                 }
-                settingsGraph(navController, settingsComponent)
+                settingsGraph(navController, appComponent)
             }
         }
     }
