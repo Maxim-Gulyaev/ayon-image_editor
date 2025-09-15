@@ -6,6 +6,7 @@ import com.maxim.data.di.DataModule
 import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.datastore.data.UserPreferences
 import com.maxim.datastore.di.DataStoreModule
+import com.maxim.datastore.di.UserPreferencesDataSourceModule
 import com.maxim.domain.repository.SettingsRepository
 import com.maxim.settings.di.utils.SettingsDependencies
 import dagger.BindsInstance
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 @Component(
     modules = [
         DataStoreModule::class,
+        UserPreferencesDataSourceModule::class,
         DataModule::class,
     ]
 )
