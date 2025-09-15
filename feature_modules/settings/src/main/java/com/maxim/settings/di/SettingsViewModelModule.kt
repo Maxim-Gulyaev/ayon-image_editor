@@ -10,6 +10,7 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class SettingsViewModelModule {
 
+    @SettingsScope
     @Binds
     abstract fun bindViewModelFactory(factory: DaggerViewModelFactory): ViewModelProvider.Factory
 
