@@ -9,6 +9,7 @@ fun AppLanguageDomain.toUi() =
         AppLanguageDomain.SPANISH -> AppLanguageUi.SPANISH
         AppLanguageDomain.CHINESE -> AppLanguageUi.CHINESE
         AppLanguageDomain.PORTUGUESE -> AppLanguageUi.PORTUGUESE
+        AppLanguageDomain.RUSSIAN -> AppLanguageUi.RUSSIAN
     }
 
 fun AppLanguageUi.toDomain() =
@@ -18,4 +19,5 @@ fun AppLanguageUi.toDomain() =
         AppLanguageUi.SPANISH -> AppLanguageDomain.SPANISH
         AppLanguageUi.CHINESE -> AppLanguageDomain.CHINESE
         AppLanguageUi.PORTUGUESE -> AppLanguageDomain.PORTUGUESE
+        AppLanguageUi.RUSSIAN -> AppLanguageDomain.RUSSIAN
     }

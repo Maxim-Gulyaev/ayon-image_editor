@@ -5,7 +5,8 @@ enum class AppLanguageDomain() {
     ENGLISH,
     SPANISH,
     CHINESE,
-    PORTUGUESE
+    PORTUGUESE,
+    RUSSIAN,
 }
 
 data class UserPreferencesDomain(

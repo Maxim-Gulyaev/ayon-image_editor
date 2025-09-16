@@ -10,6 +10,7 @@ fun ProtoAppLanguage.toDomain(): DomainAppLanguage =
         ProtoAppLanguage.SPANISH -> DomainAppLanguage.SPANISH
         ProtoAppLanguage.CHINESE -> DomainAppLanguage.CHINESE
         ProtoAppLanguage.PORTUGUESE -> DomainAppLanguage.PORTUGUESE
+        ProtoAppLanguage.RUSSIAN -> DomainAppLanguage.RUSSIAN
         ProtoAppLanguage.UNRECOGNIZED -> DomainAppLanguage.ENGLISH
     }
 
@@ -20,5 +21,6 @@ fun DomainAppLanguage.toProto(): ProtoAppLanguage =
         DomainAppLanguage.SPANISH -> ProtoAppLanguage.SPANISH
         DomainAppLanguage.CHINESE -> ProtoAppLanguage.CHINESE
         DomainAppLanguage.PORTUGUESE -> ProtoAppLanguage.PORTUGUESE
+        DomainAppLanguage.RUSSIAN -> ProtoAppLanguage.RUSSIAN
     }
 

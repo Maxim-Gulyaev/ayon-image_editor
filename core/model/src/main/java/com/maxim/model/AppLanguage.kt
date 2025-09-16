@@ -5,5 +5,6 @@ enum class AppLanguage() {
     ENGLISH,
     SPANISH,
     CHINESE,
-    PORTUGUESE
+    PORTUGUESE,
+    RUSSIAN,
 }
