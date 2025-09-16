@@ -4,5 +4,5 @@ import com.maxim.domain.model.settings.AppLanguageDomain
 import kotlinx.coroutines.flow.Flow
 
 interface GetAppLanguageUseCase {
-    operator fun invoke(): Flow<AppLanguageDomain>
+    suspend operator fun invoke(): Flow<AppLanguageDomain>
 }

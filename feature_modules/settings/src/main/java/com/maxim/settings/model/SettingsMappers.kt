@@ -10,3 +10,12 @@ fun AppLanguageDomain.toUi() =
         AppLanguageDomain.CHINESE -> AppLanguageUi.CHINESE
         AppLanguageDomain.PORTUGUESE -> AppLanguageUi.PORTUGUESE
     }
+
+fun AppLanguageUi.toDomain() =
+    when (this) {
+        AppLanguageUi.SYSTEM -> AppLanguageDomain.SYSTEM
+        AppLanguageUi.ENGLISH -> AppLanguageDomain.ENGLISH
+        AppLanguageUi.SPANISH -> AppLanguageDomain.SPANISH
+        AppLanguageUi.CHINESE -> AppLanguageDomain.CHINESE
+        AppLanguageUi.PORTUGUESE -> AppLanguageDomain.PORTUGUESE
+    }

@@ -1,5 +1,6 @@
 package com.maxim.data.repository
 
+import com.maxim.data.mapper.toData
 import com.maxim.data.mapper.toDomain
 import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.domain.model.settings.AppLanguageDomain
@@ -14,4 +15,8 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getAppLanguage(): Flow<AppLanguageDomain> =
         userPreferencesDataSource.appLanguage.map { it.toDomain() }
+
+    override suspend fun setAppLanguage(language: AppLanguageDomain) {
+        userPreferencesDataSource.updateAppLanguage(language.toData())
+    }
 }
