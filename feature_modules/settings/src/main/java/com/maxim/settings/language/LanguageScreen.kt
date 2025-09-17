@@ -2,7 +2,10 @@ package com.maxim.settings.language
 
 import android.util.Log
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -23,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.maxim.settings.language.LanguageIntent.OnLanguageClick
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.displayNameRes
+import com.maxim.ui.components.AyonConfirmationButton
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ContainerCard
@@ -58,26 +62,36 @@ private fun LanguageScreenContent(
     ContainerCard(
         modifier = modifier.padding(16.dp),
     ) {
-        LazyColumn(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 20.dp),
-        ) {
-            with (uiState) {
-                itemsIndexed(
-                    items = appLanguages,
-                    key = { _, item -> item.ordinal }
-                ) { index, item ->
-                    LanguageItem(
-                        displayNameRes = item.displayNameRes(),
-                        isSelected = currentAppLanguage == item,
-                        onClick = { onClick(item) }
-                    )
-                    if (index < appLanguages.lastIndex) {
-                        AyonVerticalSpacer(8.dp)
+        Column(modifier.fillMaxSize()) {
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 20.dp),
+            ) {
+                with (uiState) {
+                    itemsIndexed(
+                        items = appLanguages,
+                        key = { _, item -> item.ordinal }
+                    ) { index, item ->
+                        LanguageItem(
+                            displayNameRes = item.displayNameRes(),
+                            isSelected = currentAppLanguage == item,
+                            onClick = { onClick(item) }
+                        )
+                        if (index < appLanguages.lastIndex) {
+                            AyonVerticalSpacer(8.dp)
+                        }
                     }
                 }
             }
+
+            Spacer(modifier = modifier.weight(1f))
+
+            AyonConfirmationButton(
+                modifier = modifier.padding(horizontal = 16.dp),
+                enabled = true,
+                onClick = {}
+            )
         }
     }
 }

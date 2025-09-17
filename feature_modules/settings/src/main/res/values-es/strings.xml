@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Idioma</string>
+    <string name="language_system">Sistema</string>
+    <string name="language_english">Inglés</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_chinese">Chino</string>
+    <string name="language_portuguese">Portugués</string>
+    <string name="language_russian">Ruso</string>
+</resources>
