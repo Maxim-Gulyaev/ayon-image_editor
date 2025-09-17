@@ -24,24 +24,35 @@ class LanguageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            updateLanguage()
+            setCurrentLanguage()
         }
     }
 
     fun accept(intent: LanguageIntent) {
         when (intent) {
-            is LanguageIntent.OnLanguageClick -> {
+            LanguageIntent.OnSaveButtonClick -> {
+                val newAppLanguage = _uiState.value.selectedLanguage.toDomain()
                 viewModelScope.launch {
-                    setAppLanguageUseCase(intent.appLanguage.toDomain())
+                    setAppLanguageUseCase(newAppLanguage)
+                }
+            }
+
+            is LanguageIntent.OnLanguageClick -> {
+                _uiState.update {
+                    it.copy(selectedLanguage = intent.language)
                 }
             }
         }
     }
 
-    private suspend fun updateLanguage() {
+    private suspend fun setCurrentLanguage() {
         getAppLanguageUseCase().collectLatest { language ->
+            val currentAppLanguage = language.toUi()
             _uiState.update {
-                it.copy(currentAppLanguage = language.toUi())
+                it.copy(
+                    currentAppLanguage = currentAppLanguage,
+                    selectedLanguage = currentAppLanguage,
+                )
             }
         }
     }

@@ -4,5 +4,7 @@ import com.maxim.settings.model.AppLanguageUi
 
 sealed interface LanguageIntent {
 
-    data class OnLanguageClick(val appLanguage: AppLanguageUi) : LanguageIntent
+    data object OnSaveButtonClick : LanguageIntent
+
+    data class OnLanguageClick(val language: AppLanguageUi) : LanguageIntent
 }

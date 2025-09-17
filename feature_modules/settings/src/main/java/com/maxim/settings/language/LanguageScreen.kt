@@ -1,6 +1,5 @@
 package com.maxim.settings.language
 
-import android.util.Log
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +14,6 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.language.LanguageIntent.OnLanguageClick
+import com.maxim.settings.language.LanguageIntent.OnSaveButtonClick
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.displayNameRes
 import com.maxim.ui.components.AyonConfirmationButton
@@ -43,13 +42,10 @@ fun LanguageScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState.currentAppLanguage) {
-        Log.d("maxlog", "currentLanguage = ${uiState.currentAppLanguage}")
-    }
-
     LanguageScreenContent(
         uiState = uiState,
-        onClick = { viewModel.accept(OnLanguageClick(it)) }
+        onLanguageItemClick = { viewModel.accept(OnLanguageClick(it)) },
+        onSaveButtonClick = { viewModel.accept(OnSaveButtonClick) }
     )
 }
 
@@ -57,7 +53,8 @@ fun LanguageScreen(
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
-    onClick: (AppLanguageUi) -> Unit,
+    onLanguageItemClick: (AppLanguageUi) -> Unit,
+    onSaveButtonClick: () -> Unit,
 ) {
     ContainerCard(
         modifier = modifier.padding(16.dp),
@@ -75,8 +72,8 @@ private fun LanguageScreenContent(
                     ) { index, item ->
                         LanguageItem(
                             displayNameRes = item.displayNameRes(),
-                            isSelected = currentAppLanguage == item,
-                            onClick = { onClick(item) }
+                            isSelected = selectedLanguage == item,
+                            onClick = { onLanguageItemClick(item) }
                         )
                         if (index < appLanguages.lastIndex) {
                             AyonVerticalSpacer(8.dp)
@@ -90,7 +87,7 @@ private fun LanguageScreenContent(
             AyonConfirmationButton(
                 modifier = modifier.padding(horizontal = 16.dp),
                 enabled = true,
-                onClick = {}
+                onClick = onSaveButtonClick,
             )
         }
     }
@@ -141,7 +138,8 @@ private fun PreviewLanguageScreenDark() {
         BackgroundContainer {
             LanguageScreenContent(
                 uiState = LanguageUiState.initial,
-                onClick = {}
+                onLanguageItemClick = {},
+                onSaveButtonClick = {},
             )
         }
     }
@@ -155,7 +153,8 @@ private fun PreviewLanguageScreenLight() {
         BackgroundContainer {
             LanguageScreenContent(
                 uiState = LanguageUiState.initial,
-                onClick = {}
+                onLanguageItemClick = {},
+                onSaveButtonClick = {},
             )
         }
     }
