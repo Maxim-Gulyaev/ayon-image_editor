@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
 val DarkColorScheme = darkColorScheme(
     primary = PrimaryDark,
@@ -63,9 +64,17 @@ fun AyonTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
-        typography = AyonTypography,
-        content = content
-    )
+    val customColorScheme =
+        if (darkTheme) OnDarkCustomColorScheme
+        else OnLightCustomColorScheme
+
+    CompositionLocalProvider(
+        LocalCustomColorScheme provides customColorScheme
+    ) {
+        MaterialTheme(
+            colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme,
+            typography = AyonTypography,
+            content = content
+        )
+    }
 }
