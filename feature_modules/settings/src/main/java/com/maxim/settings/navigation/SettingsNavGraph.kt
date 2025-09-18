@@ -8,9 +8,9 @@ import androidx.navigation.navigation
 import com.maxim.navigation.BottomBarScreen
 import com.maxim.settings.di.utils.SettingsComponentHolder
 import com.maxim.settings.di.utils.SettingsDependencies
-import com.maxim.settings.language.LanguageScreen
-import com.maxim.settings.language.LanguageViewModel
-import com.maxim.settings.main_screen.SettingsScreen
+import com.maxim.settings.language_screen.LanguageScreen
+import com.maxim.settings.language_screen.LanguageViewModel
+import com.maxim.settings.settings_screen.SettingsScreen
 
 
 fun NavGraphBuilder.settingsGraph(

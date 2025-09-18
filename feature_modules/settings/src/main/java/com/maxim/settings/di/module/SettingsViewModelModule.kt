@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.maxim.common.di.AyonViewModelFactory
 import com.maxim.settings.di.utils.SettingsScope
 import com.maxim.common.di.ViewModelKey
-import com.maxim.settings.language.LanguageViewModel
+import com.maxim.settings.language_screen.LanguageViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

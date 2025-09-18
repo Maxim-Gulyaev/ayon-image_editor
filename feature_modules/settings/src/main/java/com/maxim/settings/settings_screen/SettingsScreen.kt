@@ -1,4 +1,4 @@
-package com.maxim.settings.main_screen
+package com.maxim.settings.settings_screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize

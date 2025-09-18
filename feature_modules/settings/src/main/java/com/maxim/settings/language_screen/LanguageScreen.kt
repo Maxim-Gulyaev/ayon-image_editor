@@ -1,4 +1,4 @@
-package com.maxim.settings.language
+package com.maxim.settings.language_screen
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
@@ -21,8 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.maxim.settings.language.LanguageIntent.OnLanguageClick
-import com.maxim.settings.language.LanguageIntent.OnSaveButtonClick
+import com.maxim.settings.language_screen.LanguageIntent.OnLanguageClick
+import com.maxim.settings.language_screen.LanguageIntent.OnSaveButtonClick
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.displayNameRes
 import com.maxim.ui.components.AyonConfirmationButton

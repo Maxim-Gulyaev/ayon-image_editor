@@ -1,4 +1,4 @@
-package com.maxim.settings.language
+package com.maxim.settings.language_screen
 
 import androidx.compose.runtime.Immutable
 import com.maxim.settings.model.AppLanguageUi

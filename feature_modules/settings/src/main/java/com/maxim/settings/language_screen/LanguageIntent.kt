@@ -1,4 +1,4 @@
-package com.maxim.settings.language
+package com.maxim.settings.language_screen
 
 import com.maxim.settings.model.AppLanguageUi
 
