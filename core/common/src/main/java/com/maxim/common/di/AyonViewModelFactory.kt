@@ -1,4 +1,4 @@
-package com.maxim.common
+package com.maxim.common.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

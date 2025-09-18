@@ -1,4 +1,4 @@
-package com.maxim.settings.di.utils
+package com.maxim.common.di
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
