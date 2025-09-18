@@ -1,24 +1,24 @@
-package com.maxim.settings.di.module
+package com.maxim.ayon.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.maxim.ayon.MainViewModel
 import com.maxim.common.AyonViewModelFactory
-import com.maxim.settings.di.utils.SettingsScope
 import com.maxim.settings.di.utils.ViewModelKey
-import com.maxim.settings.language.LanguageViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 @Module
-abstract class SettingsViewModelModule {
+abstract class MainViewModelModule {
 
-    @SettingsScope
+    @Singleton
     @Binds
     abstract fun bindViewModelFactory(factory: AyonViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @IntoMap
-    @ViewModelKey(LanguageViewModel::class)
-    abstract fun bindLanguageViewModel(viewModel: LanguageViewModel): ViewModel
+    @ViewModelKey(MainViewModel::class)
+    abstract fun bindLanguageViewModel(viewModel: MainViewModel): ViewModel
 }

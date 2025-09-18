@@ -79,6 +79,7 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:common"))
     implementation(project(":feature_modules:home"))
     implementation(project(":feature_modules:settings"))
 }

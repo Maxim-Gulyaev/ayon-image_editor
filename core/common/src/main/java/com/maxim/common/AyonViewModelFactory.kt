@@ -1,12 +1,11 @@
-package com.maxim.settings.di.utils
+package com.maxim.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-@SettingsScope
-class DaggerViewModelFactory @Inject constructor(
+class AyonViewModelFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
