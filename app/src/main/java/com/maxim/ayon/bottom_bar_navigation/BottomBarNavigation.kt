@@ -1,8 +1,6 @@
 package com.maxim.ayon.bottom_bar_navigation
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
@@ -14,7 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -27,8 +24,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
-import com.maxim.navigation.BottomBarScreen
+import com.maxim.navigation.BottomBarNavRoute
 import com.maxim.navigation.bottomBarItems
+import com.maxim.run.navigation.runGraph
 import com.maxim.settings.navigation.settingsGraph
 import com.maxim.ui.components.BackgroundContainer
 
@@ -69,17 +67,14 @@ fun BottomBarNavigation(
         ) {
             NavHost(
                 navController = navController,
-                startDestination = BottomBarScreen.Home
+                startDestination = BottomBarNavRoute.Home
             ) {
-                composable<BottomBarScreen.Home> {
+                composable<BottomBarNavRoute.Home> {
                     HomeScreen()
                 }
-                composable<BottomBarScreen.Run> {
-                    Box(
-                        modifier = modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) { Text(text = "Not implemented Run screen") }
-                }
+
+                runGraph(appComponent)
+
                 settingsGraph(navController, appComponent)
             }
         }
@@ -89,7 +84,7 @@ fun BottomBarNavigation(
 @Composable
 private fun RowScope.AyonNavigationBarItem(
     currentDestination: NavDestination?,
-    destination: BottomBarScreen,
+    destination: BottomBarNavRoute,
     onClick: () -> Unit,
 ) {
     NavigationBarItem(

@@ -12,6 +12,7 @@ import com.maxim.domain.di.SettingsUseCaseModule
 import com.maxim.domain.repository.SettingsRepository
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
+import com.maxim.run.di.utils.RunDependencies
 import com.maxim.settings.di.utils.SettingsDependencies
 import dagger.BindsInstance
 import dagger.Component
@@ -28,7 +29,9 @@ import javax.inject.Singleton
         MainViewModelModule::class,
     ]
 )
-interface AppComponent: SettingsDependencies {
+interface AppComponent :
+    SettingsDependencies,
+    RunDependencies {
 
     fun viewModelFactory(): ViewModelProvider.Factory
 

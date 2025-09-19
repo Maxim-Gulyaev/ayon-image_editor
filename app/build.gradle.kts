@@ -82,4 +82,5 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":feature_modules:home"))
     implementation(project(":feature_modules:settings"))
+    implementation(project(":feature_modules:run"))
 }

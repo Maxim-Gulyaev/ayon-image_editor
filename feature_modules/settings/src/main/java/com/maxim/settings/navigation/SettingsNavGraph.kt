@@ -5,7 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.maxim.navigation.BottomBarScreen
+import com.maxim.navigation.BottomBarNavRoute
 import com.maxim.settings.di.utils.SettingsComponentHolder
 import com.maxim.settings.di.utils.SettingsDependencies
 import com.maxim.settings.language_screen.LanguageScreen
@@ -17,17 +17,17 @@ fun NavGraphBuilder.settingsGraph(
     navController: NavController,
     appComponent: SettingsDependencies,
 ) {
-    navigation<BottomBarScreen.Settings>(
-        startDestination = SettingsScreen.Main
+    navigation<BottomBarNavRoute.Settings>(
+        startDestination = SettingsNavRoute.SettingsScreen
     ) {
-        composable<SettingsScreen.Main> {
+        composable<SettingsNavRoute.SettingsScreen> {
             SettingsScreen(
                 onLanguageClick = {
-                    navController.navigate(SettingsScreen.Language)
+                    navController.navigate(SettingsNavRoute.LanguageScreen)
                 }
             )
         }
-        composable<SettingsScreen.Language> { entry ->
+        composable<SettingsNavRoute.LanguageScreen> { entry ->
 
             val settingsComponentHolder: SettingsComponentHolder = viewModel(
                 viewModelStoreOwner = entry,

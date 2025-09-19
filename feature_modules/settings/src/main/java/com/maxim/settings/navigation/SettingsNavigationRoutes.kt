@@ -3,11 +3,11 @@ package com.maxim.settings.navigation
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class SettingsScreen() {
+sealed class SettingsNavRoute() {
 
     @Serializable
-    data object Main : SettingsScreen()
+    data object SettingsScreen : SettingsNavRoute()
 
     @Serializable
-    data object Language : SettingsScreen()
+    data object LanguageScreen : SettingsNavRoute()
 }
