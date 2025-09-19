@@ -13,6 +13,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,24 +35,31 @@ fun RunScreen(
     modifier: Modifier = Modifier,
     viewModel: RunViewModel,
 ) {
-    RunScreenContainer()
+    val uiState by viewModel.uiState.collectAsState()
+
+    RunScreenContainer(
+        uiState = uiState,
+        onStartButtonClick = { viewModel.accept(RunScreenIntent.OnStartButtonClick) }
+    )
 }
 
 @Composable
 private fun RunScreenContainer(
+    uiState: RunUiState,
+    onStartButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier.fillMaxSize()) {
         AyonVerticalSpacer(120.dp)
 
-        StopwatchBlock(1000)
+        StopwatchBlock(uiState.stopwatchValue)
 
         Spacer(modifier = modifier.weight(1f))
 
         StartButtonBlock(
             modifier = modifier.weight(1f),
-            enabled = true,
-            onClick = {},
+            isStopwatchRunning = uiState.isStopwatchRunning,
+            onClick = onStartButtonClick,
         )
 
         AyonVerticalSpacer(16.dp)
@@ -95,10 +104,16 @@ private fun StopwatchBlock(
 
 @Composable
 private fun StartButtonBlock(
-    enabled: Boolean,
+    isStopwatchRunning: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val buttonColor =
+        if (isStopwatchRunning) LocalCustomColorScheme.current.cautionOrange
+        else LocalCustomColorScheme.current.positiveGreen
+
+    val buttonText = if (isStopwatchRunning) "Stop" else "Start"
+
     Box(
         modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
@@ -107,14 +122,12 @@ private fun StartButtonBlock(
             modifier = modifier.size(160.dp),
             onClick = onClick,
             shape = CircleShape,
-            enabled = enabled,
             colors = ButtonDefaults.buttonColors(
-                containerColor = LocalCustomColorScheme.current.positiveGreen,
-                disabledContainerColor = LocalCustomColorScheme.current.cautionOrange,
+                containerColor = buttonColor,
             )
         ) {
             Text(
-                text = "Start",
+                text = buttonText,
                 style = AyonTypography.headlineLarge
             )
         }
@@ -128,7 +141,10 @@ private fun StartButtonBlock(
 private fun PreviewRunScreenDark() {
     AyonTheme() {
         BackgroundContainer {
-            RunScreenContainer()
+            RunScreenContainer(
+                uiState = RunUiState.initial,
+                onStartButtonClick = {}
+            )
         }
     }
 }
@@ -139,7 +155,10 @@ private fun PreviewRunScreenDark() {
 private fun PreviewRunScreenLight() {
     AyonTheme {
         BackgroundContainer {
-            RunScreenContainer()
+            RunScreenContainer(
+                uiState = RunUiState.initial,
+                onStartButtonClick = {}
+            )
         }
     }
 }
