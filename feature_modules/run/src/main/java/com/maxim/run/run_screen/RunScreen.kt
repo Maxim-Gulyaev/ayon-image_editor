@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -17,8 +18,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.maxim.run.R
 import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
 import com.maxim.ui.components.ContainerCard
@@ -39,14 +42,16 @@ fun RunScreen(
 
     RunScreenContainer(
         uiState = uiState,
-        onStartButtonClick = { viewModel.accept(RunScreenIntent.OnStartButtonClick) }
+        onStartClick = { viewModel.accept(RunScreenIntent.OnStartClick) },
+        onResetClick = { viewModel.accept(RunScreenIntent.OnResetClick) }
     )
 }
 
 @Composable
 private fun RunScreenContainer(
     uiState: RunUiState,
-    onStartButtonClick: () -> Unit,
+    onStartClick: () -> Unit,
+    onResetClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier.fillMaxSize()) {
@@ -59,7 +64,8 @@ private fun RunScreenContainer(
         StartButtonBlock(
             modifier = modifier.weight(1f),
             isStopwatchRunning = uiState.isStopwatchRunning,
-            onClick = onStartButtonClick,
+            onStartClick = onStartClick,
+            onResetClick = onResetClick,
         )
 
         AyonVerticalSpacer(16.dp)
@@ -105,22 +111,27 @@ private fun StopwatchBlock(
 @Composable
 private fun StartButtonBlock(
     isStopwatchRunning: Boolean,
-    onClick: () -> Unit,
+    onStartClick: () -> Unit,
+    onResetClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val buttonColor =
         if (isStopwatchRunning) LocalCustomColorScheme.current.cautionOrange
         else LocalCustomColorScheme.current.positiveGreen
 
-    val buttonText = if (isStopwatchRunning) "Stop" else "Start"
+    val buttonText =
+        if (isStopwatchRunning) stringResource(R.string.stop)
+        else stringResource(R.string.start)
 
     Box(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         Button(
             modifier = modifier.size(160.dp),
-            onClick = onClick,
+            onClick = onStartClick,
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
                 containerColor = buttonColor,
@@ -130,6 +141,24 @@ private fun StartButtonBlock(
                 text = buttonText,
                 style = AyonTypography.headlineLarge
             )
+        }
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.TopStart,
+        ) {
+            Button(
+                modifier = modifier.height(60.dp),
+                onClick = onResetClick,
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                )
+            ) {
+                Text(
+                    text = stringResource(R.string.reset),
+                    style = AyonTypography.headlineMedium
+                )
+            }
         }
     }
 }
@@ -143,7 +172,8 @@ private fun PreviewRunScreenDark() {
         BackgroundContainer {
             RunScreenContainer(
                 uiState = RunUiState.initial,
-                onStartButtonClick = {}
+                onStartClick = {},
+                onResetClick = {},
             )
         }
     }
@@ -157,7 +187,8 @@ private fun PreviewRunScreenLight() {
         BackgroundContainer {
             RunScreenContainer(
                 uiState = RunUiState.initial,
-                onStartButtonClick = {}
+                onStartClick = {},
+                onResetClick = {},
             )
         }
     }
