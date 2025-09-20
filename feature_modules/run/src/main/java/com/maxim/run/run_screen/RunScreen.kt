@@ -1,16 +1,21 @@
 package com.maxim.run.run_screen
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,10 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.run.R
-import com.maxim.ui.components.AyonVerticalSpacer
 import com.maxim.ui.components.BackgroundContainer
-import com.maxim.ui.components.ContainerCard
-import com.maxim.ui.components.ItemCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.theme.LocalCustomColorScheme
@@ -57,22 +59,24 @@ private fun RunScreenContainer(
     onResetClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier.fillMaxSize()) {
-        AyonVerticalSpacer(120.dp)
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = modifier.weight(1f))
 
         StopwatchBlock(uiState.stopwatchValue)
 
         Spacer(modifier = modifier.weight(1f))
 
         StartButtonBlock(
-            modifier = modifier.weight(1f),
             isStopwatchRunning = uiState.isStopwatchRunning,
             isElapsedTimeInitial = uiState.stopwatchValue == RunUiState.initial.stopwatchValue,
             onStartClick = onStartClick,
             onResetClick = onResetClick,
         )
 
-        AyonVerticalSpacer(16.dp)
+        Spacer(modifier = modifier.weight(0.2f))
     }
 }
 
@@ -92,22 +96,23 @@ private fun StopwatchBlock(
         String.format(Locale.US, "%02d:%02d", minutes, seconds)
     }
 
-    ContainerCard(
-        modifier = modifier.padding(horizontal = 16.dp),
+    Card(
+        modifier = modifier
+            .size(260.dp)
+            .aspectRatio(1f),
+        shape = CircleShape,
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceBright),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
     ) {
-        ItemCard(
-            modifier = modifier.padding(horizontal = 12.dp, vertical = 32.dp),
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = timeString,
-                    style = MaterialTheme.typography.displayMedium,
-                    modifier = modifier
-                )
-            }
+            Text(
+                text = timeString,
+                style = MaterialTheme.typography.displayMedium,
+                modifier = modifier
+            )
         }
     }
 }
@@ -134,14 +139,33 @@ private fun StartButtonBlock(
         }
     }
 
-    Box(
+    Column (
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Box(
+            modifier = modifier.fillMaxWidth(),
+            contentAlignment = Alignment.TopStart,
+        ) {
+            Button(
+                modifier = Modifier.height(60.dp),
+                onClick = onResetClick,
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.error,
+                )
+            ) {
+                Text(
+                    text = stringResource(R.string.reset),
+                    style = AyonTypography.headlineMedium
+                )
+            }
+        }
+
         Button(
-            modifier = modifier.sizeIn(minWidth = 160.dp, minHeight = 160.dp),
+            modifier = Modifier.sizeIn(minWidth = 160.dp, minHeight = 160.dp),
             onClick = onStartClick,
             shape = CircleShape,
             colors = ButtonDefaults.buttonColors(
@@ -155,25 +179,6 @@ private fun StartButtonBlock(
                 softWrap = false,
                 overflow = TextOverflow.Ellipsis
             )
-        }
-
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.TopStart,
-        ) {
-            Button(
-                modifier = modifier.height(60.dp),
-                onClick = onResetClick,
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.reset),
-                    style = AyonTypography.headlineMedium
-                )
-            }
         }
     }
 }
