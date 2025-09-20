@@ -83,4 +83,5 @@ dependencies {
     implementation(project(":feature_modules:home"))
     implementation(project(":feature_modules:settings"))
     implementation(project(":feature_modules:run"))
+    implementation(project(":feature_modules:profile"))
 }

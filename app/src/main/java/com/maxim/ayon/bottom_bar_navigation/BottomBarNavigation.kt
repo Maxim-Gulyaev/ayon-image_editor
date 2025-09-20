@@ -5,7 +5,10 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -28,23 +31,31 @@ import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
 import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
-import com.maxim.settings.navigation.settingsGraph
+import com.maxim.profile.profile_screen.ProfileScreen
+import com.maxim.ui.icon.AyonIcons
 
 @Composable
 fun BottomBarNavigation(
     appComponent: AppComponent,
     navigateRunScreen: () -> Unit,
+    navigateSettingsScreen: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
 
     Scaffold(
+        topBar = {
+            AyonTopAppBar(
+                currentRoute = currentDestination.routeOrNull,
+                onSettingsIconClick = { navigateSettingsScreen() }
+            )
+        },
         bottomBar = {
             NavigationBar(
                 containerColor = BottomAppBarDefaults.containerColor.copy(alpha = 0.7f)
             ) {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
                 bottomBarItems.forEachIndexed { index, destination ->
                     AyonNavigationBarItem(
                         currentDestination = currentDestination,
@@ -81,10 +92,35 @@ fun BottomBarNavigation(
                     HomeScreen()
                 }
 
-                settingsGraph(navController, appComponent)
+                composable<BottomBarNavigationRoute.Profile> {
+                    ProfileScreen()
+                }
             }
         }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AyonTopAppBar(
+    currentRoute: String?,
+    onSettingsIconClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    CenterAlignedTopAppBar(
+        title = { Text(text = "Title") },
+        actions = {
+            if (currentRoute == BottomBarNavigationRoute.Profile::class.qualifiedName) {
+                IconButton(onClick = onSettingsIconClick) {
+                    Icon(
+                        imageVector = AyonIcons.Settings,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface,
+                    )
+                }
+            }
+        },
+    )
 }
 
 @Composable
@@ -114,3 +150,6 @@ private fun RowScope.AyonNavigationBarItem(
         )
     )
 }
+
+private val NavDestination?.routeOrNull: String?
+    get() = this?.hierarchy?.firstOrNull()?.route

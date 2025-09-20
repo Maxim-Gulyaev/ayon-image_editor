@@ -22,14 +22,14 @@ sealed class BottomBarNavigationRoute(
     )
 
     @Serializable
-    data object Settings : BottomBarNavigationRoute(
-        icon = R.drawable.ic_settings,
-        title = R.string.settings
+    data object Profile : BottomBarNavigationRoute(
+        icon = R.drawable.ic_profile,
+        title = R.string.profile
     )
 }
 
-val bottomBarItems = listOf<BottomBarNavigationRoute>(
+val bottomBarItems = listOf(
     BottomBarNavigationRoute.Home,
     BottomBarNavigationRoute.Run,
-    BottomBarNavigationRoute.Settings
+    BottomBarNavigationRoute.Profile
 )

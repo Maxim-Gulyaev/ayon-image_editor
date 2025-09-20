@@ -25,11 +25,11 @@ import com.maxim.settings.language_screen.LanguageScreenIntent.OnLanguageClick
 import com.maxim.settings.language_screen.LanguageScreenIntent.OnSaveButtonClick
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.displayNameRes
-import com.maxim.ui.components.AyonConfirmationButton
-import com.maxim.ui.components.AyonVerticalSpacer
-import com.maxim.ui.components.BackgroundContainer
-import com.maxim.ui.components.ContainerCard
-import com.maxim.ui.components.ItemCard
+import com.maxim.ui.component.AyonConfirmationButton
+import com.maxim.ui.component.AyonVerticalSpacer
+import com.maxim.ui.component.BackgroundContainer
+import com.maxim.ui.component.ContainerCard
+import com.maxim.ui.component.ItemCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.util.AdaptivePreviewDark

@@ -1,4 +1,4 @@
-package com.maxim.ui.components
+package com.maxim.ui.component
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth

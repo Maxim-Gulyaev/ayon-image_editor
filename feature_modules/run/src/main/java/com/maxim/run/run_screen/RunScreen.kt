@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.run.R
-import com.maxim.ui.components.BackgroundContainer
+import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.theme.LocalCustomColorScheme

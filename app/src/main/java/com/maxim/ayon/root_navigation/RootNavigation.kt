@@ -8,7 +8,8 @@ import com.maxim.ayon.bottom_bar_navigation.BottomBarNavigation
 import com.maxim.ayon.di.AppComponent
 import com.maxim.navigation.RootNavigationRoute
 import com.maxim.run.navigation.runGraph
-import com.maxim.ui.components.BackgroundContainer
+import com.maxim.settings.navigation.settingsGraph
+import com.maxim.ui.component.BackgroundContainer
 
 @Composable
 fun RootNavigation(
@@ -25,14 +26,13 @@ fun RootNavigation(
                 BottomBarNavigation(
                     appComponent = appComponent,
                     navigateRunScreen = { navController.navigate(RootNavigationRoute.RunScreen) },
+                    navigateSettingsScreen = { navController.navigate(RootNavigationRoute.SettingsScreen) }
                 )
             }
 
             runGraph(appComponent)
 
-            composable<RootNavigationRoute.SettingsScreen> {
-
-            }
+            settingsGraph(navController, appComponent)
         }
     }
 }

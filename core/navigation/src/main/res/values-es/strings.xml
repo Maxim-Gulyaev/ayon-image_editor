@@ -2,5 +2,5 @@
 <resources>
     <string name="home">Inicio</string>
     <string name="run">Correr</string>
-    <string name="settings">Ajustes</string>
+    <string name="profile">Perfil</string>
 </resources>

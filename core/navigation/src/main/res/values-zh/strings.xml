@@ -2,5 +2,5 @@
 <resources>
     <string name="home">首页</string>
     <string name="run">跑步</string>
-    <string name="settings">设置</string>
+    <string name="profile">个人资料</string>
 </resources>

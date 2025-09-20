@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.R
-import com.maxim.ui.components.BackgroundContainer
-import com.maxim.ui.components.ContainerCard
+import com.maxim.ui.component.BackgroundContainer
+import com.maxim.ui.component.ContainerCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
