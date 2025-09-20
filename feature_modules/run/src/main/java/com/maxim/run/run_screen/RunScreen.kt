@@ -37,6 +37,8 @@ import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
 import java.util.Locale
 
+private const val FORMAT_HOUR_MIN_SEC = "%02d:%02d:%02d"
+private const val FORMAT_MIN_SEC = "%02d:%02d"
 
 @Composable
 fun RunScreen(
@@ -91,9 +93,9 @@ private fun StopwatchBlock(
     val seconds = totalSeconds % 60
 
     val timeString = if (hours > 0) {
-        String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds)
+        String.format(Locale.US, FORMAT_HOUR_MIN_SEC, hours, minutes, seconds)
     } else {
-        String.format(Locale.US, "%02d:%02d", minutes, seconds)
+        String.format(Locale.US, FORMAT_MIN_SEC, minutes, seconds)
     }
 
     Card(
