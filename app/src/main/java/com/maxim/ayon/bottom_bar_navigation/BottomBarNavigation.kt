@@ -28,12 +28,12 @@ import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
 import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
-import com.maxim.run.navigation.runGraph
 import com.maxim.settings.navigation.settingsGraph
 
 @Composable
 fun BottomBarNavigation(
     appComponent: AppComponent,
+    navigateRunScreen: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -50,12 +50,17 @@ fun BottomBarNavigation(
                         currentDestination = currentDestination,
                         destination = destination,
                         onClick = {
-                            navController.navigate(destination) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                            when (destination) {
+                                BottomBarNavigationRoute.Run -> navigateRunScreen()
+                                else -> {
+                                    navController.navigate(destination) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
+                                        }
+                                        launchSingleTop = true
+                                        restoreState = true
+                                    }
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         }
                     )
@@ -75,8 +80,6 @@ fun BottomBarNavigation(
                 composable<BottomBarNavigationRoute.Home> {
                     HomeScreen()
                 }
-
-                runGraph(appComponent)
 
                 settingsGraph(navController, appComponent)
             }

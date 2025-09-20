@@ -1,4 +1,4 @@
-package com.maxim.ayon.root_navigation
+package com.maxim.navigation
 
 import kotlinx.serialization.Serializable
 

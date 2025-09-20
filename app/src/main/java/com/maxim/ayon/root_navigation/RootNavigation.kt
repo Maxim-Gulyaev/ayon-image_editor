@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.maxim.ayon.bottom_bar_navigation.BottomBarNavigation
 import com.maxim.ayon.di.AppComponent
+import com.maxim.navigation.RootNavigationRoute
+import com.maxim.run.navigation.runGraph
 import com.maxim.ui.components.BackgroundContainer
 
 @Composable
@@ -20,12 +22,13 @@ fun RootNavigation(
             startDestination = RootNavigationRoute.BottomBarScreen
         ) {
             composable<RootNavigationRoute.BottomBarScreen> {
-                BottomBarNavigation(appComponent)
+                BottomBarNavigation(
+                    appComponent = appComponent,
+                    navigateRunScreen = { navController.navigate(RootNavigationRoute.RunScreen) },
+                )
             }
 
-            composable<RootNavigationRoute.RunScreen> {
-
-            }
+            runGraph(appComponent)
 
             composable<RootNavigationRoute.SettingsScreen> {
 
