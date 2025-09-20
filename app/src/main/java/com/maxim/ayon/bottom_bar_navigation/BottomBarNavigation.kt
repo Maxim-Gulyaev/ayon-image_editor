@@ -27,12 +27,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.maxim.ayon.R
 import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
 import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
 import com.maxim.profile.profile_screen.ProfileScreen
-import com.maxim.ui.icon.AyonIcons
 
 @Composable
 fun BottomBarNavigation(
@@ -113,7 +113,7 @@ private fun AyonTopAppBar(
             if (currentRoute == BottomBarNavigationRoute.Profile::class.qualifiedName) {
                 IconButton(onClick = onSettingsIconClick) {
                     Icon(
-                        imageVector = AyonIcons.Settings,
+                        painter = painterResource(R.drawable.ic_settings),
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSurface,
                     )
