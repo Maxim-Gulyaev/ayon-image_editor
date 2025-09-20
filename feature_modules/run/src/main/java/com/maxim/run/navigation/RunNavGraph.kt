@@ -4,7 +4,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.maxim.navigation.BottomBarNavRoute
+import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.run.di.utils.RunComponentHolder
 import com.maxim.run.di.utils.RunDependencies
 import com.maxim.run.run_screen.RunScreen
@@ -13,7 +13,7 @@ import com.maxim.run.run_screen.RunViewModel
 fun NavGraphBuilder.runGraph(
     appComponent: RunDependencies,
 ) {
-    navigation<BottomBarNavRoute.Run>(
+    navigation<BottomBarNavigationRoute.Run>(
         startDestination = RunNavRoute.RunScreen
     ) {
         composable<RunNavRoute.RunScreen> { entry ->

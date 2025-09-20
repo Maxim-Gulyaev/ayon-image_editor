@@ -5,31 +5,31 @@ import androidx.annotation.StringRes
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class BottomBarNavRoute(
+sealed class BottomBarNavigationRoute(
     @DrawableRes val icon: Int,
     @StringRes val title: Int,
 ) {
     @Serializable
-    data object Home : BottomBarNavRoute(
+    data object Home : BottomBarNavigationRoute(
         icon = R.drawable.ic_home,
         title = R.string.home
     )
 
     @Serializable
-    data object Run : BottomBarNavRoute(
+    data object Run : BottomBarNavigationRoute(
         icon = R.drawable.ic_run,
         title = R.string.run
     )
 
     @Serializable
-    data object Settings : BottomBarNavRoute(
+    data object Settings : BottomBarNavigationRoute(
         icon = R.drawable.ic_settings,
         title = R.string.settings
     )
 }
 
-val bottomBarItems = listOf<BottomBarNavRoute>(
-    BottomBarNavRoute.Home,
-    BottomBarNavRoute.Run,
-    BottomBarNavRoute.Settings
+val bottomBarItems = listOf<BottomBarNavigationRoute>(
+    BottomBarNavigationRoute.Home,
+    BottomBarNavigationRoute.Run,
+    BottomBarNavigationRoute.Settings
 )

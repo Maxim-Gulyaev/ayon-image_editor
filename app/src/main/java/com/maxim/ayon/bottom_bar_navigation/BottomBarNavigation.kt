@@ -1,6 +1,8 @@
 package com.maxim.ayon.bottom_bar_navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBarDefaults
 import androidx.compose.material3.Icon
@@ -24,11 +26,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.maxim.ayon.di.AppComponent
 import com.maxim.home.ui.HomeScreen
-import com.maxim.navigation.BottomBarNavRoute
+import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
 import com.maxim.run.navigation.runGraph
 import com.maxim.settings.navigation.settingsGraph
-import com.maxim.ui.components.BackgroundContainer
 
 @Composable
 fun BottomBarNavigation(
@@ -62,14 +63,16 @@ fun BottomBarNavigation(
             }
         }
     ) { paddingValues ->
-        BackgroundContainer(
-            modifier = modifier.padding(paddingValues)
+        Box(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
             NavHost(
                 navController = navController,
-                startDestination = BottomBarNavRoute.Home
+                startDestination = BottomBarNavigationRoute.Home
             ) {
-                composable<BottomBarNavRoute.Home> {
+                composable<BottomBarNavigationRoute.Home> {
                     HomeScreen()
                 }
 
@@ -84,7 +87,7 @@ fun BottomBarNavigation(
 @Composable
 private fun RowScope.AyonNavigationBarItem(
     currentDestination: NavDestination?,
-    destination: BottomBarNavRoute,
+    destination: BottomBarNavigationRoute,
     onClick: () -> Unit,
 ) {
     NavigationBarItem(

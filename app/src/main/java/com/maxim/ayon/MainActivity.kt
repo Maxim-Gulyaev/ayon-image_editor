@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.maxim.ayon.bottom_bar_navigation.BottomBarNavigation
+import com.maxim.ayon.root_navigation.RootNavigation
 import com.maxim.ui.theme.AyonTheme
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContent {
             AyonTheme {
-                BottomBarNavigation(appComponent)
+                RootNavigation(appComponent)
             }
         }
     }
