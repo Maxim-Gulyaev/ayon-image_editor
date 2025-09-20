@@ -31,6 +31,7 @@ import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.theme.LocalCustomColorScheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
+import java.util.Locale
 
 
 @Composable
@@ -83,9 +84,9 @@ private fun StopwatchBlock(
     val seconds = totalSeconds % 60
 
     val timeString = if (hours > 0) {
-        String.format("%02d:%02d:%02d", hours, minutes, seconds)
+        String.format(Locale.US, "%02d:%02d:%02d", hours, minutes, seconds)
     } else {
-        String.format("%02d:%02d", minutes, seconds)
+        String.format(Locale.US, "%02d:%02d", minutes, seconds)
     }
 
     ContainerCard(
