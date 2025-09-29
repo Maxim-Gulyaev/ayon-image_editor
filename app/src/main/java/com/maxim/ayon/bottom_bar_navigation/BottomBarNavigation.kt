@@ -1,5 +1,6 @@
 package com.maxim.ayon.bottom_bar_navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -44,11 +46,13 @@ fun BottomBarNavigation(
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
+    val currentRoute = currentDestination.routeOrNull
 
     Scaffold(
         topBar = {
             AyonTopAppBar(
-                currentRoute = currentDestination.routeOrNull,
+                titleRes = topAppBarTitleRes(currentRoute),
+                currentRoute = currentRoute,
                 onSettingsIconClick = { navigateSettingsScreen() }
             )
         },
@@ -104,11 +108,12 @@ fun BottomBarNavigation(
 @Composable
 private fun AyonTopAppBar(
     currentRoute: String?,
+    @StringRes titleRes: Int,
     onSettingsIconClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CenterAlignedTopAppBar(
-        title = { Text(text = "Title") },
+        title = { Text(stringResource(titleRes)) },
         actions = {
             if (currentRoute == BottomBarNavigationRoute.Profile::class.qualifiedName) {
                 IconButton(onClick = onSettingsIconClick) {
@@ -153,3 +158,13 @@ private fun RowScope.AyonNavigationBarItem(
 
 private val NavDestination?.routeOrNull: String?
     get() = this?.hierarchy?.firstOrNull()?.route
+
+@Composable
+private fun topAppBarTitleRes(currentRoute: String?) =
+    remember(currentRoute) {
+        when (currentRoute) {
+            BottomBarNavigationRoute.Profile::class.qualifiedName -> R.string.top_bar_profile
+            BottomBarNavigationRoute.Home::class.qualifiedName -> R.string.top_bar_run_tracker
+            else -> R.string.top_bar_run_tracker
+        }
+    }

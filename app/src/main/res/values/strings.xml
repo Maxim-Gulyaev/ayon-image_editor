@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">Ayon</string>
+    <string name="app_name" translatable="false">Ayon</string>
+
+    <string name="top_bar_run_tracker">RUN TRACKER</string>
+    <string name="top_bar_profile">PROFILE</string>
 </resources>
