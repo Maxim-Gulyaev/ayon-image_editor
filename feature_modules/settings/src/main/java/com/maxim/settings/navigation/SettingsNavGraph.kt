@@ -24,6 +24,9 @@ fun NavGraphBuilder.settingsGraph(
             SettingsScreen(
                 onLanguageClick = {
                     navController.navigate(SettingsNavigationRoute.LanguageScreen)
+                },
+                onBackClick = {
+                    navController.popBackStack()
                 }
             )
         }

@@ -7,4 +7,5 @@
     <string name="language_chinese">Chino</string>
     <string name="language_portuguese">Portugués</string>
     <string name="language_russian">Ruso</string>
+    <string name="top_app_bar_settings">Configuración</string>
 </resources>
