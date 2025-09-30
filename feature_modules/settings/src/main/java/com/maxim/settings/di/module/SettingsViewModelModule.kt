@@ -3,9 +3,9 @@ package com.maxim.settings.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.maxim.common.di.AyonViewModelFactory
-import com.maxim.settings.di.utils.SettingsScope
 import com.maxim.common.di.ViewModelKey
-import com.maxim.settings.language_screen.LanguageViewModel
+import com.maxim.settings.di.utils.SettingsScope
+import com.maxim.settings.screen.language_screen.LanguageViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

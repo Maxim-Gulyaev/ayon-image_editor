@@ -1,4 +1,4 @@
-package com.maxim.settings.language_screen
+package com.maxim.settings.screen.language_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

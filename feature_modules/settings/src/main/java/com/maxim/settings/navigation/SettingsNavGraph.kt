@@ -8,9 +8,9 @@ import androidx.navigation.navigation
 import com.maxim.navigation.RootNavigationRoute
 import com.maxim.settings.di.utils.SettingsComponentHolder
 import com.maxim.settings.di.utils.SettingsDependencies
-import com.maxim.settings.language_screen.LanguageScreen
-import com.maxim.settings.language_screen.LanguageViewModel
-import com.maxim.settings.settings_screen.SettingsScreen
+import com.maxim.settings.screen.language_screen.LanguageScreen
+import com.maxim.settings.screen.language_screen.LanguageViewModel
+import com.maxim.settings.screen.settings_screen.SettingsScreen
 
 
 fun NavGraphBuilder.settingsGraph(
@@ -53,7 +53,10 @@ fun NavGraphBuilder.settingsGraph(
                 )
 
             LanguageScreen(
-                viewModel = languageViewModel
+                viewModel = languageViewModel,
+                onBackClick = {
+                    navController.popBackStack()
+                }
             )
         }
     }

@@ -1,23 +1,19 @@
-package com.maxim.settings.settings_screen
+package com.maxim.settings.screen.settings_screen
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.R
+import com.maxim.settings.screen.component.SettingsTopAppBar
 import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.component.ContainerCard
 import com.maxim.ui.theme.AyonTheme
@@ -46,6 +42,7 @@ private fun SettingsScreenContent(
     Scaffold(
         topBar = {
             SettingsTopAppBar(
+                titleRes = R.string.top_app_bar_settings,
                 onBackClick = onBackClick
             )
         }
@@ -69,29 +66,6 @@ private fun SettingsScreenContent(
             }
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun SettingsTopAppBar(
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    TopAppBar(
-        title = {
-            Text(stringResource(R.string.top_app_bar_settings))
-        },
-        navigationIcon = {
-            IconButton(
-                onClick = onBackClick
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_app_bar_back),
-                    contentDescription = null,
-                )
-            }
-        }
-    )
 }
 
 @Composable
