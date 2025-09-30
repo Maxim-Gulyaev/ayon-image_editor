@@ -1,6 +1,6 @@
 package com.maxim.settings.settings_screen
 
-import androidx.compose.foundation.clickable
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -22,6 +21,7 @@ import com.maxim.settings.R
 import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.component.ContainerCard
 import com.maxim.ui.theme.AyonTheme
+import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
 
@@ -61,7 +61,8 @@ private fun SettingsScreenContent(
                     .padding(16.dp),
             ) {
                 item {
-                    Language(
+                    SettingsItem(
+                        titleRes = R.string.language,
                         onClick = onLanguageClick
                     )
                 }
@@ -94,19 +95,19 @@ private fun SettingsTopAppBar(
 }
 
 @Composable
-private fun Language(
-    modifier: Modifier = Modifier,
+private fun SettingsItem(
+    @StringRes titleRes: Int,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    ContainerCard() {
+    ContainerCard(
+        onClick = onClick
+    ) {
         Text(
             modifier = modifier
-                .padding(horizontal = 12.dp, vertical = 8.dp)
-                .clickable {
-                    onClick()
-                },
-            text = stringResource(R.string.language),
-            style = MaterialTheme.typography.bodyLarge
+                .padding(horizontal = 12.dp, vertical = 12.dp),
+            text = stringResource(titleRes),
+            style = AyonTypography.titleMedium
         )
     }
 }
