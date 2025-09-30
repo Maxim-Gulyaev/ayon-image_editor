@@ -102,7 +102,7 @@ private fun LanguageScreenContent(
 
                 AyonConfirmationButton(
                     modifier = modifier.padding(horizontal = 16.dp),
-                    enabled = true,
+                    enabled = uiState.selectedLanguage != uiState.currentAppLanguage,
                     onClick = onSaveButtonClick,
                 )
             }
