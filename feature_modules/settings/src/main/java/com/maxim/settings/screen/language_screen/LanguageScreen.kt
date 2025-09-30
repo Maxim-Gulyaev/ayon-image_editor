@@ -124,18 +124,18 @@ private fun LanguageItem(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 4.dp)
+                .padding(horizontal = 12.dp, vertical = 10.dp)
         ) {
             Text(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 16.dp),
+                    .weight(1f),
                 text = stringResource(displayNameRes),
                 style = AyonTypography.bodyLarge,
             )
             RadioButton(
                 selected = isSelected,
-                onClick = {},
+                onClick = null,
+                enabled = false,
                 colors = RadioButtonDefaults.colors(
                     selectedColor = MaterialTheme.colorScheme.onSurface,
                     unselectedColor = MaterialTheme.colorScheme.onSurface,
