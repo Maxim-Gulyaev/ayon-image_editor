@@ -4,5 +4,5 @@ import java.time.LocalDateTime
 import kotlin.time.Duration
 
 interface SaveJogUseCase {
-    operator fun invoke(date: LocalDateTime, duration: Duration)
+    suspend operator fun invoke(date: LocalDateTime, duration: Duration)
 }

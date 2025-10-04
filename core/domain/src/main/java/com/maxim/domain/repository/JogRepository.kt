@@ -5,5 +5,5 @@ import kotlin.time.Duration
 
 interface JogRepository {
 
-    fun addNewJog(date: LocalDateTime, duration: Duration)
+    suspend fun addNewJog(date: LocalDateTime, duration: Duration)
 }

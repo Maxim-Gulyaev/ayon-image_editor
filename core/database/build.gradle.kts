@@ -45,4 +45,7 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
+
+    // Modules
+    implementation(project(":core:common"))
 }

@@ -29,7 +29,11 @@ class RunViewModel @Inject constructor(
         when (intent) {
             RunScreenIntent.OnStartClick -> if (_uiState.value.isStopwatchRunning) pauseStopwatch() else startStopwatch()
             RunScreenIntent.OnResetClick -> resetStopwatch()
-            RunScreenIntent.OnSaveClick -> saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
+            RunScreenIntent.OnSaveClick -> {
+                viewModelScope.launch {
+                    saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
+                }
+            }
         }
     }
 

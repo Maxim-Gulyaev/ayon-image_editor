@@ -9,7 +9,7 @@ class SaveJogUseCaseImpl @Inject constructor(
     private val repository: JogRepository,
 ) : SaveJogUseCase {
 
-    override fun invoke(date: LocalDateTime, duration: Duration) {
+    override suspend fun invoke(date: LocalDateTime, duration: Duration) {
         repository.addNewJog(date, duration)
     }
 }
