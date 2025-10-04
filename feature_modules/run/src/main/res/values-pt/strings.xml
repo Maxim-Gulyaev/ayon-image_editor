@@ -4,4 +4,5 @@
     <string name="start">Iniciar</string>
     <string name="reset">Limpar</string>
     <string name="continue_stopwatch">Avançar</string>
+    <string name="save">Salvar</string>
 </resources>

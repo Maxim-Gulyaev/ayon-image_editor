@@ -30,7 +30,10 @@ fun RootNavigation(
                 )
             }
 
-            runGraph(appComponent)
+            runGraph(
+                appComponent = appComponent,
+                quitRunScreen = { navController.popBackStack() }
+            )
 
             settingsGraph(navController, appComponent)
         }

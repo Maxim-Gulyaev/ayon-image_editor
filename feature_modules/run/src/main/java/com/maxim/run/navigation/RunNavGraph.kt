@@ -12,6 +12,7 @@ import com.maxim.run.run_screen.RunViewModel
 
 fun NavGraphBuilder.runGraph(
     appComponent: RunDependencies,
+    quitRunScreen: () -> Unit,
 ) {
     navigation<RootNavigationRoute.RunScreen>(
         startDestination = RunNavRoute.RunScreen
@@ -39,7 +40,8 @@ fun NavGraphBuilder.runGraph(
                 )
 
             RunScreen(
-                viewModel = languageViewModel
+                viewModel = languageViewModel,
+                quitRunScreen = quitRunScreen,
             )
         }
     }

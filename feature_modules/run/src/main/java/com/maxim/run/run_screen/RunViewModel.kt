@@ -29,6 +29,7 @@ class RunViewModel @Inject constructor(
         when (intent) {
             RunScreenIntent.OnStartClick -> if (_uiState.value.isStopwatchRunning) pauseStopwatch() else startStopwatch()
             RunScreenIntent.OnResetClick -> resetStopwatch()
+            RunScreenIntent.OnSaveClick -> saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
         }
     }
 
@@ -48,8 +49,6 @@ class RunViewModel @Inject constructor(
                 isStopwatchRunning = false,
             )
         }
-
-        saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
     }
 
     private fun resetStopwatch() {

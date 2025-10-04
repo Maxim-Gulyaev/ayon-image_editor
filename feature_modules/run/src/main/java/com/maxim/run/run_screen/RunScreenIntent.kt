@@ -5,4 +5,6 @@ sealed interface RunScreenIntent {
     data object OnStartClick : RunScreenIntent
 
     data object OnResetClick : RunScreenIntent
+
+    data object OnSaveClick : RunScreenIntent
 }

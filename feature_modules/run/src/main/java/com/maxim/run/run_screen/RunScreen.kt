@@ -1,8 +1,11 @@
 package com.maxim.run.run_screen
 
+import android.R.attr.onClick
+import android.R.attr.top
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -24,10 +28,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.run.R
 import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.theme.AyonTheme
@@ -43,15 +49,24 @@ private const val FORMAT_MIN_SEC = "%02d:%02d"
 
 @Composable
 fun RunScreen(
-    modifier: Modifier = Modifier,
     viewModel: RunViewModel,
+    quitRunScreen: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     RunScreenContainer(
         uiState = uiState,
-        onStartClick = { viewModel.accept(RunScreenIntent.OnStartClick) },
-        onResetClick = { viewModel.accept(RunScreenIntent.OnResetClick) }
+        onStartClick = {
+            viewModel.accept(RunScreenIntent.OnStartClick)
+        },
+        onResetClick = {
+            viewModel.accept(RunScreenIntent.OnResetClick)
+        },
+        onSaveClick = {
+            viewModel.accept(RunScreenIntent.OnSaveClick)
+            quitRunScreen()
+        },
     )
 }
 
@@ -60,13 +75,22 @@ private fun RunScreenContainer(
     uiState: RunUiState,
     onStartClick: () -> Unit,
     onResetClick: () -> Unit,
+    onSaveClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = modifier.weight(1f))
+        Spacer(modifier = modifier.weight(0.7f))
+
+        SaveButtonBlock(
+            onClick = onSaveClick,
+            colors = uiState.getSaveButtonColors(),
+        )
+
+        Spacer(modifier = modifier.weight(0.7f))
 
         StopwatchBlock(uiState.jogDuration)
 
@@ -121,6 +145,32 @@ private fun StopwatchBlock(
                 text = durationString,
                 style = MaterialTheme.typography.displayMedium,
                 modifier = modifier
+            )
+        }
+    }
+}
+
+@Composable
+private fun SaveButtonBlock(
+    onClick: () -> Unit,
+    colors: ButtonColors,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Spacer(modifier = Modifier.weight(0.3f))
+        Button(
+            modifier = Modifier
+                .weight(0.7f, fill = false),
+            onClick = onClick,
+            shape = CircleShape,
+            colors = colors,
+        ) {
+            Text(
+                text = stringResource(R.string.save),
+                style = AyonTypography.headlineMedium
             )
         }
     }
@@ -192,6 +242,22 @@ private fun StartButtonBlock(
     }
 }
 
+@Composable
+private fun RunUiState.getSaveButtonColors(): ButtonColors {
+    val shouldShowSaveButton = jogDuration > Duration.ZERO && !isStopwatchRunning
+    return if (shouldShowSaveButton) {
+        ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.onSecondary,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+        )
+    } else {
+        ButtonDefaults.buttonColors(
+            containerColor = Color.Transparent,
+            contentColor = Color.Transparent,
+        )
+    }
+}
+
 
 @AdaptivePreviewDark
 @Preview
@@ -203,6 +269,7 @@ private fun PreviewRunScreenDark() {
                 uiState = RunUiState.initial,
                 onStartClick = {},
                 onResetClick = {},
+                onSaveClick = {},
             )
         }
     }
@@ -218,6 +285,7 @@ private fun PreviewRunScreenLight() {
                 uiState = RunUiState.initial,
                 onStartClick = {},
                 onResetClick = {},
+                onSaveClick = {},
             )
         }
     }
