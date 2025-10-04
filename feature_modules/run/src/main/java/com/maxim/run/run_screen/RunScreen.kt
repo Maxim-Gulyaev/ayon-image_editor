@@ -36,6 +36,7 @@ import com.maxim.ui.theme.LocalCustomColorScheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
 import java.util.Locale
+import kotlin.time.Duration
 
 private const val FORMAT_HOUR_MIN_SEC = "%02d:%02d:%02d"
 private const val FORMAT_MIN_SEC = "%02d:%02d"
@@ -67,13 +68,13 @@ private fun RunScreenContainer(
     ) {
         Spacer(modifier = modifier.weight(1f))
 
-        StopwatchBlock(uiState.stopwatchValue)
+        StopwatchBlock(uiState.jogDuration)
 
         Spacer(modifier = modifier.weight(1f))
 
         StartButtonBlock(
             isStopwatchRunning = uiState.isStopwatchRunning,
-            isElapsedTimeInitial = uiState.stopwatchValue == RunUiState.initial.stopwatchValue,
+            isElapsedTimeInitial = uiState.jogDuration == RunUiState.initial.jogDuration,
             onStartClick = onStartClick,
             onResetClick = onResetClick,
         )
@@ -84,18 +85,24 @@ private fun RunScreenContainer(
 
 @Composable
 private fun StopwatchBlock(
-    elapsedTimeMillis: Long,
+    jogDuration: Duration,
     modifier: Modifier = Modifier,
 ) {
-    val totalSeconds = elapsedTimeMillis / 1000
-    val hours = totalSeconds / 3600
-    val minutes = (totalSeconds % 3600) / 60
-    val seconds = totalSeconds % 60
-
-    val timeString = if (hours > 0) {
-        String.format(Locale.US, FORMAT_HOUR_MIN_SEC, hours, minutes, seconds)
+    val durationString = if (jogDuration.inWholeHours > 0) {
+        String.format(
+            Locale.US,
+            FORMAT_HOUR_MIN_SEC,
+            jogDuration.inWholeHours,
+            jogDuration.inWholeMinutes,
+            jogDuration.inWholeSeconds
+        )
     } else {
-        String.format(Locale.US, FORMAT_MIN_SEC, minutes, seconds)
+        String.format(
+            Locale.US,
+            FORMAT_MIN_SEC,
+            jogDuration.inWholeMinutes,
+            jogDuration.inWholeSeconds
+        )
     }
 
     Card(
@@ -111,7 +118,7 @@ private fun StopwatchBlock(
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = timeString,
+                text = durationString,
                 style = MaterialTheme.typography.displayMedium,
                 modifier = modifier
             )

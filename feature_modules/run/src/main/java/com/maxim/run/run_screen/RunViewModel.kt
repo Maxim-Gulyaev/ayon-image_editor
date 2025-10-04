@@ -2,7 +2,7 @@ package com.maxim.run.run_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maxim.common.constants.ZERO_VALUE_LONG
+import com.maxim.domain.use_case.save_jog.SaveJogUseCase
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,18 +10,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 private const val STOPWATCH_DELAY = 1_000L
 
-class RunViewModel @Inject constructor(): ViewModel() {
+class RunViewModel @Inject constructor(
+    private val saveJogUseCase: SaveJogUseCase,
+): ViewModel() {
 
     private val _uiState: MutableStateFlow<RunUiState> = MutableStateFlow(RunUiState.initial)
     val uiState: StateFlow<RunUiState> = _uiState.asStateFlow()
 
     private var stopwatchJob: Job? = null
-    private var startTimeMillis: Long = ZERO_VALUE_LONG
-    private var accumulatedTimeMillis: Long = ZERO_VALUE_LONG
 
     fun accept(intent: RunScreenIntent) {
         when (intent) {
@@ -33,7 +35,6 @@ class RunViewModel @Inject constructor(): ViewModel() {
     private fun startStopwatch() {
         if (_uiState.value.isStopwatchRunning) return
 
-        startTimeMillis = System.currentTimeMillis()
         launchStopwatchJob()
 
         _uiState.update { it.copy(isStopwatchRunning = true) }
@@ -41,21 +42,18 @@ class RunViewModel @Inject constructor(): ViewModel() {
 
     private fun pauseStopwatch() {
         stopwatchJob?.cancel()
-        val now = System.currentTimeMillis()
-        accumulatedTimeMillis += now - startTimeMillis
 
         _uiState.update {
             it.copy(
                 isStopwatchRunning = false,
-                stopwatchValue = accumulatedTimeMillis
             )
         }
+
+        saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
     }
 
     private fun resetStopwatch() {
         stopwatchJob?.cancel()
-        accumulatedTimeMillis = ZERO_VALUE_LONG
-        startTimeMillis = ZERO_VALUE_LONG
 
         _uiState.update {
             RunUiState.initial
@@ -66,10 +64,8 @@ class RunViewModel @Inject constructor(): ViewModel() {
         stopwatchJob?.cancel()
         stopwatchJob = viewModelScope.launch {
             while (true) {
-                val now = System.currentTimeMillis()
-                val accumulated = accumulatedTimeMillis + (now - startTimeMillis)
-                _uiState.update { it.copy(stopwatchValue = accumulated) }
                 delay(STOPWATCH_DELAY)
+                _uiState.update { it.copy(jogDuration = it.jogDuration.plus(1.seconds)) }
             }
         }
     }

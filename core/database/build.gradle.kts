@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.maxim.data"
+    namespace = "com.maxim.database"
     compileSdk = 36
 
     defaultConfig {
@@ -45,10 +45,4 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
-
-    // Modules
-    implementation(project(":core:domain"))
-    implementation(project(":core:datastore"))
-    implementation(project(":core:model"))
-    implementation(project(":core:database"))
 }

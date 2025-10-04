@@ -1,16 +1,16 @@
 package com.maxim.run.run_screen
 
 import androidx.compose.runtime.Immutable
-import com.maxim.common.constants.ZERO_VALUE_LONG
+import kotlin.time.Duration
 
 @Immutable
 data class RunUiState(
-    val stopwatchValue: Long,
+    val jogDuration: Duration,
     val isStopwatchRunning: Boolean,
 ) {
     companion object {
         val initial = RunUiState(
-            stopwatchValue = ZERO_VALUE_LONG,
+            jogDuration = Duration.ZERO,
             isStopwatchRunning = false,
         )
     }
