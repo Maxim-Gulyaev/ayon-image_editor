@@ -3,6 +3,7 @@ package com.maxim.ayon.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModelProvider
+import com.maxim.common.di.module.DispatcherModule
 import com.maxim.data.di.DataModule
 import com.maxim.database.di.DatabaseModule
 import com.maxim.database.di.LocalDataSourceModule
@@ -32,6 +33,7 @@ import javax.inject.Singleton
         DataModule::class,
         UseCaseModule::class,
         MainViewModelModule::class,
+        DispatcherModule::class,
     ]
 )
 interface AppComponent :
