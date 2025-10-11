@@ -1,4 +1,4 @@
-package com.maxim.domain.model.settings
+package com.maxim.model
 
 enum class AppLanguageDomain() {
     SYSTEM,

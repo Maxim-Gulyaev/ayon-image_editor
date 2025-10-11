@@ -1,5 +1,6 @@
 package com.maxim.home.model
 
+import com.maxim.model.JogDomain
 import java.time.LocalDateTime
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -7,7 +8,6 @@ import kotlin.time.Duration.Companion.minutes
 data class JogUi(
     val date: LocalDateTime,
     val duration: Duration,
-    val id: String? = null,
 ) {
     companion object {
         // todo remove this
@@ -18,3 +18,8 @@ data class JogUi(
             )
     }
 }
+
+fun JogDomain.toUi() = JogUi(
+    date = date,
+    duration = duration,
+)

@@ -1,6 +1,6 @@
 package com.maxim.data.mapper
 
-import com.maxim.domain.model.settings.AppLanguageDomain
+import com.maxim.model.AppLanguageDomain
 import com.maxim.model.AppLanguage
 
 fun AppLanguage.toDomain() =

@@ -13,9 +13,11 @@ import com.maxim.datastore.di.DataStoreModule
 import com.maxim.datastore.di.UserPreferencesDataSourceModule
 import com.maxim.domain.di.UseCaseModule
 import com.maxim.domain.repository.SettingsRepository
+import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.domain.use_case.save_jog.SaveJogUseCase
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
+import com.maxim.home.di.utils.HomeDependencies
 import com.maxim.run.di.utils.RunDependencies
 import com.maxim.settings.di.utils.SettingsDependencies
 import dagger.BindsInstance
@@ -38,7 +40,8 @@ import javax.inject.Singleton
 )
 interface AppComponent :
     SettingsDependencies,
-    RunDependencies {
+    RunDependencies,
+    HomeDependencies {
 
     fun viewModelFactory(): ViewModelProvider.Factory
 
@@ -53,6 +56,8 @@ interface AppComponent :
     override fun setAppLanguageUseCase(): SetAppLanguageUseCase
 
     override fun saveJogUseCase(): SaveJogUseCase
+
+    override fun getAllJogsUseCase(): GetAllJogsUseCase
 
     @Component.Builder
     interface Builder {

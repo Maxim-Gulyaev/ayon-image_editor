@@ -1,6 +1,6 @@
 package com.maxim.settings.model
 
-import com.maxim.domain.model.settings.AppLanguageDomain
+import com.maxim.model.AppLanguageDomain
 
 fun AppLanguageDomain.toUi() =
     when (this) {

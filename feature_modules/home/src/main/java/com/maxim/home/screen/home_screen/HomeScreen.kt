@@ -14,18 +14,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.home.R
 import com.maxim.home.model.JogUi
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
-import java.util.UUID
 
 @Composable
 fun HomeScreen(
+    viewModel: HomeScreenViewModel,
     modifier: Modifier = Modifier,
-    viewModel: HomeScreenViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -61,7 +59,6 @@ private fun JogHistoryBlock(
         }
         items(
             items = jogs,
-            key = { it.id ?: UUID.randomUUID() }
         ) { item ->
             JogHistoryItem(item.date.toString(), item.duration.toString())
         }

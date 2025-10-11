@@ -48,4 +48,5 @@ dependencies {
 
     // Modules
     implementation(project(":core:common"))
+    implementation(project(":core:model"))
 }

@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -31,7 +32,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.maxim.ayon.R
 import com.maxim.ayon.di.AppComponent
+import com.maxim.home.di.utils.HomeComponentHolder
 import com.maxim.home.screen.home_screen.HomeScreen
+import com.maxim.home.screen.home_screen.HomeScreenViewModel
 import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
 import com.maxim.profile.profile_screen.ProfileScreen
@@ -92,8 +95,26 @@ fun BottomBarNavigation(
                 navController = navController,
                 startDestination = BottomBarNavigationRoute.Home
             ) {
-                composable<BottomBarNavigationRoute.Home> {
-                    HomeScreen()
+                composable<BottomBarNavigationRoute.Home> { entry ->
+                    val homeComponentHolder: HomeComponentHolder = viewModel(
+                        viewModelStoreOwner = entry,
+                        factory = object : androidx.lifecycle.ViewModelProvider.Factory {
+                            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+                                @Suppress("UNCHECKED_CAST")
+                                return HomeComponentHolder(appComponent) as T
+                            }
+                        }
+                    )
+
+                    val homeComponent = homeComponentHolder.homeComponent
+
+                    val viewModelFactory = homeComponent.viewModelFactory()
+
+                    val homeScreenViewModel: HomeScreenViewModel = viewModel(
+                        viewModelStoreOwner = entry,
+                        factory = viewModelFactory
+                    )
+                    HomeScreen(homeScreenViewModel)
                 }
 
                 composable<BottomBarNavigationRoute.Profile> {

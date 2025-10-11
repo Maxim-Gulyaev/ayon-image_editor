@@ -1,7 +1,7 @@
 package com.maxim.domain.use_case.set_app_language
 
-import com.maxim.domain.model.settings.AppLanguageDomain
 import com.maxim.domain.repository.SettingsRepository
+import com.maxim.model.AppLanguageDomain
 import javax.inject.Inject
 
 class SetAppLanguageUseCaseImpl @Inject constructor(
