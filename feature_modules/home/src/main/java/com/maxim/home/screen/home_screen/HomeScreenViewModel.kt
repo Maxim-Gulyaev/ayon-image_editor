@@ -1,13 +1,19 @@
-package com.maxim.home.view_model
+package com.maxim.home.screen.home_screen
 
 import androidx.lifecycle.ViewModel
-import com.maxim.home.model.HomeScreenUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 class HomeScreenViewModel: ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeScreenUiState.initial)
+    private val _uiState = MutableStateFlow(HomeScreenUiState.initial())
     val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
+
+    init {
+        _uiState.update {
+            HomeScreenUiState.mock()
+        }
+    }
 }

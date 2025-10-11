@@ -58,6 +58,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+    // Immutable collections
+    implementation(libs.kotlinx.collections.immutable)
+
     // Modules
     implementation(project(":core:ui"))
 }

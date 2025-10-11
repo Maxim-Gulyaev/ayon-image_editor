@@ -31,7 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.maxim.ayon.R
 import com.maxim.ayon.di.AppComponent
-import com.maxim.home.ui.HomeScreen
+import com.maxim.home.screen.home_screen.HomeScreen
 import com.maxim.navigation.BottomBarNavigationRoute
 import com.maxim.navigation.bottomBarItems
 import com.maxim.profile.profile_screen.ProfileScreen

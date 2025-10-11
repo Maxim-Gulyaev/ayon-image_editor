@@ -1,14 +1,20 @@
 package com.maxim.home.model
 
-import androidx.compose.runtime.Immutable
+import java.time.LocalDateTime
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
-@Immutable
-data class HomeScreenUiState(
-    val time: String?,
+data class JogUi(
+    val date: LocalDateTime,
+    val duration: Duration,
+    val id: String? = null,
 ) {
     companion object {
-        val initial = HomeScreenUiState(
-            time = null,
-        )
+        // todo remove this
+        fun mock() =
+            JogUi(
+                date = LocalDateTime.of(2025, 7, 10, 13, 35),
+                duration = 20.minutes,
+            )
     }
 }

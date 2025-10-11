@@ -1,28 +1,26 @@
-package com.maxim.home.ui
+package com.maxim.home.screen.home_screen
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.maxim.home.model.HomeScreenUiState
-import com.maxim.home.view_model.HomeScreenViewModel
+import com.maxim.home.R
+import com.maxim.home.model.JogUi
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
+import java.util.UUID
 
 @Composable
 fun HomeScreen(
@@ -49,16 +47,35 @@ private fun HomeScreenContent(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        Card(
-            modifier = modifier
-                .size(300.dp)
-                .aspectRatio(1f),
-            shape = CircleShape,
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceBright),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-        ) {
+        JogHistoryBlock(state.jogList)
+    }
+}
 
+@Composable
+private fun JogHistoryBlock(
+    jogs: List<JogUi>,
+) {
+    LazyColumn {
+        item {
+            Text(stringResource(R.string.jog_history))
         }
+        items(
+            items = jogs,
+            key = { it.id ?: UUID.randomUUID() }
+        ) { item ->
+            JogHistoryItem(item.date.toString(), item.duration.toString())
+        }
+    }
+}
+
+@Composable
+private fun JogHistoryItem(
+    date: String,
+    duration: String,
+) {
+    Row {
+        Text(date)
+        Text(duration)
     }
 }
 
@@ -68,9 +85,7 @@ private fun HomeScreenContent(
 private fun HomeScreenContentPreview() {
     val state = remember {
         mutableStateOf(
-            HomeScreenUiState(
-                time = "00:00"
-            )
+            HomeScreenUiState.mock()
         )
     }
     AyonTheme {
