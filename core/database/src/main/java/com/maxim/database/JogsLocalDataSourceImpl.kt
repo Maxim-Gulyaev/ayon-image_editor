@@ -4,10 +4,11 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import com.maxim.common.di.module.IoDispatcher
 import com.maxim.database.AyonDatabaseContract.JogTable
-import com.maxim.database.base.BaseLocalDataSource
 import com.maxim.database.di.ReadableDB
 import com.maxim.database.di.WritableDB
 import com.maxim.database.model.JogEntity
+import com.maxim.database.util.notifyTableChanged
+import com.maxim.database.util.observeQuery
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -21,7 +22,7 @@ class JogsLocalDataSourceImpl @Inject constructor(
     @WritableDB private val writableDB: SQLiteDatabase,
     @ReadableDB private val readableDB: SQLiteDatabase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
-) : JogsLocalDataSource, BaseLocalDataSource() {
+) : JogsLocalDataSource {
 
     override suspend fun addNewJog(date: LocalDateTime, duration: Duration) {
         withContext(ioDispatcher) {
