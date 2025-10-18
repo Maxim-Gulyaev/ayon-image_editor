@@ -2,6 +2,7 @@ package com.maxim.home.screen.home_screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,9 +14,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxim.home.R
 import com.maxim.home.model.JogUi
+import com.maxim.ui.component.HorizontalSpacer
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
@@ -72,6 +75,7 @@ private fun JogHistoryItem(
 ) {
     Row {
         Text(date)
+        HorizontalSpacer(16.dp)
         Text(duration)
     }
 }
