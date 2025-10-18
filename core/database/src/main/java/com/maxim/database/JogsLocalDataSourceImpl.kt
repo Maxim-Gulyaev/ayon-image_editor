@@ -50,7 +50,7 @@ class JogsLocalDataSourceImpl @Inject constructor(
         ) { cursor ->
             buildList {
                 while (cursor.moveToNext()) {
-                    add(JogEntity(cursor.getInt(0).toLong(), cursor.getInt(0).toLong()))
+                    add(JogEntity(cursor.getInt(0).toLong(), cursor.getInt(1).toLong()))
                 }
             }
         }
