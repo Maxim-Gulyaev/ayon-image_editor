@@ -4,7 +4,7 @@ import android.provider.BaseColumns
 
 object AyonDatabaseContract {
 
-    object JogEntry : BaseColumns {
+    object JogTable : BaseColumns {
         const val TABLE_NAME = "jog"
         const val COLUMN_NAME_DATE = "date"
         const val COLUMN_NAME_DURATION = "duration"

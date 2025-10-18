@@ -1,9 +1,9 @@
 package com.maxim.database
 
 import android.provider.BaseColumns
-import com.maxim.database.AyonDatabaseContract.JogEntry.COLUMN_NAME_DATE
-import com.maxim.database.AyonDatabaseContract.JogEntry.COLUMN_NAME_DURATION
-import com.maxim.database.AyonDatabaseContract.JogEntry.TABLE_NAME
+import com.maxim.database.AyonDatabaseContract.JogTable.COLUMN_NAME_DATE
+import com.maxim.database.AyonDatabaseContract.JogTable.COLUMN_NAME_DURATION
+import com.maxim.database.AyonDatabaseContract.JogTable.TABLE_NAME
 
 internal const val SQL_CREATE_JOG_TABLE = """
             CREATE TABLE $TABLE_NAME (
@@ -14,3 +14,10 @@ internal const val SQL_CREATE_JOG_TABLE = """
         """
 
 internal const val SQL_DROP_JOG_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME"
+
+internal const val SQL_SELECT_ALL_JOGS = """
+            SELECT 
+                $COLUMN_NAME_DATE, 
+                $COLUMN_NAME_DURATION
+            FROM $TABLE_NAME
+        """
