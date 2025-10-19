@@ -1,19 +1,19 @@
 package com.maxim.home.model
 
 import com.maxim.model.JogDomain
-import java.time.LocalDateTime
+import java.time.LocalDate
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
 
 data class JogUi(
-    val date: LocalDateTime,
+    val date: LocalDate,
     val duration: Duration,
 ) {
     companion object {
         // todo remove this
         fun mock() =
             JogUi(
-                date = LocalDateTime.of(2025, 7, 10, 13, 35),
+                date = LocalDate.of(2025, 7, 10),
                 duration = 20.minutes,
             )
     }

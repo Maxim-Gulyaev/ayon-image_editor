@@ -8,7 +8,7 @@ import com.maxim.database.AyonDatabaseContract.JogTable.TABLE_NAME
 internal const val SQL_CREATE_JOG_TABLE = """
             CREATE TABLE $TABLE_NAME (
                 ${BaseColumns._ID} INTEGER PRIMARY KEY,
-                $COLUMN_NAME_DATE INTEGER NOT NULL,
+                $COLUMN_NAME_DATE STRING NOT NULL,
                 $COLUMN_NAME_DURATION INTEGER NOT NULL
             )
         """

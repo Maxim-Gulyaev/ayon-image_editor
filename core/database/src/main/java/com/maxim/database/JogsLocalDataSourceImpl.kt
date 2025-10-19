@@ -12,8 +12,8 @@ import com.maxim.database.util.observeQuery
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 import javax.inject.Inject
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
@@ -24,15 +24,13 @@ class JogsLocalDataSourceImpl @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : JogsLocalDataSource {
 
-    override suspend fun addNewJog(date: LocalDateTime, duration: Duration) {
+    override suspend fun addNewJog(date: LocalDateTime, duration: Duration) {   // todo remove date param
         withContext(ioDispatcher) {
             val values = ContentValues().apply {
-                val millis = date
-                    .atZone(ZoneOffset.UTC)
-                    .toInstant()
-                    .toEpochMilli()
-                put(JogTable.COLUMN_NAME_DATE, millis)
-                put(JogTable.COLUMN_NAME_DURATION, duration.toLong(DurationUnit.SECONDS))
+                val dateString = LocalDate.now().toString()
+                val durationLong = duration.toLong(DurationUnit.SECONDS)
+                put(JogTable.COLUMN_NAME_DATE, dateString)
+                put(JogTable.COLUMN_NAME_DURATION, durationLong)
             }
             writableDB.insert(JogTable.TABLE_NAME, null, values)
             notifyTableChanged(JogTable.TABLE_NAME)
@@ -46,7 +44,7 @@ class JogsLocalDataSourceImpl @Inject constructor(
         ) { cursor ->
             buildList {
                 while (cursor.moveToNext()) {
-                    add(JogEntity(cursor.getInt(0).toLong(), cursor.getInt(1).toLong()))
+                    add(JogEntity(cursor.getString(0), cursor.getInt(1).toLong()))
                 }
             }
         }

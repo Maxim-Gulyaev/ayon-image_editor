@@ -1,21 +1,17 @@
 package com.maxim.database.model
 
 import com.maxim.model.JogDomain
-import java.time.Instant
-import java.time.ZoneOffset
+import java.time.LocalDate
 import kotlin.time.Duration.Companion.seconds
 
 data class JogEntity(
-    val date: Long,
+    val date: String,
     val duration: Long,
 )
 
 fun JogEntity.toDomain(): JogDomain {
-    val dateTime = Instant.ofEpochMilli(date)
-        .atZone(ZoneOffset.UTC)
-        .toLocalDateTime()
     return JogDomain(
-        date = dateTime,
+        date = LocalDate.parse(date),   // todo handle exception
         duration = duration.seconds
     )
 }
