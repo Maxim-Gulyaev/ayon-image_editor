@@ -3,12 +3,10 @@ package com.maxim.home.screen.home_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
-import com.maxim.home.model.toUi
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,7 +21,6 @@ class HomeScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getAllJogsUseCase()
-                .map { jogs -> jogs.map { it.toUi() } }
                 .collect { jogs ->
                     _uiState.update {
                         it.copy(jogList = jogs.toImmutableList())

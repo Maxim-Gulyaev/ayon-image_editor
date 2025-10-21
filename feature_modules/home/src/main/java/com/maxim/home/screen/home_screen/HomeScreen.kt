@@ -2,7 +2,6 @@ package com.maxim.home.screen.home_screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,7 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxim.home.R
-import com.maxim.home.model.JogUi
+import com.maxim.home.util.homeScreenUiStateMock
+import com.maxim.model.Jog
 import com.maxim.ui.component.HorizontalSpacer
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
@@ -54,7 +54,7 @@ private fun HomeScreenContent(
 
 @Composable
 private fun JogHistoryBlock(
-    jogs: List<JogUi>,
+    jogs: List<Jog>,
 ) {
     LazyColumn {
         item {
@@ -86,7 +86,7 @@ private fun JogHistoryItem(
 private fun HomeScreenContentPreview() {
     val state = remember {
         mutableStateOf(
-            HomeScreenUiState.mock()
+            homeScreenUiStateMock()
         )
     }
     AyonTheme {
