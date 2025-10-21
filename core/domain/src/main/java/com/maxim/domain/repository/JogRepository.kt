@@ -1,6 +1,6 @@
 package com.maxim.domain.repository
 
-import com.maxim.model.JogDomain
+import com.maxim.model.Jog
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDateTime
 import kotlin.time.Duration
@@ -9,5 +9,5 @@ interface JogRepository {
 
     suspend fun addNewJog(date: LocalDateTime, duration: Duration)
 
-    fun getAllJogs(): Flow<List<JogDomain>>
+    fun getAllJogs(): Flow<List<Jog>>
 }

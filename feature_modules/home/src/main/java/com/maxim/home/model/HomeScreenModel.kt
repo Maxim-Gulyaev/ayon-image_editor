@@ -1,6 +1,6 @@
 package com.maxim.home.model
 
-import com.maxim.model.JogDomain
+import com.maxim.model.Jog
 import java.time.LocalDate
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.minutes
@@ -19,7 +19,7 @@ data class JogUi(
     }
 }
 
-fun JogDomain.toUi() = JogUi(
+fun Jog.toUi() = JogUi(
     date = date,
     duration = duration,
 )

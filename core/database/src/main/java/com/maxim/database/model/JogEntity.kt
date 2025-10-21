@@ -1,6 +1,6 @@
 package com.maxim.database.model
 
-import com.maxim.model.JogDomain
+import com.maxim.model.Jog
 import java.time.LocalDate
 import kotlin.time.Duration.Companion.seconds
 
@@ -9,8 +9,8 @@ data class JogEntity(
     val duration: Long,
 )
 
-fun JogEntity.toDomain(): JogDomain {
-    return JogDomain(
+fun JogEntity.toDomain(): Jog {
+    return Jog(
         date = LocalDate.parse(date),   // todo handle exception
         duration = duration.seconds
     )
