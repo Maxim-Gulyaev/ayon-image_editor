@@ -1,24 +1,24 @@
 package com.maxim.settings.utils
 
 import com.maxim.settings.R
-import com.maxim.settings.model.AppLanguageUiModel
+import com.maxim.settings.model.AppLanguageUi
 import kotlinx.collections.immutable.persistentListOf
 
-internal fun AppLanguageUiModel.displayNameRes() =
+internal fun AppLanguageUi.displayNameRes() =
     when (this) {
-        AppLanguageUiModel.SYSTEM -> R.string.language_system
-        AppLanguageUiModel.ENGLISH -> R.string.language_english
-        AppLanguageUiModel.SPANISH -> R.string.language_spanish
-        AppLanguageUiModel.CHINESE -> R.string.language_chinese
-        AppLanguageUiModel.PORTUGUESE -> R.string.language_portuguese
-        AppLanguageUiModel.RUSSIAN -> R.string.language_russian
+        AppLanguageUi.SYSTEM -> R.string.language_system
+        AppLanguageUi.ENGLISH -> R.string.language_english
+        AppLanguageUi.SPANISH -> R.string.language_spanish
+        AppLanguageUi.CHINESE -> R.string.language_chinese
+        AppLanguageUi.PORTUGUESE -> R.string.language_portuguese
+        AppLanguageUi.RUSSIAN -> R.string.language_russian
     }
 
 internal val appLanguages = persistentListOf(
-    AppLanguageUiModel.SYSTEM,
-    AppLanguageUiModel.ENGLISH,
-    AppLanguageUiModel.SPANISH,
-    AppLanguageUiModel.CHINESE,
-    AppLanguageUiModel.PORTUGUESE,
-    AppLanguageUiModel.RUSSIAN,
+    AppLanguageUi.SYSTEM,
+    AppLanguageUi.ENGLISH,
+    AppLanguageUi.SPANISH,
+    AppLanguageUi.CHINESE,
+    AppLanguageUi.PORTUGUESE,
+    AppLanguageUi.RUSSIAN,
 )
