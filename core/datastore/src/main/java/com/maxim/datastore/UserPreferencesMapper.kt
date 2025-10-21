@@ -1,7 +1,7 @@
 package com.maxim.datastore
 
 import com.maxim.datastore.data.AppLanguage as ProtoAppLanguage
-import com.maxim.model.AppLanguage as DomainAppLanguage
+import com.maxim.datastore.model.AppLanguageEntity as DomainAppLanguage
 
 fun ProtoAppLanguage.toDomain(): DomainAppLanguage =
     when (this) {

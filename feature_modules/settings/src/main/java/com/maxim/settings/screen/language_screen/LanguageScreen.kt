@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.R
-import com.maxim.settings.model.AppLanguageUi
+import com.maxim.settings.model.AppLanguageUiModel
 import com.maxim.settings.screen.component.SettingsTopAppBar
 import com.maxim.settings.screen.language_screen.LanguageScreenIntent.OnLanguageClick
 import com.maxim.settings.screen.language_screen.LanguageScreenIntent.OnSaveButtonClick
@@ -58,7 +58,7 @@ fun LanguageScreen(
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
     uiState: LanguageUiState,
-    onLanguageItemClick: (AppLanguageUi) -> Unit,
+    onLanguageItemClick: (AppLanguageUiModel) -> Unit,
     onSaveButtonClick: () -> Unit,
     onBackClick: () -> Unit,
 ) {

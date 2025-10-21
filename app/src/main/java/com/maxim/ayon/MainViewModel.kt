@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maxim.data.mapper.toData
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
-import com.maxim.model.AppLanguage
+import com.maxim.settings.model.AppLanguageUiModel
+import com.maxim.settings.model.toUi
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun setAppLanguage(language: AppLanguage) {
+    private fun setAppLanguage(language: AppLanguageUiModel) {
         val newLocale = LocaleListCompat.forLanguageTags(language.tag)
         val currentLocale = AppCompatDelegate.getApplicationLocales()
 
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
 
     private suspend fun setAppLanguageObserver() {
         getAppLanguageUseCase().collect { language ->
-            setAppLanguage(language.toData())
+            setAppLanguage(language.toUi())
         }
     }
 }
