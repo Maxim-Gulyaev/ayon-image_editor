@@ -16,8 +16,8 @@ class JogRepositoryImpl @Inject constructor(
     private val jogsLocalDataSource: JogsLocalDataSource,
 ): JogRepository {
 
-    override suspend fun addNewJog(date: LocalDateTime, duration: Duration) {
-        jogsLocalDataSource.addNewJog(date, duration)
+    override suspend fun addNewJog(duration: Duration) {
+        jogsLocalDataSource.addNewJog(duration)
     }
 
     override fun getAllJogs(): Flow<List<Jog>> {

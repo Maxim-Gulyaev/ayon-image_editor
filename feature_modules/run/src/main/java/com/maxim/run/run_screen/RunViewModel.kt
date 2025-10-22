@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
@@ -28,10 +27,12 @@ class RunViewModel @Inject constructor(
     fun accept(intent: RunScreenIntent) {
         when (intent) {
             RunScreenIntent.OnStartClick -> if (_uiState.value.isStopwatchRunning) pauseStopwatch() else startStopwatch()
+
             RunScreenIntent.OnResetClick -> resetStopwatch()
+
             RunScreenIntent.OnSaveClick -> {
                 viewModelScope.launch {
-                    saveJogUseCase(LocalDateTime.now(), _uiState.value.jogDuration)
+                    saveJogUseCase(_uiState.value.jogDuration)
                 }
             }
         }
@@ -48,11 +49,7 @@ class RunViewModel @Inject constructor(
     private fun pauseStopwatch() {
         stopwatchJob?.cancel()
 
-        _uiState.update {
-            it.copy(
-                isStopwatchRunning = false,
-            )
-        }
+        _uiState.update { it.copy(isStopwatchRunning = false,) }
     }
 
     private fun resetStopwatch() {
@@ -65,10 +62,13 @@ class RunViewModel @Inject constructor(
 
     private fun launchStopwatchJob() {
         stopwatchJob?.cancel()
+
         stopwatchJob = viewModelScope.launch {
             while (true) {
                 delay(STOPWATCH_DELAY)
-                _uiState.update { it.copy(jogDuration = it.jogDuration.plus(1.seconds)) }
+                _uiState.update { state ->
+                    state.copy(jogDuration = state.jogDuration.plus(1.seconds))
+                }
             }
         }
     }

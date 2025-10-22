@@ -7,7 +7,7 @@ import kotlin.time.Duration
 
 interface JogRepository {
 
-    suspend fun addNewJog(date: LocalDateTime, duration: Duration)
+    suspend fun addNewJog(duration: Duration)
 
     fun getAllJogs(): Flow<List<Jog>>
 }

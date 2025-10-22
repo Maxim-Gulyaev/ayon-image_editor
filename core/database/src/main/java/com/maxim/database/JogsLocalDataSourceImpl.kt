@@ -18,13 +18,16 @@ import javax.inject.Inject
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 
+private const val DATE_COLUMN_INDEX = 0
+private const val DURATION_COLUMN_INDEX = 1
+
 class JogsLocalDataSourceImpl @Inject constructor(
     @WritableDB private val writableDB: SQLiteDatabase,
     @ReadableDB private val readableDB: SQLiteDatabase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ) : JogsLocalDataSource {
 
-    override suspend fun addNewJog(date: LocalDateTime, duration: Duration) {   // todo remove date param
+    override suspend fun addNewJog(duration: Duration) {
         withContext(ioDispatcher) {
             val values = ContentValues().apply {
                 val dateString = LocalDate.now().toString()
@@ -44,7 +47,12 @@ class JogsLocalDataSourceImpl @Inject constructor(
         ) { cursor ->
             buildList {
                 while (cursor.moveToNext()) {
-                    add(JogEntity(cursor.getString(0), cursor.getInt(1).toLong()))
+                    add(
+                        JogEntity(
+                            cursor.getString(DATE_COLUMN_INDEX),
+                            cursor.getInt(DURATION_COLUMN_INDEX).toLong()
+                        )
+                    )
                 }
             }
         }
