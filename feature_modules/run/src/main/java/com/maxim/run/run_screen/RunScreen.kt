@@ -1,7 +1,5 @@
 package com.maxim.run.run_screen
 
-import android.R.attr.onClick
-import android.R.attr.top
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,7 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,9 +30,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.maxim.run.R
 import com.maxim.ui.component.BackgroundContainer
+import com.maxim.ui.component.SingleClickButton
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.theme.LocalCustomColorScheme
@@ -51,7 +48,6 @@ private const val FORMAT_MIN_SEC = "%02d:%02d"
 fun RunScreen(
     viewModel: RunViewModel,
     quitRunScreen: () -> Unit,
-    modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
@@ -87,7 +83,8 @@ private fun RunScreenContainer(
 
         SaveButtonBlock(
             onClick = onSaveClick,
-            colors = uiState.getSaveButtonColors(),
+            jogDuration = uiState.jogDuration,
+            isStopwatchRunning = uiState.isStopwatchRunning,
         )
 
         Spacer(modifier = modifier.weight(0.7f))
@@ -152,21 +149,32 @@ private fun StopwatchBlock(
 
 @Composable
 private fun SaveButtonBlock(
+    jogDuration: Duration,
+    isStopwatchRunning: Boolean,
     onClick: () -> Unit,
-    colors: ButtonColors,
     modifier: Modifier = Modifier,
 ) {
+    val buttonEnabled = remember(jogDuration, isStopwatchRunning) {
+        jogDuration > Duration.ZERO && !isStopwatchRunning
+    }
+
     Row(
         modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Spacer(modifier = Modifier.weight(0.3f))
-        Button(
+        SingleClickButton(
             modifier = Modifier
                 .weight(0.7f, fill = false),
             onClick = onClick,
             shape = CircleShape,
-            colors = colors,
+            enabled = buttonEnabled,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.onSecondary,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                disabledContainerColor = Color.Transparent,
+                disabledContentColor = Color.Transparent
+            ),
         ) {
             Text(
                 text = stringResource(R.string.save),
@@ -241,23 +249,6 @@ private fun StartButtonBlock(
         }
     }
 }
-
-@Composable
-private fun RunUiState.getSaveButtonColors(): ButtonColors {
-    val shouldShowSaveButton = jogDuration > Duration.ZERO && !isStopwatchRunning
-    return if (shouldShowSaveButton) {
-        ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.onSecondary,
-            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-        )
-    } else {
-        ButtonDefaults.buttonColors(
-            containerColor = Color.Transparent,
-            contentColor = Color.Transparent,
-        )
-    }
-}
-
 
 @AdaptivePreviewDark
 @Preview
