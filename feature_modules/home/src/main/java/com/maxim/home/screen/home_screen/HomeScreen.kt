@@ -18,7 +18,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.maxim.home.R
 import com.maxim.home.util.homeScreenUiStateMock
 import com.maxim.model.Jog
-import com.maxim.ui.component.HorizontalSpacer
+import com.maxim.ui.component.AyonHorizontalSpacer
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
@@ -75,7 +75,8 @@ private fun JogHistoryItem(
 ) {
     Row {
         Text(date)
-        HorizontalSpacer(16.dp)
+        AyonHorizontalSpacer(16.dp)
+
         Text(duration)
     }
 }
