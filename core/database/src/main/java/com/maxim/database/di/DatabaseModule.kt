@@ -21,19 +21,19 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabaseHelper(context: Context): AyonDatabaseHelper {
-        return AyonDatabaseHelper(context)
-    }
+    fun provideDatabaseHelper(context: Context): AyonDatabaseHelper =
+        AyonDatabaseHelper(context)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(dbHelper: AyonDatabaseHelper): SQLiteDatabase =
+        dbHelper.writableDatabase
 
     @WritableDB
     @Provides
-    fun provideWritableDatabase(dbHelper: AyonDatabaseHelper): SQLiteDatabase {
-        return dbHelper.writableDatabase
-    }
+    fun provideWritableDatabase(db: SQLiteDatabase): SQLiteDatabase = db
 
     @ReadableDB
     @Provides
-    fun provideReadableDatabase(dbHelper: AyonDatabaseHelper): SQLiteDatabase {
-        return dbHelper.readableDatabase
-    }
+    fun provideReadableDatabase(db: SQLiteDatabase): SQLiteDatabase = db
 }
