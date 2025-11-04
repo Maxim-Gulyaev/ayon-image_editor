@@ -6,43 +6,49 @@ import androidx.lifecycle.viewModelScope
 import com.maxim.common.result.Result
 import com.maxim.common.result.asResult
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
+import com.maxim.model.Jog
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 class HomeScreenViewModel @Inject constructor(
-    private val getAllJogsUseCase: GetAllJogsUseCase,
+    getAllJogsUseCase: GetAllJogsUseCase,
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<HomeScreenUiState>(HomeScreenUiState.Loading)
-    val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
+    val uiState = uiState(getAllJogsUseCase)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = HomeScreenUiState.Loading
+        )
+}
 
-    init {
-        viewModelScope.launch {
-            getAllJogsUseCase()
-                .asResult()
-                .collect { result ->
-                    when (result) {
-                        is Result.Success -> {
-                            _uiState.update {
-                                HomeScreenUiState.Success(
-                                    jogList = result.data.toImmutableList()
-                                )
-                            }
-                        }
 
-                        is Result.Loading -> HomeScreenUiState.Loading
+private fun uiState(
+    getAllJogsUseCase: GetAllJogsUseCase,
+) : Flow<HomeScreenUiState> {
 
-                        is Result.Error -> {
-                            Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
-                            HomeScreenUiState.Error
-                        }
-                    }
+    val jogs: Flow<List<Jog>> = getAllJogsUseCase()
+
+    return jogs
+        .asResult()
+        .map { result ->
+            when (result) {
+                is Result.Success -> {
+                    HomeScreenUiState.Success(
+                        jogList = result.data.toImmutableList()
+                    )
                 }
+
+                is Result.Loading -> HomeScreenUiState.Loading
+
+                is Result.Error -> {
+                    Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
+                    HomeScreenUiState.Error
+                }
+            }
         }
-    }
 }
