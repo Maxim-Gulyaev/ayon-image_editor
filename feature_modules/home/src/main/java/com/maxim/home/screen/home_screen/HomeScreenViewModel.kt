@@ -1,7 +1,11 @@
 package com.maxim.home.screen.home_screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maxim.common.result.Result
+import com.maxim.common.result.asResult
+import com.maxim.common.util.log
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,9 +25,17 @@ class HomeScreenViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             getAllJogsUseCase()
-                .collect { jogs ->
-                    _uiState.update {
-                        it.copy(jogList = jogs.toImmutableList())
+                .asResult()
+                .collect { result ->
+                    when (result) {
+                        is Result.Success -> {
+                            _uiState.update {
+                                it.copy(jogList = result.data.toImmutableList())
+                            }
+                        }
+                        is Result.Error -> {
+                            Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)    // todo: handle error for ui
+                        }
                     }
                 }
         }
