@@ -19,6 +19,7 @@ import com.maxim.home.R
 import com.maxim.home.util.homeScreenUiStateMock
 import com.maxim.model.Jog
 import com.maxim.ui.component.AyonHorizontalSpacer
+import com.maxim.ui.component.LoadingScreen
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
@@ -44,11 +45,22 @@ private fun HomeScreenContent(
     modifier: Modifier = Modifier,
     state: HomeScreenUiState,
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        JogHistoryBlock(state.jogList)
+    when (state) {
+
+        is HomeScreenUiState.Success -> {
+            Box(
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                JogHistoryBlock(state.jogList)
+            }
+        }
+
+        HomeScreenUiState.Error -> {  }  // todo error handle
+
+        HomeScreenUiState.Loading -> {
+            LoadingScreen()
+        }
     }
 }
 

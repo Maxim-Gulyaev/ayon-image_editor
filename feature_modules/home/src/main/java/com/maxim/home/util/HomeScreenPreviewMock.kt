@@ -13,7 +13,7 @@ fun jogMock() =
     )
 
 fun homeScreenUiStateMock() =
-    HomeScreenUiState(
+    HomeScreenUiState.Success(
         jogList = persistentListOf(
             jogMock(),
             jogMock(),

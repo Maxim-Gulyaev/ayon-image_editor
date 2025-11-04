@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxim.common.result.Result
 import com.maxim.common.result.asResult
-import com.maxim.common.util.log
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +18,7 @@ class HomeScreenViewModel @Inject constructor(
     private val getAllJogsUseCase: GetAllJogsUseCase,
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeScreenUiState.initial())
+    private val _uiState = MutableStateFlow<HomeScreenUiState>(HomeScreenUiState.Loading)
     val uiState: StateFlow<HomeScreenUiState> = _uiState.asStateFlow()
 
     init {
@@ -30,11 +29,17 @@ class HomeScreenViewModel @Inject constructor(
                     when (result) {
                         is Result.Success -> {
                             _uiState.update {
-                                it.copy(jogList = result.data.toImmutableList())
+                                HomeScreenUiState.Success(
+                                    jogList = result.data.toImmutableList()
+                                )
                             }
                         }
+
+                        is Result.Loading -> HomeScreenUiState.Loading
+
                         is Result.Error -> {
-                            Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)    // todo: handle error for ui
+                            Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
+                            HomeScreenUiState.Error
                         }
                     }
                 }
