@@ -1,6 +1,7 @@
 package com.maxim.ui.error
 
 import android.database.sqlite.SQLiteException
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.maxim.ui.R
@@ -9,22 +10,22 @@ import com.maxim.ui.component.AyonBaseDialog
 @Composable
 fun AyonErrorScreen(
     throwable: Throwable,
-    callback: () -> Unit,
+    onPositiveClick: () -> Unit,
 ) {
-    val (title, description) = getDialogContent(throwable)
+    val ( @StringRes titleRes, @StringRes descriptionRes) = getDialogContent(throwable)
 
     AyonBaseDialog(
-        title = title,
-        description = description,
+        title = stringResource(titleRes),
+        description = stringResource(descriptionRes),
         positiveButtonText = stringResource(R.string.error_dialog_positive),
-        onPositiveClick = callback,
+        onPositiveClick = onPositiveClick,
     )
 }
 
 @Composable
-private fun getDialogContent(throwable: Throwable): Pair<String, String> {
+private fun getDialogContent(throwable: Throwable): Pair<Int, Int> {
     return when {
-        throwable is SQLiteException -> stringResource(R.string.error) to stringResource(R.string.database_error)
-        else -> stringResource(R.string.error) to stringResource(R.string.unknown_error)
+        throwable is SQLiteException -> R.string.error to R.string.database_error
+        else -> R.string.error to R.string.unknown_error
     }
 }
