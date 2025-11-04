@@ -20,6 +20,7 @@ import com.maxim.home.util.homeScreenUiStateMock
 import com.maxim.model.Jog
 import com.maxim.ui.component.AyonHorizontalSpacer
 import com.maxim.ui.component.LoadingScreen
+import com.maxim.ui.error.AyonErrorScreen
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
@@ -56,7 +57,9 @@ private fun HomeScreenContent(
             }
         }
 
-        HomeScreenUiState.Error -> {  }  // todo error handle
+        is HomeScreenUiState.Error -> {
+            AyonErrorScreen(state.throwable) { } // todo assign action
+        }
 
         HomeScreenUiState.Loading -> {
             LoadingScreen()

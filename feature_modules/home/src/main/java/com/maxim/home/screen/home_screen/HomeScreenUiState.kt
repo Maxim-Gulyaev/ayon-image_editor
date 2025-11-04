@@ -5,6 +5,6 @@ import kotlinx.collections.immutable.ImmutableList
 
 sealed interface HomeScreenUiState{
     data class Success(val jogList: ImmutableList<Jog>): HomeScreenUiState
-    data object Error: HomeScreenUiState
+    data class Error(val throwable: Throwable): HomeScreenUiState
     data object Loading: HomeScreenUiState
 }

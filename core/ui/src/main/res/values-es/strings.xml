@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="save">Guardar</string>
+    <string name="error">Error</string>
+    <string name="unknown_error">Error desconocido</string>
+    <string name="database_error">Error de base de datos</string>
+    <string name="error_dialog_positive">ACEPTAR</string>
 </resources>

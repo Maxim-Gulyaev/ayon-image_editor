@@ -52,4 +52,7 @@ dependencies {
 
     // Material
     implementation(libs.androidx.material3)
+
+    // Modules
+    implementation(project(":core:common"))
 }

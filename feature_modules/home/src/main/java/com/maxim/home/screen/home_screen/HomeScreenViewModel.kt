@@ -47,7 +47,7 @@ private fun uiState(
 
                 is Result.Error -> {
                     Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
-                    HomeScreenUiState.Error
+                    HomeScreenUiState.Error(throwable = result.exception)
                 }
             }
         }
