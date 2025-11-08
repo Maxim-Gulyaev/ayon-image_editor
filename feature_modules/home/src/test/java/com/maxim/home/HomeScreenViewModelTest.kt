@@ -5,8 +5,8 @@ import com.maxim.common.util.NoopLog
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.home.screen.home_screen.HomeScreenUiState
 import com.maxim.home.screen.home_screen.HomeScreenViewModel
-import com.maxim.model.Jog
-import com.maxim.testing.MainDispatcherRule
+import com.maxim.testing.data.testJogs
+import com.maxim.testing.rules.MainDispatcherRule
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -18,8 +18,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.time.LocalDate
-import kotlin.time.Duration.Companion.minutes
 
 class HomeScreenViewModelTest {
 
@@ -47,7 +45,7 @@ class HomeScreenViewModelTest {
 
     @Test
     fun `uiState should be Success when useCase return list of jogs`() = runTest {
-        every { getAllJogsUseCase() } returns flowOf(jogList)
+        every { getAllJogsUseCase() } returns flowOf(testJogs)
         viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
 
         viewModel.uiState.test {
@@ -59,12 +57,12 @@ class HomeScreenViewModelTest {
 
     @Test
     fun `viewModel should emit same jogList as useCase emits`() = runTest {
-        every { getAllJogsUseCase() } returns flowOf(jogList)
+        every { getAllJogsUseCase() } returns flowOf(testJogs)
         viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
 
         viewModel.uiState.test {
             skipItems(1)
-            assertEquals(jogList, (awaitItem() as HomeScreenUiState.Success).jogList)
+            assertEquals(testJogs, (awaitItem() as HomeScreenUiState.Success).jogList)
             cancelAndIgnoreRemainingEvents()
         }
     }
@@ -85,6 +83,3 @@ class HomeScreenViewModelTest {
         }
     }
 }
-
-private val jog = Jog(LocalDate.of(2025,1,1), 10.minutes)
-private val jogList = listOf(jog, jog, jog)

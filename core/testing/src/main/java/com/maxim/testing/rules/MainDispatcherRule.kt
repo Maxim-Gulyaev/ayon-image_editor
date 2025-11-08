@@ -1,4 +1,4 @@
-package com.maxim.testing
+package com.maxim.testing.rules
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

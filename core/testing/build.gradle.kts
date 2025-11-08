@@ -19,6 +19,10 @@ android {
 
 dependencies {
 
+    // Testing
     implementation(libs.junit)
     implementation(libs.kotlinx.coroutines.test)
+
+    // Modules
+    implementation(project(":core:model"))
 }
