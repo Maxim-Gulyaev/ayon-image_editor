@@ -6,41 +6,33 @@ import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.home.screen.home_screen.HomeScreenUiState
 import com.maxim.home.screen.home_screen.HomeScreenViewModel
 import com.maxim.model.Jog
+import com.maxim.testing.MainDispatcherRule
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
 import kotlin.time.Duration.Companion.minutes
 
 class HomeScreenViewModelTest {
 
-    private val testDispatcher = StandardTestDispatcher()
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
     private lateinit var getAllJogsUseCase: GetAllJogsUseCase
     private lateinit var viewModel: HomeScreenViewModel
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setup() {
-        Dispatchers.setMain(testDispatcher)
         getAllJogsUseCase = mockk()
-    }
-
-    @OptIn(ExperimentalCoroutinesApi::class)
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
     }
 
     @Test
