@@ -1,6 +1,7 @@
 package com.maxim.home.di.component
 
 import androidx.lifecycle.ViewModelProvider
+import com.maxim.common.di.module.LogModule
 import com.maxim.home.di.module.HomeViewModelModule
 import com.maxim.home.di.utils.HomeDependencies
 import com.maxim.home.di.utils.HomeScope
@@ -11,6 +12,7 @@ import dagger.Component
     dependencies = [HomeDependencies::class],
     modules = [
         HomeViewModelModule::class,
+        LogModule::class,
     ]
 )
 interface HomeComponent {

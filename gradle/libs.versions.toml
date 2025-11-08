@@ -23,6 +23,7 @@ dagger = "2.56.2"
 protobuf = "4.29.2"
 protobufJavalite = "4.29.2"
 protobufPlugin = "0.9.4"
+turbine = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -52,6 +53,7 @@ dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = 
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 protobuf-javalite = { module = "com.google.protobuf:protobuf-javalite", version.ref = "protobuf" }
 protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

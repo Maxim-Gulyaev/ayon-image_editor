@@ -1,12 +1,16 @@
 package com.maxim.home
 
+import app.cash.turbine.test
+import com.maxim.common.util.NoopLog
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.home.screen.home_screen.HomeScreenUiState
 import com.maxim.home.screen.home_screen.HomeScreenViewModel
+import com.maxim.model.Jog
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -14,8 +18,11 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.time.LocalDate
+import kotlin.time.Duration.Companion.minutes
 
 class HomeScreenViewModelTest {
 
@@ -39,9 +46,53 @@ class HomeScreenViewModelTest {
     @Test
     fun `uiState should start with Loading`() = runTest {
         every { getAllJogsUseCase() } returns flowOf(emptyList())
+        viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
 
-        viewModel = HomeScreenViewModel(getAllJogsUseCase)
+        viewModel.uiState.test {
+            assertEquals(HomeScreenUiState.Loading, awaitItem())
+        }
+    }
 
-        assertEquals(HomeScreenUiState.Loading, viewModel.uiState.value)
+    @Test
+    fun `uiState should be Success when useCase return list of jogs`() = runTest {
+        every { getAllJogsUseCase() } returns flowOf(jogList)
+        viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
+
+        viewModel.uiState.test {
+            assertEquals(HomeScreenUiState.Loading, awaitItem())
+            val success = awaitItem()
+            assertTrue(success is HomeScreenUiState.Success)
+        }
+    }
+
+    @Test
+    fun `viewModel should emit same jogList as useCase emits`() = runTest {
+        every { getAllJogsUseCase() } returns flowOf(jogList)
+        viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
+
+        viewModel.uiState.test {
+            skipItems(1)
+            assertEquals(jogList, (awaitItem() as HomeScreenUiState.Success).jogList)
+            cancelAndIgnoreRemainingEvents()
+        }
+    }
+
+    @Test
+    fun `uiState should be Error when useCase return error`() = runTest {
+        every { getAllJogsUseCase() } returns flow {
+            emit(emptyList())
+            throw RuntimeException()
+        }
+        viewModel = HomeScreenViewModel(getAllJogsUseCase, NoopLog)
+
+        viewModel.uiState.test {
+            skipItems(2)
+            val error = awaitItem()
+            assertTrue(error is HomeScreenUiState.Error)
+            cancelAndIgnoreRemainingEvents()
+        }
     }
 }
+
+private val jog = Jog(LocalDate.of(2025,1,1), 10.minutes)
+private val jogList = listOf(jog, jog, jog)

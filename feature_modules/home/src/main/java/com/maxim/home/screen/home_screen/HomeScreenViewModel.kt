@@ -1,10 +1,10 @@
 package com.maxim.home.screen.home_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxim.common.result.Result
 import com.maxim.common.result.asResult
+import com.maxim.common.util.Logger
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.model.Jog
 import kotlinx.collections.immutable.toImmutableList
@@ -16,9 +16,10 @@ import javax.inject.Inject
 
 class HomeScreenViewModel @Inject constructor(
     getAllJogsUseCase: GetAllJogsUseCase,
+    log: Logger,
 ): ViewModel() {
 
-    val uiState = uiState(getAllJogsUseCase)
+    val uiState = uiState(getAllJogsUseCase, log)
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
@@ -29,6 +30,7 @@ class HomeScreenViewModel @Inject constructor(
 
 private fun uiState(
     getAllJogsUseCase: GetAllJogsUseCase,
+    log: Logger,
 ) : Flow<HomeScreenUiState> {
 
     val jogs: Flow<List<Jog>> = getAllJogsUseCase()
@@ -46,7 +48,7 @@ private fun uiState(
                 is Result.Loading -> HomeScreenUiState.Loading
 
                 is Result.Error -> {
-                    Log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
+                    log.e("ayon_error", "getAllJogsUseCase failed", result.exception)
                     HomeScreenUiState.Error(throwable = result.exception)
                 }
             }
