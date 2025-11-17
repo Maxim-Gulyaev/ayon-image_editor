@@ -1,5 +1,6 @@
 package com.maxim.run.run_screen
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxim.domain.use_case.save_jog.SaveJogUseCase
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
@@ -31,8 +33,10 @@ class RunViewModel @Inject constructor(
             RunScreenIntent.OnResetClick -> resetStopwatch()
 
             RunScreenIntent.OnSaveClick -> {
-                viewModelScope.launch {
-                    saveJogUseCase(_uiState.value.jogDuration)
+                if (!_uiState.value.isStopwatchRunning) {
+                    viewModelScope.launch {
+                        saveJogUseCase(_uiState.value.jogDuration)
+                    }
                 }
             }
         }
@@ -64,12 +68,17 @@ class RunViewModel @Inject constructor(
         stopwatchJob?.cancel()
 
         stopwatchJob = viewModelScope.launch {
-            while (true) {
+            while (isActive) {
                 delay(STOPWATCH_DELAY)
                 _uiState.update { state ->
                     state.copy(jogDuration = state.jogDuration.plus(1.seconds))
                 }
             }
         }
+    }
+
+    @VisibleForTesting
+    fun setUiStateForTest(state: RunUiState) {
+        _uiState.value = state
     }
 }

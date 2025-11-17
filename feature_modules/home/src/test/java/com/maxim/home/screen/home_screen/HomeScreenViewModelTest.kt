@@ -1,10 +1,8 @@
-package com.maxim.home
+package com.maxim.home.screen.home_screen
 
 import app.cash.turbine.test
 import com.maxim.common.util.NoopLog
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
-import com.maxim.home.screen.home_screen.HomeScreenUiState
-import com.maxim.home.screen.home_screen.HomeScreenViewModel
 import com.maxim.testing.data.testJogs
 import com.maxim.testing.rules.MainDispatcherRule
 import io.mockk.every
