@@ -13,7 +13,7 @@ data class LanguageUiState(
 ) {
     companion object {
         val initial = LanguageUiState(
-            appLanguages = appLanguages,
+            appLanguages = appLanguages(),
             currentAppLanguage = AppLanguageUi.SYSTEM,
             selectedLanguage = AppLanguageUi.SYSTEM,
         )

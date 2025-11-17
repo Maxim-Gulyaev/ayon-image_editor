@@ -14,7 +14,7 @@ internal fun AppLanguageUi.displayNameRes() =
         AppLanguageUi.RUSSIAN -> R.string.language_russian
     }
 
-internal val appLanguages = persistentListOf(
+internal fun appLanguages() = persistentListOf(
     AppLanguageUi.SYSTEM,
     AppLanguageUi.ENGLISH,
     AppLanguageUi.SPANISH,
