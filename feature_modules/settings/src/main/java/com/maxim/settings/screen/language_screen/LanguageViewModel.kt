@@ -19,7 +19,7 @@ class LanguageViewModel @Inject constructor(
     private val setAppLanguageUseCase: SetAppLanguageUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(LanguageUiState.initial)
+    private val _uiState = MutableStateFlow(LanguageUiState.initial())
     val uiState: StateFlow<LanguageUiState> = _uiState.asStateFlow()
 
     init {

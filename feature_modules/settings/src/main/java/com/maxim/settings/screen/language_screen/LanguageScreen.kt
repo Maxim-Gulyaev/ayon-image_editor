@@ -154,7 +154,7 @@ private fun PreviewLanguageScreenDark() {
     AyonTheme() {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.initial,
+                uiState = LanguageUiState.initial(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},
@@ -170,7 +170,7 @@ private fun PreviewLanguageScreenLight() {
     AyonTheme {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.initial,
+                uiState = LanguageUiState.initial(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},
