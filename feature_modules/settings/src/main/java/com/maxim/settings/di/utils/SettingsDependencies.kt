@@ -1,6 +1,7 @@
 package com.maxim.settings.di.utils
 
 import androidx.datastore.core.DataStore
+import com.maxim.common.util.Logger
 import com.maxim.datastore.UserPreferencesDataSource
 import com.maxim.datastore.data.UserPreferences
 import com.maxim.domain.repository.SettingsRepository
@@ -13,4 +14,5 @@ interface SettingsDependencies {
     fun settingsRepository(): SettingsRepository
     fun getAppLanguageUseCase(): GetAppLanguageUseCase
     fun setAppLanguageUseCase(): SetAppLanguageUseCase
+    fun logger(): Logger
 }

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModelProvider
 import com.maxim.common.di.module.DispatcherModule
+import com.maxim.common.di.module.LogModule
+import com.maxim.common.util.Logger
 import com.maxim.data.di.DataModule
 import com.maxim.database.di.DatabaseModule
 import com.maxim.database.di.LocalDataSourceModule
@@ -36,6 +38,7 @@ import javax.inject.Singleton
         UseCaseModule::class,
         MainViewModelModule::class,
         DispatcherModule::class,
+        LogModule::class,
     ]
 )
 interface AppComponent :
@@ -58,6 +61,8 @@ interface AppComponent :
     override fun saveJogUseCase(): SaveJogUseCase
 
     override fun getAllJogsUseCase(): GetAllJogsUseCase
+
+    override fun logger(): Logger
 
     @Component.Builder
     interface Builder {

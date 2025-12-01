@@ -4,13 +4,12 @@ import com.maxim.common.util.AyonLog
 import com.maxim.common.util.Logger
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
 class LogModule {
 
+    @Singleton
     @Provides
     fun provideLogger() : Logger = AyonLog()
 }
