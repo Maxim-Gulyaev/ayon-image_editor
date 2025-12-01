@@ -46,18 +46,27 @@ fun LanguageScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    LanguageScreenContent(
-        uiState = uiState,
-        onLanguageItemClick = { viewModel.accept(OnLanguageClick(it)) },
-        onSaveButtonClick = { viewModel.accept(OnSaveButtonClick) },
-        onBackClick = onBackClick,
-    )
+    when (uiState) {
+
+        is LanguageUiState.Success -> {
+            LanguageScreenContent(
+                uiState = uiState as LanguageUiState.Success,
+                onLanguageItemClick = { viewModel.accept(OnLanguageClick(it)) },
+                onSaveButtonClick = { viewModel.accept(OnSaveButtonClick) },
+                onBackClick = onBackClick,
+            )
+        }
+
+        is LanguageUiState.Error -> TODO()
+
+        LanguageUiState.Loading -> TODO()
+    }
 }
 
 @Composable
 private fun LanguageScreenContent(
     modifier: Modifier = Modifier,
-    uiState: LanguageUiState,
+    uiState: LanguageUiState.Success,
     onLanguageItemClick: (AppLanguageUi) -> Unit,
     onSaveButtonClick: () -> Unit,
     onBackClick: () -> Unit,
@@ -154,7 +163,7 @@ private fun PreviewLanguageScreenDark() {
     AyonTheme() {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.initial(),
+                uiState = LanguageUiState.Success(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},
@@ -170,7 +179,7 @@ private fun PreviewLanguageScreenLight() {
     AyonTheme {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.initial(),
+                uiState = LanguageUiState.Success(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},

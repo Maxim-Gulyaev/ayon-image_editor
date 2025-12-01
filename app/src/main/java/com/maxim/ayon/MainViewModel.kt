@@ -1,9 +1,12 @@
 package com.maxim.ayon
 
+import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maxim.common.result.Result
+import com.maxim.common.result.asResult
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.model.toUi
@@ -34,8 +37,21 @@ class MainViewModel @Inject constructor(
     }
 
     private suspend fun setAppLanguageObserver() {
-        getAppLanguageUseCase().collect { language ->
-            setAppLanguage(language.toUi())
+        getAppLanguageUseCase()
+            .asResult()
+            .collect { result ->
+                when (result) {
+                    is Result.Success -> {
+                        val language = result.data.toUi()
+                        setAppLanguage(language)
+                    }
+
+                    is Result.Error -> {
+                        Log.e("ayon_error", "mainViewModel ${result.exception}")
+                    }
+
+                    else -> {}
+                }
         }
     }
 }

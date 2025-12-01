@@ -2,6 +2,9 @@ package com.maxim.settings.screen.language_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maxim.common.result.Result
+import com.maxim.common.result.asResult
+import com.maxim.common.util.Logger
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
 import com.maxim.settings.model.toDomain
@@ -17,9 +20,10 @@ import javax.inject.Inject
 class LanguageViewModel @Inject constructor(
     private val getAppLanguageUseCase: GetAppLanguageUseCase,
     private val setAppLanguageUseCase: SetAppLanguageUseCase,
+    private val logger: Logger,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(LanguageUiState.initial())
+    private val _uiState = MutableStateFlow(LanguageUiState.Success())
     val uiState: StateFlow<LanguageUiState> = _uiState.asStateFlow()
 
     init {
@@ -46,14 +50,29 @@ class LanguageViewModel @Inject constructor(
     }
 
     private suspend fun setCurrentLanguage() {
-        getAppLanguageUseCase().collectLatest { language ->
-            val currentAppLanguage = language.toUi()
-            _uiState.update {
-                it.copy(
-                    currentAppLanguage = currentAppLanguage,
-                    selectedLanguage = currentAppLanguage,
-                )
+        val language = getAppLanguageUseCase()
+        language
+            .asResult()
+            .collectLatest { result ->
+                when (result) {
+                    is Result.Success -> {
+                        val languageUi = result.data.toUi()
+                        _uiState.update {
+                            it.copy(
+                                currentAppLanguage = languageUi,
+                                selectedLanguage = languageUi,
+                            )
+                        }
+                    }
+
+                    is Result.Error -> {
+                        logger.e("ayon_error", "setCurrentLanguage() ${result.exception}")
+                    }
+
+                    Result.Loading -> {
+                        //todo
+                    }
+                }
             }
-        }
     }
 }

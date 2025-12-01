@@ -1,21 +1,18 @@
 package com.maxim.settings.screen.language_screen
 
-import androidx.compose.runtime.Immutable
 import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.utils.appLanguages
 import kotlinx.collections.immutable.ImmutableList
 
-@Immutable
-data class LanguageUiState(
-    val appLanguages: ImmutableList<AppLanguageUi>,
-    val currentAppLanguage: AppLanguageUi,
-    val selectedLanguage: AppLanguageUi,
-) {
-    companion object {
-        fun initial() = LanguageUiState(
-            appLanguages = appLanguages(),
-            currentAppLanguage = AppLanguageUi.SYSTEM,
-            selectedLanguage = AppLanguageUi.SYSTEM,
-        )
-    }
+sealed interface LanguageUiState {
+
+    data class Success(
+        val appLanguages: ImmutableList<AppLanguageUi> = appLanguages(),
+        val currentAppLanguage: AppLanguageUi = AppLanguageUi.SYSTEM,
+        val selectedLanguage: AppLanguageUi = AppLanguageUi.SYSTEM,
+    ) : LanguageUiState
+
+    data class Error(val throwable: Throwable) : LanguageUiState
+
+    data object Loading : LanguageUiState
 }
