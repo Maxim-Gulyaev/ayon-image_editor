@@ -1,5 +1,6 @@
 package com.maxim.settings.screen.language_screen
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.maxim.common.result.Result
@@ -78,5 +79,10 @@ class LanguageViewModel @Inject constructor(
                     }
                 }
             }
+    }
+
+    @VisibleForTesting
+    fun setUiStateForTest(state: LanguageUiState) {
+        _uiState.value = state
     }
 }
