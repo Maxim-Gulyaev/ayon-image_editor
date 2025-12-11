@@ -7,6 +7,7 @@ import com.maxim.common.result.asResult
 import com.maxim.common.util.Logger
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
+import com.maxim.settings.model.AppLanguageUi
 import com.maxim.settings.model.toDomain
 import com.maxim.settings.model.toUi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,7 @@ class LanguageViewModel @Inject constructor(
     private val logger: Logger,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(LanguageUiState.Success())
+    private val _uiState = MutableStateFlow(LanguageUiState())
     val uiState: StateFlow<LanguageUiState> = _uiState.asStateFlow()
 
     init {
@@ -61,17 +62,23 @@ class LanguageViewModel @Inject constructor(
                             it.copy(
                                 currentAppLanguage = languageUi,
                                 selectedLanguage = languageUi,
+                                screenState = LanguageScreenState.Loaded,
                             )
                         }
                     }
 
                     is Result.Error -> {
+                        _uiState.update {
+                            it.copy(
+                                currentAppLanguage = AppLanguageUi.SYSTEM,
+                                selectedLanguage = AppLanguageUi.SYSTEM,
+                                screenState = LanguageScreenState.Loaded,
+                            )
+                        }
                         logger.e("ayon_error", "setCurrentLanguage() ${result.exception}")
                     }
 
-                    Result.Loading -> {
-                        //todo
-                    }
+                    Result.Loading -> {}
                 }
             }
     }

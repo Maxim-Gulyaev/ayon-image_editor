@@ -46,30 +46,27 @@ fun LanguageScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    when (uiState) {
-
-        is LanguageUiState.Success -> {
+    when (uiState.screenState) {
+        LanguageScreenState.Loaded -> {
             LanguageScreenContent(
-                uiState = uiState as LanguageUiState.Success,
+                uiState = uiState,
                 onLanguageItemClick = { viewModel.accept(OnLanguageClick(it)) },
                 onSaveButtonClick = { viewModel.accept(OnSaveButtonClick) },
                 onBackClick = onBackClick,
             )
         }
 
-        is LanguageUiState.Error -> TODO()
-
-        LanguageUiState.Loading -> TODO()
+        LanguageScreenState.Loading -> {}
     }
 }
 
 @Composable
 private fun LanguageScreenContent(
-    modifier: Modifier = Modifier,
-    uiState: LanguageUiState.Success,
+    uiState: LanguageUiState,
     onLanguageItemClick: (AppLanguageUi) -> Unit,
     onSaveButtonClick: () -> Unit,
     onBackClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
@@ -121,10 +118,10 @@ private fun LanguageScreenContent(
 
 @Composable
 private fun LanguageItem(
-    modifier: Modifier = Modifier,
     @StringRes displayNameRes: Int,
     isSelected: Boolean,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     ItemCard(
         onClick = onClick,
@@ -163,7 +160,7 @@ private fun PreviewLanguageScreenDark() {
     AyonTheme() {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.Success(),
+                uiState = LanguageUiState(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},
@@ -179,7 +176,7 @@ private fun PreviewLanguageScreenLight() {
     AyonTheme {
         BackgroundContainer {
             LanguageScreenContent(
-                uiState = LanguageUiState.Success(),
+                uiState = LanguageUiState(),
                 onLanguageItemClick = {},
                 onSaveButtonClick = {},
                 onBackClick = {},
