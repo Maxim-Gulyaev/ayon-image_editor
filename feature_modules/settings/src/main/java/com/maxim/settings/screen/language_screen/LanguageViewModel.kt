@@ -29,7 +29,7 @@ class LanguageViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            setCurrentLanguage()
+            observeAppLanguage()
         }
     }
 
@@ -50,35 +50,32 @@ class LanguageViewModel @Inject constructor(
         }
     }
 
-    private suspend fun setCurrentLanguage() {
-        val language = getAppLanguageUseCase()
-        language
+    private suspend fun observeAppLanguage() {
+        getAppLanguageUseCase()
             .asResult()
             .collectLatest { result ->
-                when (result) {
-                    is Result.Success -> {
-                        val languageUi = result.data.toUi()
-                        _uiState.update {
-                            it.copy(
+                _uiState.update { oldState ->
+                    when (result) {
+                        is Result.Success -> {
+                            val languageUi = result.data.toUi()
+                            oldState.copy(
                                 currentAppLanguage = languageUi,
                                 selectedLanguage = languageUi,
                                 screenState = LanguageScreenState.Loaded,
                             )
                         }
-                    }
 
-                    is Result.Error -> {
-                        _uiState.update {
-                            it.copy(
+                        is Result.Error -> {
+                            logger.e("ayon_error", "setCurrentLanguage() ${result.exception}")
+                            oldState.copy(
                                 currentAppLanguage = AppLanguageUi.SYSTEM,
                                 selectedLanguage = AppLanguageUi.SYSTEM,
                                 screenState = LanguageScreenState.Loaded,
                             )
                         }
-                        logger.e("ayon_error", "setCurrentLanguage() ${result.exception}")
-                    }
 
-                    Result.Loading -> {}
+                        Result.Loading -> { oldState}
+                    }
                 }
             }
     }
