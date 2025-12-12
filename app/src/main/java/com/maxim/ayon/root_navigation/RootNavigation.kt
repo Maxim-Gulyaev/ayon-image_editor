@@ -9,7 +9,6 @@ import com.maxim.ayon.di.AppComponent
 import com.maxim.navigation.RootNavigationRoute
 import com.maxim.run.navigation.runGraph
 import com.maxim.settings.navigation.settingsGraph
-import com.maxim.ui.component.BackgroundContainer
 
 @Composable
 fun RootNavigation(
@@ -17,25 +16,23 @@ fun RootNavigation(
 ) {
     val navController = rememberNavController()
 
-    BackgroundContainer {
-        NavHost(
-            navController = navController,
-            startDestination = RootNavigationRoute.BottomBarScreen
-        ) {
-            composable<RootNavigationRoute.BottomBarScreen> {
-                BottomBarNavigation(
-                    appComponent = appComponent,
-                    navigateRunScreen = { navController.navigate(RootNavigationRoute.RunScreen) },
-                    navigateSettingsScreen = { navController.navigate(RootNavigationRoute.SettingsScreen) }
-                )
-            }
-
-            runGraph(
+    NavHost(
+        navController = navController,
+        startDestination = RootNavigationRoute.BottomBarScreen
+    ) {
+        composable<RootNavigationRoute.BottomBarScreen> {
+            BottomBarNavigation(
                 appComponent = appComponent,
-                quitRunScreen = { navController.popBackStack() }
+                navigateRunScreen = { navController.navigate(RootNavigationRoute.RunScreen) },
+                navigateSettingsScreen = { navController.navigate(RootNavigationRoute.SettingsScreen) }
             )
-
-            settingsGraph(navController, appComponent)
         }
+
+        runGraph(
+            appComponent = appComponent,
+            quitRunScreen = { navController.popBackStack() }
+        )
+
+        settingsGraph(navController, appComponent)
     }
 }

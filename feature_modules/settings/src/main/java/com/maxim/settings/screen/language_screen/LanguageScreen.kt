@@ -30,7 +30,6 @@ import com.maxim.settings.screen.language_screen.LanguageScreenIntent.OnSaveButt
 import com.maxim.settings.utils.displayNameRes
 import com.maxim.ui.component.AyonConfirmationButton
 import com.maxim.ui.component.AyonVerticalSpacer
-import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.component.ContainerCard
 import com.maxim.ui.component.ItemCard
 import com.maxim.ui.theme.AyonTheme
@@ -158,14 +157,12 @@ private fun LanguageItem(
 @Composable
 private fun PreviewLanguageScreenDark() {
     AyonTheme() {
-        BackgroundContainer {
-            LanguageScreenContent(
-                uiState = LanguageUiState(),
-                onLanguageItemClick = {},
-                onSaveButtonClick = {},
-                onBackClick = {},
-            )
-        }
+        LanguageScreenContent(
+            uiState = LanguageUiState(),
+            onLanguageItemClick = {},
+            onSaveButtonClick = {},
+            onBackClick = {},
+        )
     }
 }
 
@@ -174,13 +171,11 @@ private fun PreviewLanguageScreenDark() {
 @Composable
 private fun PreviewLanguageScreenLight() {
     AyonTheme {
-        BackgroundContainer {
-            LanguageScreenContent(
-                uiState = LanguageUiState(),
-                onLanguageItemClick = {},
-                onSaveButtonClick = {},
-                onBackClick = {},
-            )
-        }
+        LanguageScreenContent(
+            uiState = LanguageUiState(),
+            onLanguageItemClick = {},
+            onSaveButtonClick = {},
+            onBackClick = {},
+        )
     }
 }

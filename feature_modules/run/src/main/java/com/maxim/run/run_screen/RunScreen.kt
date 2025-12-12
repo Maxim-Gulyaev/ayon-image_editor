@@ -31,7 +31,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.run.R
-import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.component.SingleClickButton
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
@@ -255,14 +254,12 @@ private fun StartButtonBlock(
 @Composable
 private fun PreviewRunScreenDark() {
     AyonTheme() {
-        BackgroundContainer {
-            RunScreenContainer(
-                uiState = RunUiState.initial,
-                onStartClick = {},
-                onResetClick = {},
-                onSaveClick = {},
-            )
-        }
+        RunScreenContainer(
+            uiState = RunUiState.initial,
+            onStartClick = {},
+            onResetClick = {},
+            onSaveClick = {},
+        )
     }
 }
 
@@ -271,13 +268,11 @@ private fun PreviewRunScreenDark() {
 @Composable
 private fun PreviewRunScreenLight() {
     AyonTheme {
-        BackgroundContainer {
-            RunScreenContainer(
-                uiState = RunUiState.initial,
-                onStartClick = {},
-                onResetClick = {},
-                onSaveClick = {},
-            )
-        }
+        RunScreenContainer(
+            uiState = RunUiState.initial,
+            onStartClick = {},
+            onResetClick = {},
+            onSaveClick = {},
+        )
     }
 }

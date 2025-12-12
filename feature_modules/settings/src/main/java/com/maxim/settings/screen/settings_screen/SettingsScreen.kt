@@ -14,7 +14,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxim.settings.R
 import com.maxim.settings.screen.component.SettingsTopAppBar
-import com.maxim.ui.component.BackgroundContainer
 import com.maxim.ui.component.ContainerCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
@@ -91,12 +90,10 @@ private fun SettingsItem(
 @Composable
 private fun PreviewSettingsScreenDark() {
     AyonTheme() {
-        BackgroundContainer {
-            SettingsScreenContent(
-                onLanguageClick = {},
-                onBackClick = {}
-            )
-        }
+        SettingsScreenContent(
+            onLanguageClick = {},
+            onBackClick = {}
+        )
     }
 }
 
@@ -105,11 +102,9 @@ private fun PreviewSettingsScreenDark() {
 @Composable
 private fun PreviewSettingsScreenLight() {
     AyonTheme {
-        BackgroundContainer {
-            SettingsScreenContent(
-                onLanguageClick = {},
-                onBackClick = {}
-            )
-        }
+        SettingsScreenContent(
+            onLanguageClick = {},
+            onBackClick = {}
+        )
     }
 }
