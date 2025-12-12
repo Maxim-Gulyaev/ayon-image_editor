@@ -60,9 +60,7 @@ fun BottomBarNavigation(
             )
         },
         bottomBar = {
-            NavigationBar(
-                containerColor = BottomAppBarDefaults.containerColor.copy(alpha = 0.7f)
-            ) {
+            NavigationBar() {
                 bottomBarItems.forEachIndexed { index, destination ->
                     AyonNavigationBarItem(
                         currentDestination = currentDestination,
@@ -166,14 +164,7 @@ private fun RowScope.AyonNavigationBarItem(
         onClick = onClick,
         label = {
             Text(text = stringResource(destination.title))
-        },
-        colors = NavigationBarItemDefaults.colors(
-            selectedTextColor = MaterialTheme.colorScheme.onSecondary,
-            unselectedTextColor = MaterialTheme.colorScheme.onSecondary,
-            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-            unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
-            indicatorColor = MaterialTheme.colorScheme.tertiary
-        )
+        }
     )
 }
 
