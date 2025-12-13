@@ -92,7 +92,7 @@ private fun RunScreenContainer(
 
             Spacer(modifier = modifier.weight(0.4f))
 
-            StopwatchBlock(uiState.jogDuration)
+            StopwatchBlock(uiState.jogDuration.inWholeSeconds)
 
             Spacer(modifier = modifier.weight(0.9f))
 
@@ -109,23 +109,27 @@ private fun RunScreenContainer(
 
 @Composable
 private fun StopwatchBlock(
-    jogDuration: Duration,
+    elapsedSeconds: Long,
     modifier: Modifier = Modifier,
 ) {
-    val durationString = if (jogDuration.inWholeHours > 0) {
+    val hours = elapsedSeconds / 3600
+    val minutes = (elapsedSeconds % 3600) / 60
+    val seconds = elapsedSeconds % 60
+
+    val durationString = if (hours > 0) {
         String.format(
             Locale.US,
             FORMAT_HOUR_MIN_SEC,
-            jogDuration.inWholeHours,
-            jogDuration.inWholeMinutes,
-            jogDuration.inWholeSeconds
+            hours,
+            minutes,
+            seconds
         )
     } else {
         String.format(
             Locale.US,
             FORMAT_MIN_SEC,
-            jogDuration.inWholeMinutes,
-            jogDuration.inWholeSeconds
+            minutes,
+            seconds
         )
     }
 
@@ -253,7 +257,7 @@ private fun PreviewRunScreenLight() {
     AyonTheme {
         RunScreenContainer(
             uiState = RunUiState(
-                jogDuration = 5.seconds,
+                jogDuration = 56799.seconds,
                 isStopwatchRunning = false
             ),
             onStartClick = {},
