@@ -1,22 +1,19 @@
 package com.maxim.run.run_screen
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,11 +22,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.maxim.run.R
 import com.maxim.ui.component.SingleClickButton
 import com.maxim.ui.theme.AyonTheme
@@ -39,6 +36,7 @@ import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
 import java.util.Locale
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 private const val FORMAT_HOUR_MIN_SEC = "%02d:%02d:%02d"
 private const val FORMAT_MIN_SEC = "%02d:%02d"
@@ -73,33 +71,39 @@ private fun RunScreenContainer(
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
-        Spacer(modifier = modifier.weight(0.7f))
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = modifier.weight(0.4f))
 
-        SaveButtonBlock(
-            onClick = onSaveClick,
-            jogDuration = uiState.jogDuration,
-            isStopwatchRunning = uiState.isStopwatchRunning,
-        )
+            SaveButtonBlock(
+                onSaveClick = onSaveClick,
+                onResetClick = onResetClick,
+                jogDuration = uiState.jogDuration,
+                isElapsedTimeInitial = uiState.jogDuration == RunUiState.initial().jogDuration,
+                isStopwatchRunning = uiState.isStopwatchRunning,
+            )
 
-        Spacer(modifier = modifier.weight(0.7f))
+            Spacer(modifier = modifier.weight(0.4f))
 
-        StopwatchBlock(uiState.jogDuration)
+            StopwatchBlock(uiState.jogDuration)
 
-        Spacer(modifier = modifier.weight(1f))
+            Spacer(modifier = modifier.weight(0.9f))
 
-        StartButtonBlock(
-            isStopwatchRunning = uiState.isStopwatchRunning,
-            isElapsedTimeInitial = uiState.jogDuration == RunUiState.initial.jogDuration,
-            onStartClick = onStartClick,
-            onResetClick = onResetClick,
-        )
+            StartButtonBlock(
+                isStopwatchRunning = uiState.isStopwatchRunning,
+                isElapsedTimeInitial = uiState.jogDuration == RunUiState.initial().jogDuration,
+                onStartClick = onStartClick,
+            )
 
-        Spacer(modifier = modifier.weight(0.2f))
+            Spacer(modifier = modifier.weight(0.3f))
+        }
     }
 }
 
@@ -125,59 +129,57 @@ private fun StopwatchBlock(
         )
     }
 
-    Card(
-        modifier = modifier
-            .size(260.dp)
-            .aspectRatio(1f),
-        shape = CircleShape,
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceBright),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-    ) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = durationString,
-                style = MaterialTheme.typography.displayMedium,
-                modifier = modifier
-            )
-        }
-    }
+    Text(
+        text = durationString,
+        fontSize = 60.sp,
+        color = MaterialTheme.colorScheme.primary,
+    )
 }
 
 @Composable
 private fun SaveButtonBlock(
     jogDuration: Duration,
     isStopwatchRunning: Boolean,
-    onClick: () -> Unit,
+    isElapsedTimeInitial: Boolean,
+    onSaveClick: () -> Unit,
+    onResetClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val buttonEnabled = remember(jogDuration, isStopwatchRunning) {
+    val saveButtonEnabled = remember(jogDuration, isStopwatchRunning) {
         jogDuration > Duration.ZERO && !isStopwatchRunning
     }
 
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
+    Row (
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-        Spacer(modifier = Modifier.weight(0.3f))
         SingleClickButton(
-            modifier = Modifier
-                .weight(0.7f, fill = false),
-            onClick = onClick,
-            shape = CircleShape,
-            enabled = buttonEnabled,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.onSecondary,
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                disabledContainerColor = Color.Transparent,
-                disabledContentColor = Color.Transparent
-            ),
+            modifier = Modifier.width(120.dp),
+            onClick = onSaveClick,
+            enabled = saveButtonEnabled,
         ) {
             Text(
-                text = stringResource(R.string.save),
-                style = AyonTypography.headlineMedium
+                text = stringResource(R.string.save_run),
+                style = AyonTypography.titleLarge,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+
+        Button(
+            modifier = Modifier.width(120.dp),
+            enabled = !isElapsedTimeInitial,
+            onClick = onResetClick,
+        ) {
+            Text(
+                text = stringResource(R.string.reset),
+                style = AyonTypography.titleLarge,
+                maxLines = 1,
+                softWrap = false,
+                overflow = TextOverflow.Ellipsis,
             )
         }
     }
@@ -188,7 +190,6 @@ private fun StartButtonBlock(
     isStopwatchRunning: Boolean,
     isElapsedTimeInitial: Boolean,
     onStartClick: () -> Unit,
-    onResetClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val colors = LocalCustomColorScheme.current
@@ -205,31 +206,10 @@ private fun StartButtonBlock(
         }
     }
 
-    Column (
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
+    Row (
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
     ) {
-        Box(
-            modifier = modifier.fillMaxWidth(),
-            contentAlignment = Alignment.TopStart,
-        ) {
-            Button(
-                modifier = Modifier.height(60.dp),
-                onClick = onResetClick,
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.error,
-                )
-            ) {
-                Text(
-                    text = stringResource(R.string.reset),
-                    style = AyonTypography.headlineMedium
-                )
-            }
-        }
-
         Button(
             modifier = Modifier.sizeIn(minWidth = 160.dp, minHeight = 160.dp),
             onClick = onStartClick,
@@ -255,7 +235,10 @@ private fun StartButtonBlock(
 private fun PreviewRunScreenDark() {
     AyonTheme() {
         RunScreenContainer(
-            uiState = RunUiState.initial,
+            uiState = RunUiState(
+                jogDuration = 5.seconds,
+                isStopwatchRunning = false
+            ),
             onStartClick = {},
             onResetClick = {},
             onSaveClick = {},
@@ -269,7 +252,10 @@ private fun PreviewRunScreenDark() {
 private fun PreviewRunScreenLight() {
     AyonTheme {
         RunScreenContainer(
-            uiState = RunUiState.initial,
+            uiState = RunUiState(
+                jogDuration = 5.seconds,
+                isStopwatchRunning = false
+            ),
             onStartClick = {},
             onResetClick = {},
             onSaveClick = {},

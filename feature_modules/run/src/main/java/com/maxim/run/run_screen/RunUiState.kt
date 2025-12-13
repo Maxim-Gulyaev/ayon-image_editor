@@ -9,7 +9,7 @@ data class RunUiState(
     val isStopwatchRunning: Boolean,
 ) {
     companion object {
-        val initial = RunUiState(
+        fun initial() = RunUiState(
             jogDuration = Duration.ZERO,
             isStopwatchRunning = false,
         )

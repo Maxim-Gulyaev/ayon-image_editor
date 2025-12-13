@@ -4,6 +4,6 @@
     <string name="start">Старт</string>
     <string name="reset">Сброс</string>
     <string name="continue_stopwatch">Далее</string>
-    <string name="save">Сохранить</string>
+    <string name="save_run">Сохр.</string>
 </resources>
 
