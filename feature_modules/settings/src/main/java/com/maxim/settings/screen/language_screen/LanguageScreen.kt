@@ -1,6 +1,7 @@
 package com.maxim.settings.screen.language_screen
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,9 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Button
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,14 +28,12 @@ import com.maxim.settings.screen.component.SettingsTopAppBar
 import com.maxim.settings.screen.language_screen.LanguageScreenIntent.OnLanguageClick
 import com.maxim.settings.screen.language_screen.LanguageScreenIntent.OnSaveButtonClick
 import com.maxim.settings.utils.displayNameRes
-import com.maxim.ui.component.AyonConfirmationButton
 import com.maxim.ui.component.AyonVerticalSpacer
-import com.maxim.ui.component.ContainerCard
-import com.maxim.ui.component.ItemCard
 import com.maxim.ui.theme.AyonTheme
 import com.maxim.ui.theme.AyonTypography
 import com.maxim.ui.util.AdaptivePreviewDark
 import com.maxim.ui.util.AdaptivePreviewLight
+import com.maxim.ui.util.NoRippleInteractionSource
 
 @Composable
 fun LanguageScreen(
@@ -75,42 +73,46 @@ private fun LanguageScreenContent(
             )
         },
     ) { paddingValues ->
-        ContainerCard(
-            modifier = modifier
+        Column(
+            modifier
+                .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp),
         ) {
-            Column(modifier.fillMaxSize()) {
-                LazyColumn(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 20.dp),
-                ) {
-                    with (uiState) {
-                        itemsIndexed(
-                            items = appLanguages,
-                            key = { _, item -> item.ordinal }
-                        ) { index, item ->
-                            LanguageItem(
-                                displayNameRes = item.displayNameRes(),
-                                isSelected = selectedLanguage == item,
-                                onClick = { onLanguageItemClick(item) }
-                            )
-                            if (index < appLanguages.lastIndex) {
-                                AyonVerticalSpacer(8.dp)
-                            }
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 20.dp),
+            ) {
+                with (uiState) {
+                    itemsIndexed(
+                        items = appLanguages,
+                        key = { _, item -> item.ordinal }
+                    ) { index, item ->
+                        LanguageItem(
+                            displayNameRes = item.displayNameRes(),
+                            isSelected = selectedLanguage == item,
+                            onClick = { onLanguageItemClick(item) }
+                        )
+                        if (index < appLanguages.lastIndex) {
+                            AyonVerticalSpacer(8.dp)
                         }
                     }
                 }
-
-                Spacer(modifier = modifier.weight(1f))
-
-                AyonConfirmationButton(
-                    modifier = modifier.padding(horizontal = 16.dp),
-                    enabled = uiState.selectedLanguage != uiState.currentAppLanguage,
-                    onClick = onSaveButtonClick,
-                )
             }
+
+            Spacer(modifier = modifier.weight(1f))
+
+            Button(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                enabled = uiState.selectedLanguage != uiState.currentAppLanguage,
+                onClick = onSaveButtonClick,
+            ) {
+                Text(text = stringResource(com.maxim.ui.R.string.save))
+            }
+
+            AyonVerticalSpacer(16.dp)
         }
     }
 }
@@ -122,33 +124,27 @@ private fun LanguageItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ItemCard(
-        onClick = onClick,
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 12.dp, vertical = 10.dp)
+            .clickable(
+                indication = null,
+                interactionSource = NoRippleInteractionSource,
+                onClick = onClick,
+            )
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 12.dp, vertical = 10.dp)
-        ) {
-            Text(
-                modifier = Modifier
-                    .weight(1f),
-                text = stringResource(displayNameRes),
-                style = AyonTypography.bodyLarge,
-            )
-            RadioButton(
-                selected = isSelected,
-                onClick = null,
-                enabled = false,
-                colors = RadioButtonDefaults.colors(
-                    selectedColor = MaterialTheme.colorScheme.onSurface,
-                    unselectedColor = MaterialTheme.colorScheme.onSurface,
-                    disabledSelectedColor = MaterialTheme.colorScheme.onSurface,
-                    disabledUnselectedColor = MaterialTheme.colorScheme.onSurface
-                )
-            )
-        }
+        Text(
+            modifier = Modifier.weight(1f),
+            text = stringResource(displayNameRes),
+            style = AyonTypography.bodyLarge,
+        )
+        RadioButton(
+            selected = isSelected,
+            onClick = null,
+            enabled = false,
+        )
     }
 }
 
