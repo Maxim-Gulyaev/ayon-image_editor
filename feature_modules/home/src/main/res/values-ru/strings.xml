@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="jog_history">История пробежек</string>
+
+    <string name="duration_h_short">ч</string>
+    <string name="duration_min_short">мин</string>
+    <string name="duration_sec_short">с</string>
+
 </resources>

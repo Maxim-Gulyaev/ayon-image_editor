@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="jog_history">Histórico de corridas</string>
+
+    <string name="duration_h_short">h</string>
+    <string name="duration_min_short">min</string>
+    <string name="duration_sec_short">s</string>
+
 </resources>

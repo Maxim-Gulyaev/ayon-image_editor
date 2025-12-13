@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="jog_history">跑步记录</string>
+
+    <string name="duration_h_short">小时</string>
+    <string name="duration_min_short">分钟</string>
+    <string name="duration_sec_short">秒</string>
+
 </resources>
