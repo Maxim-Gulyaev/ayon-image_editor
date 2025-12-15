@@ -8,4 +8,5 @@
     <string name="language_portuguese">Português</string>
     <string name="language_russian">Russo</string>
     <string name="top_app_bar_settings">Configurações</string>
+    <string name="dark_mode_settings">Modo escuro</string>
 </resources>

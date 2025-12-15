@@ -1,5 +1,6 @@
 package com.maxim.settings.screen.settings_screen
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -66,7 +67,16 @@ private fun SettingsScreenContent(
                 item {
                     SettingsItem(
                         titleRes = R.string.language,
+                        iconRes = R.drawable.ic_language,
                         onClick = onLanguageClick
+                    )
+                }
+
+                item {
+                    SettingsItem(
+                        titleRes = R.string.dark_mode_settings,
+                        iconRes = R.drawable.ic_dark_mode,
+                        onClick = {}, // todo assign action
                     )
                 }
             }
@@ -77,6 +87,7 @@ private fun SettingsScreenContent(
 @Composable
 private fun SettingsItem(
     @StringRes titleRes: Int,
+    @DrawableRes iconRes: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -91,7 +102,7 @@ private fun SettingsItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_language),
+            painter = painterResource(iconRes),
             contentDescription = "Language icon",
         )
         AyonHorizontalSpacer(12.dp)
