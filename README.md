@@ -1,50 +1,78 @@
-# Ayon - Android Image Editor with AI
+# 🏃‍♂️ Fitness & Health Tracker (Android)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- Replace with your license if different -->
 <!-- You can add more badges as the project evolves: build status, version, etc. -->
 
-**Ayon** is an Android application currently under development, designed to provide powerful and intuitive image editing tools, enhanced by the capabilities of Artificial Intelligence.
+Open-source Android application for tracking sports activities and basic health metrics, with support for **Wear OS smartwatches**.
 
-## ✨ About The Project
+> ⚠️ **Early development stage**
+>
+> This project is currently in an **early stage of development**.  
+> The application is not feature-complete, APIs may change.
+>  
+> Functionality will be **added incrementally** in clearly defined stages.
 
-This project is in its early stages of development. My goal is to create a mobile application that allows users to easily transform their photos using both classic editing tools and cutting-edge AI-powered features.
+---
 
-I aim to make the image editing process accessible and enjoyable for everyone, from beginners to experienced users.
+## 🎯 Project Goals
 
-## 🚀 Planned Features (Roadmap)
+The main goal of this project is to create a **modern, clean, and extensible** fitness tracking app that:
 
-While the project is just starting, here are some of the key features I plan to implement:
+- Works on **Android phones**
+- Integrates with **Wear OS smartwatches**
+- Follows **best practices** in Android development
+- Is fully **open-source** and easy to contribute to
 
-*   **Basic Editing Tools:**
-    *   Crop and Rotate
-    *   Adjust Brightness, Contrast, Saturation
-    *   Apply Filters
-    *   Resize
-*   **Advanced Editing Tools:**
-    *   Layers (potential future feature)
-    *   Selective Adjustments
-    *   Object Removal
-*   **Artificial Intelligence (AI) Powered Tools:**
-    *   Automatic Image Enhancement
-    *   Smart Background Removal
-    *   Image Stylization (transferring styles of famous artists)
-    *   AI Upscaling (increasing resolution without quality loss)
-*   **User Interface:**
-    *   Intuitive and modern design
-    *   Support for Dark and Light themes
-    *   User-friendly gallery for browsing and selecting images
+This repository is intended both as:
+- A **real, usable application**
+- A **reference project** for Android & Wear OS development
 
-## 🛠 Tech Stack (Planned)
+---
 
+## 🧩 Planned Features (High-level)
+
+Features will be added **step by step**.
+
+### 🏃 Activity Tracking
+- Running, walking, cycling
+- Time, distance, pace, calories
+- GPS route tracking
+
+### ❤️ Health Metrics
+- Heart rate monitoring
+- Average / max heart rate
+- Heart rate zones
+
+### ⌚ Wear OS
+- Start / pause / stop workouts from the watch
+- Live workout metrics on the watch
+- Offline workout recording & sync
+
+### 📊 Analytics
+- Workout history
+- Basic charts and summaries
+- Personal records
+
+### 🔄 Integrations
+- Health Connect
+- GPX / CSV export
+- Data sync between devices
+
+---
+
+## 🛠 Tech Stack (planned)
+
+Details may evolve as the project grows.
 *   **Language:** Kotlin
-*   **Architecture:** MVC
+*   **Architecture:** MVI, Clean Architecture
 *   **UI Toolkit:** Jetpack Compose
 *   **Asynchrony:** Kotlin Coroutines & Flow
 *   **Dependency Injection:** Dagger
-*   **Image Handling:** Coil, AndroidX Media - *choose or specify planned libraries*
-*   **Database:** SQLite
-*   **Networking:** Retrofit & OkHttp
+*   **Database:** SQLite, DataStore Protobuf
+*   **Networking:** OkHttp
+*   **Testing:** JUnit, Turbine, Mockk
+*   **Navigation:** Jetpack Navigation 2
 
 ## 📝 License
 
