@@ -31,11 +31,13 @@ import com.maxim.ui.util.NoRippleInteractionSource
 @Composable
 fun SettingsScreen(
     onLanguageClick: () -> Unit,
+    onDarkThemeClick: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     SettingsScreenContent(
         onLanguageClick = onLanguageClick,
+        onDarkThemeClick = onDarkThemeClick,
         onBackClick = onBackClick,
     )
 }
@@ -43,6 +45,7 @@ fun SettingsScreen(
 @Composable
 private fun SettingsScreenContent(
     onLanguageClick: () -> Unit,
+    onDarkThemeClick: () -> Unit,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -76,7 +79,7 @@ private fun SettingsScreenContent(
                     SettingsItem(
                         titleRes = R.string.dark_mode_settings,
                         iconRes = R.drawable.ic_dark_mode,
-                        onClick = {}, // todo assign action
+                        onClick = onDarkThemeClick,
                     )
                 }
             }
@@ -122,6 +125,7 @@ private fun PreviewSettingsScreenDark() {
     AyonTheme() {
         SettingsScreenContent(
             onLanguageClick = {},
+            onDarkThemeClick = {},
             onBackClick = {}
         )
     }
@@ -134,6 +138,7 @@ private fun PreviewSettingsScreenLight() {
     AyonTheme {
         SettingsScreenContent(
             onLanguageClick = {},
+            onDarkThemeClick = {},
             onBackClick = {}
         )
     }

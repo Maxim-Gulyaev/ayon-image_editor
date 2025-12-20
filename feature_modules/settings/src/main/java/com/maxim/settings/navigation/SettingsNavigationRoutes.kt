@@ -10,4 +10,7 @@ sealed class SettingsNavigationRoute() {
 
     @Serializable
     data object LanguageScreen : SettingsNavigationRoute()
+
+    @Serializable
+    data object DarkThemeScreen : SettingsNavigationRoute()
 }
