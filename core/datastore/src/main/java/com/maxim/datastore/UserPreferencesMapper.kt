@@ -2,6 +2,8 @@ package com.maxim.datastore
 
 import com.maxim.datastore.data.AppLanguage as ProtoAppLanguage
 import com.maxim.datastore.model.AppLanguageEntity as DomainAppLanguage
+import com.maxim.datastore.data.DarkThemeConfig as ProtoDarkThemeConfig
+import com.maxim.datastore.model.DarkThemeConfigEntity as DomainDarkThemeConfig
 
 fun ProtoAppLanguage.toDomain(): DomainAppLanguage =
     when (this) {
@@ -23,4 +25,20 @@ fun DomainAppLanguage.toProto(): ProtoAppLanguage =
         DomainAppLanguage.PORTUGUESE -> ProtoAppLanguage.PORTUGUESE
         DomainAppLanguage.RUSSIAN -> ProtoAppLanguage.RUSSIAN
     }
+
+fun ProtoDarkThemeConfig.toDomain(): DomainDarkThemeConfig =
+    when (this) {
+        ProtoDarkThemeConfig.DARK -> DomainDarkThemeConfig.DARK
+        ProtoDarkThemeConfig.LIGHT -> DomainDarkThemeConfig.LIGHT
+        ProtoDarkThemeConfig.FOLLOW_BY_SYSTEM -> DomainDarkThemeConfig.SYSTEM
+        ProtoDarkThemeConfig.UNRECOGNIZED -> DomainDarkThemeConfig.SYSTEM
+    }
+
+fun DomainDarkThemeConfig.toProto(): ProtoDarkThemeConfig =
+    when (this) {
+        DomainDarkThemeConfig.DARK -> ProtoDarkThemeConfig.DARK
+        DomainDarkThemeConfig.LIGHT -> ProtoDarkThemeConfig.LIGHT
+        DomainDarkThemeConfig.SYSTEM -> ProtoDarkThemeConfig.FOLLOW_BY_SYSTEM
+    }
+
 

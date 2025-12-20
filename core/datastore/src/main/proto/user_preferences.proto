@@ -6,6 +6,7 @@ option java_multiple_files = true;
 
 message UserPreferences {
   AppLanguage app_language = 1;
+  DarkThemeConfig dark_theme_config = 2;
 }
 
 enum AppLanguage {
@@ -15,4 +16,10 @@ enum AppLanguage {
   CHINESE = 3;
   PORTUGUESE = 4;
   RUSSIAN = 5;
+}
+
+enum DarkThemeConfig {
+    DARK = 0;
+    LIGHT = 1;
+    FOLLOW_BY_SYSTEM = 2;
 }
