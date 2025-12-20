@@ -1,11 +1,20 @@
 package com.maxim.settings.screen.dark_theme_screen
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.maxim.model.DarkThemeConfig
+import com.maxim.settings.R
+import com.maxim.settings.screen.component.SettingsCheckableItem
+import com.maxim.settings.screen.component.SettingsTopAppBar
+import com.maxim.settings.utils.displayConfigNameRes
 
 @Composable
 fun DarkThemeScreen(
@@ -13,10 +22,54 @@ fun DarkThemeScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text("I am a dark theme screen")
+    val uiState by viewModel.uiState.collectAsState(DarkThemeUiState())
+
+    when (uiState.loadingStatus) {
+        DarkThemeLoadingStatus.Loaded -> {
+            DarkThemeScreenContent(
+                uiState = uiState,
+                onBackClick = onBackClick,
+                onConfigClick = {},
+            )
+        }
+
+        DarkThemeLoadingStatus.Loading -> {}
+    }
+}
+
+@Composable
+private fun DarkThemeScreenContent(
+    uiState: DarkThemeUiState,
+    onBackClick: () -> Unit,
+    onConfigClick: (DarkThemeConfig) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(
+        topBar = {
+            SettingsTopAppBar(
+                titleRes = R.string.dark_mode_settings,
+                onBackClick = onBackClick,
+            )
+        }
+    ) { paddingValues ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp, vertical = 20.dp),
+        ) {
+            with (uiState) {
+                items(
+                    items = configs,
+                    key = { it.ordinal }
+                ) { item ->
+                    SettingsCheckableItem(
+                        displayNameRes = item.displayConfigNameRes(),
+                        isSelected = currentConfig == item,
+                        onClick = { onConfigClick(item) }
+                    )
+                }
+            }
+        }
     }
 }

@@ -9,4 +9,8 @@
     <string name="language_russian">Russo</string>
     <string name="top_app_bar_settings">Configurações</string>
     <string name="dark_mode_settings">Modo escuro</string>
+    <string name="dark_mode_system">Sistema</string>
+    <string name="dark_mode_dark">Escuro</string>
+    <string name="dark_mode_light">Claro</string>
+
 </resources>
