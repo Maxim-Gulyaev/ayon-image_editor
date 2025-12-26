@@ -4,6 +4,8 @@ import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCase
 import com.maxim.domain.use_case.get_all_jogs.GetAllJogsUseCaseImpl
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCase
 import com.maxim.domain.use_case.get_app_language.GetAppLanguageUseCaseImpl
+import com.maxim.domain.use_case.get_dark_theme_config.GetDarkThemeConfigUseCase
+import com.maxim.domain.use_case.get_dark_theme_config.GetDarkThemeConfigUseCaseImpl
 import com.maxim.domain.use_case.save_jog.SaveJogUseCase
 import com.maxim.domain.use_case.save_jog.SaveJogUseCaseImpl
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
@@ -25,4 +27,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindGetAllJogsUseCase(impl: GetAllJogsUseCaseImpl): GetAllJogsUseCase
+
+    @Binds
+    fun bindGetDarkThemeConfig(impl: GetDarkThemeConfigUseCaseImpl): GetDarkThemeConfigUseCase
 }

@@ -1,6 +1,7 @@
 package com.maxim.domain.repository
 
 import com.maxim.model.AppLanguage
+import com.maxim.model.DarkThemeConfig
 import kotlinx.coroutines.flow.Flow
 
 interface SettingsRepository {
@@ -8,4 +9,6 @@ interface SettingsRepository {
     fun getAppLanguage(): Flow<AppLanguage>
 
     suspend fun setAppLanguage(language: AppLanguage)
+
+    fun getDarkThemeConfig(): Flow<DarkThemeConfig>
 }

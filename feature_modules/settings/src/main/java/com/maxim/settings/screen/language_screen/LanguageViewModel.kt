@@ -67,7 +67,7 @@ class LanguageViewModel @Inject constructor(
                         }
 
                         is Result.Error -> {
-                            logger.e("ayon_error", "setCurrentLanguage() ${result.exception}")
+                            logger.e("setCurrentLanguage() failed", result.exception)
                             oldState.copy(
                                 currentAppLanguage = AppLanguageUi.SYSTEM,
                                 selectedLanguage = AppLanguageUi.SYSTEM,
