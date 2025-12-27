@@ -23,4 +23,8 @@ class SettingsRepositoryImpl @Inject constructor(
 
     override fun getDarkThemeConfig(): Flow<DarkThemeConfig> =
         userPreferencesDataSource.darkThemeConfig.map { it.toDomain() }
+
+    override suspend fun setDarkThemeConfig(config: DarkThemeConfig) {
+        userPreferencesDataSource.updateDarkThemeConfig(config.toData())
+    }
 }

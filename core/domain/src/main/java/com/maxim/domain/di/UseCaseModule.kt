@@ -10,6 +10,8 @@ import com.maxim.domain.use_case.save_jog.SaveJogUseCase
 import com.maxim.domain.use_case.save_jog.SaveJogUseCaseImpl
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCase
 import com.maxim.domain.use_case.set_app_language.SetAppLanguageUseCaseImpl
+import com.maxim.domain.use_case.set_dark_theme_config.SetDarkThemeConfigUseCase
+import com.maxim.domain.use_case.set_dark_theme_config.SetDarkThemeConfigUseCaseImpl
 import dagger.Binds
 import dagger.Module
 
@@ -30,4 +32,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindGetDarkThemeConfig(impl: GetDarkThemeConfigUseCaseImpl): GetDarkThemeConfigUseCase
+
+    @Binds
+    fun bindSetDarkThemeConfig(impl: SetDarkThemeConfigUseCaseImpl): SetDarkThemeConfigUseCase
 }

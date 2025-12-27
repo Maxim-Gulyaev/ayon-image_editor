@@ -11,4 +11,6 @@ interface SettingsRepository {
     suspend fun setAppLanguage(language: AppLanguage)
 
     fun getDarkThemeConfig(): Flow<DarkThemeConfig>
+
+    suspend fun setDarkThemeConfig(config: DarkThemeConfig)
 }

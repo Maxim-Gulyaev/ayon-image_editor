@@ -6,14 +6,17 @@ import com.maxim.common.result.Result
 import com.maxim.common.result.asResult
 import com.maxim.common.util.Logger
 import com.maxim.domain.use_case.get_dark_theme_config.GetDarkThemeConfigUseCase
+import com.maxim.domain.use_case.set_dark_theme_config.SetDarkThemeConfigUseCase
 import com.maxim.model.DarkThemeConfig
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DarkThemeViewModel @Inject constructor(
     private val getDarkThemeConfigUseCase: GetDarkThemeConfigUseCase,
+    private val setDarkThemeConfigUseCase: SetDarkThemeConfigUseCase,
     private val logger: Logger,
 ): ViewModel() {
 
@@ -23,6 +26,16 @@ class DarkThemeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = DarkThemeUiState()
         )
+
+    fun accept(intent: DarkThemeScreenIntent) {
+        when (intent) {
+            is DarkThemeScreenIntent.OnOptionClicked -> {
+                viewModelScope.launch {
+                    setDarkThemeConfigUseCase(intent.config)
+                }
+            }
+        }
+    }
 
     private fun uiState() =
         getDarkThemeConfigUseCase()

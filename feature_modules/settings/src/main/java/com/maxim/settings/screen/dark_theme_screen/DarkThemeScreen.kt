@@ -29,7 +29,9 @@ fun DarkThemeScreen(
             DarkThemeScreenContent(
                 uiState = uiState,
                 onBackClick = onBackClick,
-                onConfigClick = {},
+                opOptionClick = { config ->
+                    viewModel.accept(DarkThemeScreenIntent.OnOptionClicked(config))
+                },
             )
         }
 
@@ -41,7 +43,7 @@ fun DarkThemeScreen(
 private fun DarkThemeScreenContent(
     uiState: DarkThemeUiState,
     onBackClick: () -> Unit,
-    onConfigClick: (DarkThemeConfig) -> Unit,
+    opOptionClick: (DarkThemeConfig) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -66,7 +68,7 @@ private fun DarkThemeScreenContent(
                     SettingsCheckableItem(
                         displayNameRes = item.displayConfigNameRes(),
                         isSelected = currentConfig == item,
-                        onClick = { onConfigClick(item) }
+                        onClick = { opOptionClick(item) }
                     )
                 }
             }
